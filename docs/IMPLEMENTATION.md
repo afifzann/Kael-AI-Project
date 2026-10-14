@@ -1,6 +1,14 @@
 # Status implementasi lokal — 14 Oktober 2026
 
-Status terbaru: **PRD v2.39 — Builder percakapan**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+Status terbaru: **PRD v2.40 — Sesi peran aplikasi AI**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+
+## PRD v2.40 — native session → role context → task/preview/decision
+
+`scripts/claude-office-hook.mjs` memproses identitas/event native tanpa membaca transcript; konfigurasi project-local memakai command/args resmi. `CLAUDE.md`/`AGENTS.md` mengarahkan `jadi` dan `udahan` ke peran bisnis. `scripts/office.mjs` menyediakan roles/open/context/send/leave melalui loopback, tidak mencetak key. `server/office-bridge.mjs` menyimpan ikatan/memori per ID agent, membatasi konteks dan command, memakai revision/version guard, serta menghubungkan usulan desktop ke preview Builder yang ada. Master key lokal tetap dipercaya sebagai operator, bukan sandbox OS antarclient. Direct owner API/approval tidak diberikan kepada role bridge.
+
+Domain `office-command` memvalidasi aktor/lingkup; `manager-plan` memakai brief/submit-plan lama dengan penugasan multiworker atomik satu revision. Start/run masih memerlukan approval rencana. Manager wajib membaca hasil penuh pada sesi tersebut sebelum review versi yang sama; ringkasan context diberi penanda partial. Plan/result tetap menunggu Founder. Header state memuat metadata presence saja dan tidak mempersistenkannya ke state pekerjaan. Karakter memperhatikan presence fresh sesudah prioritas medis. UI Builder mengutamakan sesi aplikasi; chat web tetap opsional dan draft lama dipertahankan.
+
+Uji CLI Claude asli dengan hook berhasil pada kantor sintetis, role Maya QA, tanpa task/decision otomatis. Bukti `evidence/native-office-smoke/run-wLqj55/check.json`; ini bukan uji klik GUI desktop/SSH/VPS. Tes otomatis tetap memakai runtime fixture. Paket buyer menyertakan helper, konfigurasi hook aman serta panduan peran, tanpa sesi/memori/kunci pemilik. Panduan: [OFFICE-ROLES.md](OFFICE-ROLES.md).
 
 ## PRD v2.39 — diskusi Builder, preview dan penerapan
 

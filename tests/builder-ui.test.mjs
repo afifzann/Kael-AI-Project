@@ -75,3 +75,9 @@ test('Builder offline loading stops instead of looping; explicit reload resumes 
   h.network(false); h.callbacks['[data-chat-reload]'](); await new Promise(setImmediate); await new Promise(setImmediate);
   assert.equal(h.reads, 2); assert.match(h.html, /Preview usulan/);
 });
+
+test('desktop Builder proposal uses the same editable preview without presenting it as a web chat session', async () => {
+  const h = await surface(); h.record({ sourceDesktop: true, version: 4 }); await h.poll();
+  assert.match(h.html, /Preview usulan/); assert.match(h.html, /Lanjutkan diskusi di sesi Builder pada aplikasi AI/);
+  assert.doesNotMatch(h.html, /id="builder-chat-form"/); assert.match(h.html, /Buat divisi & SOP/);
+});

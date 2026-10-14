@@ -68,6 +68,14 @@ export async function createBuilderDialogue({ directory, getState, mutate, statu
     if (closed) throw new Error('Builder sedang berhenti.');
     let launch;
     await change(async list => {
+      if (input.action === 'propose') {
+        if (input.revision !== getState().revision) throw new Error('Kantor berubah. Baca konteks terbaru sebelum mengirim usulan.');
+        if (!['Claude', 'Codex'].includes(input.provider) || typeof input.targetId !== 'string') throw new Error('Sumber usulan tidak valid.');
+        const proposal = validateBuilderProposal(getState(), input.targetId, input.proposal);
+        if (input.requestId && list.some(d => d.sourceRequest === input.requestId)) return;
+        if (list.length >= 100) throw new Error('Arsip Builder mencapai 100 diskusi. Hubungi pengelola untuk pengarsipan sebelum membuat diskusi baru.');
+        list.unshift({ id: randomUUID(), version: 1, targetId: input.targetId, provider: input.provider, model: '', status: 'ready', sourceDesktop: true, sourceRequest: input.requestId || '', messages: [{ role: 'assistant', text: 'Usulan dari sesi Builder di aplikasi AI. Tinjau tim dan SOP sebelum menerapkan.' }], proposal, baseRevision: input.revision, error: '', appliedDivisionId: '', updatedAt: new Date().toISOString() }); return;
+      }
       if (input.action === 'start') {
         if (list.length >= 100) throw new Error('Arsip Builder mencapai 100 diskusi. Hubungi pengelola untuk pengarsipan sebelum membuat diskusi baru.');
         if (!['Claude', 'Codex'].includes(input.provider) || typeof input.model !== 'string' || input.model && !/^[\w.:-]{1,120}$/.test(input.model)) throw new Error('Provider/model Builder tidak valid.');

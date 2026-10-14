@@ -5,6 +5,11 @@ description: Build or edit Kael AI office teams through a one-question-at-a-time
 
 # Kael building
 
+## Jalur utama sejak v2.40
+
+Untuk /builder, /building atau jadi builder, baca docs/OFFICE-ROLES.md dan gunakan sesi peran melalui scripts/office.mjs. Gunakan konteks hook Claude bila tersedia; jika tidak, open Builder dengan client yang sedang dipakai, simpan sessionId pada chat ini, dan context sebelum bekerja. Diskusi tetap pada client. Kirim usulan tim/SOP lewat action propose ke preview web; pemilik menerapkan di web. Jangan memakai bridge apply lama untuk melewati preview/persetujuan konfigurasi pada jalur ini. Rujukan preview/apply di bawah adalah kontrak CLI lama untuk pemakaian manual yang diminta eksplisit, bukan default sesi peran.
+
+
 Work in the Kael project containing `scripts/building.mjs` and `docs/PRD.md`. If invoked outside it, use `C:/Kael AI` if that project exists; otherwise ask for its location. Read `docs/BUILDING.md` for the bridge contract and `docs/PRD.md` for relevant room/workflow requirements.
 
 Start with “Mau build baru atau edit bagian yang sudah ada?” unless the user has already specified the goal. Ask **one question per turn**, in Indonesian, and wait for the answer. Use existing answers; do not run a rigid questionnaire or ask again about choices already made.

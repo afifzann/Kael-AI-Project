@@ -5,6 +5,7 @@ import type { Production } from './production-model';
 import { teamTemplates, templateLimits, type Onboarding } from './onboarding-model.ts';
 import { runnableProviders, type RuntimeInfo } from './runtime-status.ts';
 import { validateBuilderProposal } from './builder-model.ts';
+import { officeRoleCommand, type OfficePresence } from './office-role.ts';
 export { runnableProviders, runtimeFor } from './runtime-status.ts';
 export type AgentIncident = { id: string; agentId: string; reason: string; reportedAt: string; resolvedAt: string; resolution: string; bedIndex: number; executionId?: string };
 export type FacilitySession = { id: string; roomId: string; purpose: 'briefing' | 'review' | 'break'; title: string; agenda: string; participantIds: string[]; briefId: string; status: 'active' | 'ended'; startedAt: string; endedAt: string; notes: string };
@@ -22,7 +23,7 @@ export const agentProviders: AgentProvider[] = ['manual', 'Claude', 'Codex', 'He
 export type AgentRun = { id: string; taskId: string; agentId: string; provider: AgentProvider; model: string; status: 'queued' | 'running' | 'done' | 'blocked' | 'failed' | 'cancelled' | 'interrupted'; queuedAt?: string; context?: string; taskNotes?: string; startedAt: string; endedAt: string; summary: string; error: string; resultVersion: number };
 // Providers with a working local runtime adapter. Others can be chosen as a plan but cannot run yet.
 export function activeRun(s: Pick<State, 'runs'>, taskId: string) { return s.runs?.find(r => r.taskId === taskId && ['queued', 'running'].includes(r.status)); }
-export type State = { schema: 1; revision: number; provider: string; onboarding?: Onboarding; business: { name: string; audience: string; facts: string; updatedAt: string }; divisions: { id: string; name: string; managerId: string; company?: string }[]; agents: Agent[]; briefs: Brief[]; tasks: Task[]; decisions: Decision[]; facilitySessions?: FacilitySession[]; incidents?: AgentIncident[]; workflowBindings?: WorkflowBinding[]; n8n?: WorkflowSnapshot[]; productions?: Production[]; productionTaskIds?: string[]; builderChat?: BuilderPresence; builderApplications?: { discussionId: string; divisionId: string }[]; sops?: Sop[]; agentSettings?: AgentSettings[]; archivedAgents?: ArchivedAgent[]; divisionNotes?: DivisionNote[]; runs?: AgentRun[]; aiRuntime?: RuntimeInfo; events: { id: string; at: string; message: string; targetId: string }[] };
+export type State = { schema: 1; revision: number; provider: string; onboarding?: Onboarding; business: { name: string; audience: string; facts: string; updatedAt: string }; divisions: { id: string; name: string; managerId: string; company?: string }[]; agents: Agent[]; briefs: Brief[]; tasks: Task[]; decisions: Decision[]; facilitySessions?: FacilitySession[]; incidents?: AgentIncident[]; workflowBindings?: WorkflowBinding[]; n8n?: WorkflowSnapshot[]; productions?: Production[]; productionTaskIds?: string[]; builderChat?: BuilderPresence; officeSessions?: OfficePresence[]; builderApplications?: { discussionId: string; divisionId: string }[]; sops?: Sop[]; agentSettings?: AgentSettings[]; archivedAgents?: ArchivedAgent[]; divisionNotes?: DivisionNote[]; runs?: AgentRun[]; aiRuntime?: RuntimeInfo; events: { id: string; at: string; message: string; targetId: string }[] };
 export type Command = { type: string; [key: string]: unknown };
 const id = () => crypto.randomUUID();
 const now = () => new Date().toISOString();
@@ -42,6 +43,25 @@ function decision(s: State, type: Decision['type'], targetId: string, title: str
 export function applyCommand(state: State, c: Command): State {
   const s: State = structuredClone(state);
   switch (c.type) {
+    case 'office-command': {
+      ensure(c.baseRevision === s.revision, 'Kantor berubah. Baca konteks terbaru dan tinjau sebelum mengirim ulang.');
+      const command = officeRoleCommand(s, required(c.actorId, 'Peran', 80), c.command);
+      const next = applyCommand(s, command); next.revision = s.revision; Object.assign(s, next); break;
+    }
+    case 'manager-plan': {
+      const division = get(s.divisions, c.divisionId);
+      ensure(!isWorkflowDivision(s, division.id) && !/kaelach/i.test(division.name), 'Workflow/produksi khusus memakai rencana pada alurnya sendiri.');
+      ensure(Array.isArray(c.tasks) && c.tasks.length > 0 && c.tasks.length <= 12, 'Isi 1–12 tugas dengan pelaksana.');
+      const entries = c.tasks.map(item => {
+        ensure(item && typeof item === 'object', 'Tugas tidak valid.');
+        const worker = get(s.agents, item.agentId); ensure(!worker.manager && worker.divisionId === division.id, 'Pelaksana harus anggota divisi yang dipilih.');
+        return { agentId: worker.id, title: required(item.title, 'Judul tugas', 240) };
+      });
+      const before = new Set(s.tasks.map(t => t.id));
+      let next = applyCommand(s, { type: 'brief', divisionId: division.id, title: c.title, goal: c.goal, criteria: c.criteria, agentId: entries[0].agentId, tasks: entries.map(v => v.title) });
+      next.tasks.filter(t => !before.has(t.id)).forEach((t, i) => t.agentId = entries[i].agentId);
+      next = applyCommand(next, { type: 'submit-plan', id: next.briefs[0].id }); next.revision = s.revision; Object.assign(s, next); break;
+    }
     case 'builder-apply': {
       ensure(c.baseRevision === s.revision, 'Kantor berubah setelah usulan dibuat. Lanjutkan diskusi untuk meninjau data terbaru sebelum menerapkan.');
       const discussionId = required(c.discussionId, 'ID diskusi', 80), targetId = optional(c.targetId, 'ID divisi', 80);
@@ -242,7 +262,7 @@ export function applyCommand(state: State, c: Command): State {
       ensure(!activeRun(s, c.id as string), 'AI sedang mengerjakan tugas ini. Tunggu hasilnya atau hentikan run.');
       const t = get(s.tasks, c.id); ensure(t.status === 'running', 'Mulai tugas sebelum memasukkan hasil.');
       t.results.push({ version: t.results.length + 1, content: required(c.content, 'Hasil kerja', 50000), createdAt: now() }); t.status = 'review'; t.reason = '';
-      log(s, `Hasil v${t.results.length} disimpan untuk pemeriksaan manual: ${t.title}.`, t.id); break;
+      log(s, `Hasil v${t.results.length} disimpan untuk pemeriksaan: ${t.title}.`, t.id); break;
     }
     case 'review': {
       const t = get(s.tasks, c.id); ensure(t.status === 'review', 'Hasil tidak sedang menunggu pemeriksaan.'); const note = required(c.note, 'Catatan pemeriksaan', 5000);
@@ -252,7 +272,7 @@ export function applyCommand(state: State, c: Command): State {
         if (t.revisions >= 2) { t.status = 'approval'; decision(s, 'guidance', t.id, `Arahan revisi: ${t.title}`, t.results.length); }
         else { t.revisions++; t.status = 'paused'; }
       }
-      t.reason = note; log(s, `Pemeriksaan manual ${t.title}: ${note}`, t.id); break;
+      t.reason = note; log(s, `Pemeriksaan ${t.title}: ${note}`, t.id); break;
     }
     case 'decide': {
       const d = get(s.decisions, c.id); ensure(d.status === 'pending', 'Keputusan sudah dijawab.');

@@ -1,7 +1,7 @@
 import type { AgentProvider, State } from './domain';
 
 export type BuilderProposal = { name: string; manager: string; workers: { id: string; name: string; role: string }[]; steps: string; criteria: string; limits: string; provider: AgentProvider; model: string };
-export type BuilderDiscussion = { id: string; version: number; targetId: string; provider: 'Claude' | 'Codex'; model: string; status: 'discussing' | 'working' | 'ready' | 'applied' | 'cancelled'; messages: { role: 'user' | 'assistant'; text: string }[]; proposal: BuilderProposal | null; baseRevision: number; error: string; appliedDivisionId: string; updatedAt: string };
+export type BuilderDiscussion = { id: string; version: number; targetId: string; provider: 'Claude' | 'Codex'; model: string; sourceDesktop?: boolean; status: 'discussing' | 'working' | 'ready' | 'applied' | 'cancelled'; messages: { role: 'user' | 'assistant'; text: string }[]; proposal: BuilderProposal | null; baseRevision: number; error: string; appliedDivisionId: string; updatedAt: string };
 export function builderCanEdit(state: State, targetId: string) {
   const d = state.divisions.find(v => v.id === targetId);
   return !!d?.managerId && !/kaelach/i.test(d.name) && !state.productions?.some(p => p.divisionId === targetId)

@@ -32,6 +32,8 @@ export function characterLook(division: string, agent: { name: string; role: str
 export function agentActivity(state: State, agent: State['agents'][number]) {
   if (agent.id === builderAgent.id) return builderActivity(state.builderChat);
   if (state.incidents?.some(i => i.agentId === agent.id && !i.resolvedAt)) return { kind: 'error', text: 'Error · Perlu pemulihan', typing: false, canWalk: false };
+  const desktop = state.officeSessions?.find(s => s.agentId === agent.id && s.phase === 'working' && Date.now() - Date.parse(s.updatedAt) < 120000);
+  if (desktop) return { kind: 'running', text: `Sesi ${desktop.client} · ${agent.manager ? 'Manager' : 'Bekerja'}`, typing: true, canWalk: false };
   const workflow = workflowActivity(state, agent.id); if (workflow) return workflow;
   if (agent.id === 'nate' && agent.divisionId === 'server') return { kind: 'offline', text: 'Menunggu Obsidian', typing: false, canWalk: true };
   const session = state.facilitySessions?.find(s => s.status === 'active' && s.participantIds.includes(agent.id));

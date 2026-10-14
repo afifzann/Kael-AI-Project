@@ -1,4 +1,8 @@
-# Uji sesi Kaela di Codex
+# Sesi agent — v2.40
+
+Jalur utama sekarang: `jadi <nama agent>` di sesi aplikasi AI pada folder kantor. Ikatan peran/memori/task/keputusan tersinkron melalui server Kael; hook Claude membaca konteks native, Codex memakai bridge sessionId. Tidak mengimpor atau mengubah memori uji Kaela lama. Rincian: [OFFICE-ROLES.md](OFFICE-ROLES.md).
+
+## Arsip uji sesi Kaela di Codex
 
 Sesi ini adalah chat khusus Kaela di project Kael AI, dengan model sesuai pengaturan Codex. Tidak mengganti model/runner produksi web.
 

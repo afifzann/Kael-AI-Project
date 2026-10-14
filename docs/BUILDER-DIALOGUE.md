@@ -1,4 +1,6 @@
-# Builder percakapan — tim dan SOP
+# Builder — preview tim dan SOP
+
+**v2.40:** percakapan utama ada di aplikasi Claude/Codex, melalui peran `jadi builder`. Usulan sesi itu muncul pada preview web yang dijelaskan di sini; draft desktop tidak berubah menjadi chat web. Fitur percakapan web tetap menjadi pilihan opsional dan draft lama dipertahankan. Mulai dari [OFFICE-ROLES.md](OFFICE-ROLES.md).
 
 Buka **Builder → Mulai diskusi**, pilih divisi baru atau edit divisi tugas lokal, lalu pilih Claude/Codex dan model opsional yang tersedia pada akun server. Diskusi memakai login CLI pemilik instalasi. Model kosong memakai default CLI; koneksi terdeteksi tidak menjamin semua model/kuota tersedia.
 

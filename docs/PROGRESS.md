@@ -10,6 +10,24 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Koreksi alur utama: sesi peran Claude/Codex — PRD v2.40
+
+Pemilik menegaskan acuan Lembur adalah sesi Builder/manager pada aplikasi AI yang terhubung ke kantor, bukan memindahkan semua diskusi ke web. Audit 00/05 dan panduan peran publik diperiksa ulang. Implementasi v2.39 tetap dipertahankan sebagai preview/draft dan opsi chat web, tetapi jalur utama sekarang `jadi builder`/`jadi nama agent` pada folder kantor di aplikasi AI.
+
+Hook Claude project-local mengikat ID sesi native, menyisipkan konteks peran setiap prompt/resume, memperbarui aktivitas dan menandai luang saat Stop/SessionEnd, tanpa membaca transcript. Bridge CLI menyediakan roles/open/context/send/leave untuk client lain dan fallback. Peran mengikuti agent/divisi dinamis, memori per ID agent memakai version guard antarclient. Context manager berisi tugas, keputusan, catatan dan workflow/insiden milik divisinya; Builder memperoleh konteks kantor dan usulan. Tidak membaca .env/OAuth/password provider.
+
+Domain baru office-command memeriksa aktor/lingkup/revision; manager-plan membuat satu brief/keputusan dengan tugas per pelaksana secara atomik. Worker dapat start/result/hold tugas sendiri; manager menjalankan runner yang sudah tersedia dan mereview versi hasil setelah membaca hasil penuh. Approval Founder, penghapusan dan lintasdivisi ditolak. Proposal desktop masuk preview lama dan menunggu apply pemilik. Produksi/workflow khusus tetap terpisah. Metadata presence dikirim lewat state virtual; state pekerjaan tidak dipakai menyimpan status chat, identitas native atau memori privat.
+
+File utama: `server/office-bridge.mjs`, `src/office-role.ts`, `scripts/office.mjs`, `scripts/claude-office-hook.mjs`, `.claude/settings.json`, CLAUDE/AGENTS, domain/server/auth, Builder UI dan visuals. Paket buyer memasukkan helper/hook/panduan generik, tanpa ikatan sesi/kunci/memori pemilik. Instruksi peran bisnis terpisah dari tugas coding source. Panduan: `docs/OFFICE-ROLES.md`.
+
+Uji CLI Claude nyata berhasil dengan hook proyek pada kantor sintetis Maya QA: native session bound, 0 tugas/keputusan, revision fixture 1. Bukti `evidence/native-office-smoke/run-wLqj55/check.json`; tidak memuat atau mengubah kantor pemilik. Tes otomatis memakai fixture: peran/ID/konteks, persist/restart/memori, crossclient conflict, Builder multi-sesi/luang, batas arsip/restart, plan multiworker, approval gate, hasil penuh/review versi, XSS/preview desktop, hook cwd/lifecycle tanpa transcript, HTTP/auth dan karakter fresh/medical. Uji penuh awal menemukan assertion persistence belum mengecualikan metadata officeSessions virtual; sudah diperbaiki. Verifikasi akhir: 164/164 tes lulus, typecheck/build aplikasi dan paket buyer lulus. Bundle kantor 766 kB masih memberi peringatan ukuran. Paket sumber final releases/kael-buyer-0.2.0-native-roles-3 berisi 76 file dengan checksum valid, tanpa data/kunci/memori pemilik; dependensi lokal dipakai untuk build, belum npm ci pada VPS bersih.
+
+Server terbaru dimuat ulang tersembunyi setelah dipastikan tidak ada task/produksi/Builder web atau sesi peran baru aktif (PID dev 1560). Frontend HTTP 200, office-bridge anonim 401/operator lokal 200, Claude available true, akun tetap needsSetup false. Data pemilik tetap revision 9 dengan hash FF4149D5C6B5150C7E3833BA6917D470B6D6A3EF5FCFCDB726F35A868BF979F4; tidak membuka sesi atau menerapkan usulan pada kantor pemilik.
+
+Belum: klik/resume GUI Claude desktop, sesi Codex native nyata, SSH/VPS, penjadwal manager/cron, inbox antar-divisi, tindakan eksternal serta provisioning/penjualan. Sesi/pin pada sidebar masih dibuat pengguna melalui client. Bridge master key dipercaya sebagai operator lokal, bukan isolasi OS antara agent satu user. Tidak mengklaim seluruh fitur produk referensi sudah selesai.
+
+## Selesai sebelumnya
+
 ### Builder percakapan, draft dan penerapan — PRD v2.39
 
 Builder web memakai Claude/Codex lokal untuk diskusi adaptif dan menyusun manager, 1–12 pelaksana, SOP/serah terima, kriteria dan batas tindakan. Diskusi tersimpan per instalasi, dapat dilanjutkan setelah refresh/restart, preview editable dengan simpan/buang perubahan, stop/retry/cancel dan penerapan eksplisit. Divisi baru mendapat ruangan/karakter/furnitur preset. Edit divisi lokal mempertahankan ID manager/pekerja lama, pekerjaan/hasil/keputusan, SOP versi lama serta setelan provider anggota lama. Divisi workflow dan produksi khusus KaelaCH tetap melalui konfigurasi masing-masing. Tidak membuat tugas, approval atau integrasi otomatis.
@@ -121,7 +139,7 @@ Verifikasi revisi dokumen: 27 topik unik berurutan dan acuan/status utama diperi
 
 - Keputusan owner nomor 1–3 di `KEPUTUSAN-OWNER.md` (menentukan langkah koding berikutnya).
 
-Status tes terakhir: 153 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis; belum pengujian semua model/provider. Bundle kantor sekitar 765 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual langsung belum dilakukan.
+Status tes terakhir v2.40: 164/164 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Hook Claude native juga diuji sungguhan pada kantor sintetis terpisah. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis pada checkpoint runtime sebelumnya; belum pengujian semua model/provider. Bundle kantor 766 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual/GUI desktop dan VPS bersih belum dilakukan.
 
 ## Langkah berikutnya (kandidat)
 
@@ -132,6 +150,6 @@ Verifikasi setelah tambahan analisis: 131/131 tes lulus dan build lulus; peringa
 Tambahan pemilik tentang alur penjual kit sudah dipetakan pada bagian akhir `docs/BUYER-OPERATIONS-ROADMAP.md`: promosi/penawaran, pembayaran/email deterministik, aktivasi VPS, keaslian paket, installer, kelengkapan bisnis dan update/support. Status implementasi dipertahankan jujur; harga/slot/waktu pasang/penanda per pembeli pada referensi tidak dijadikan janji Kael. Model Kael tetap jual lepas, VPS/akun AI buyer sendiri; ketentuan update/support/slot belum ditetapkan. Tidak ada pembayaran, email, aktivasi atau perubahan VPS yang dijalankan dari tambahan ini.
 
 1. Pemilik sudah membuat akun. Periksa UI login/tahap 3–7 dan onboarding pada instance buyer terpisah, lalu coba satu tugas serta tinjau/revisi hasil. Kelengkapan P2 (recovery email, izin tindakan/broker dan isolasi proses) belum selesai.
-2. Builder adaptif untuk tim/SOP lokal sudah tersedia. Berikutnya manager menyusun usulan rencana/pembagian tugas, lalu pemeriksa terpisah dan kelanjutan keputusan. Hermes, kuota dan semua model belum diuji.
+2. Peran native dan rencana/pembagian tugas manager tersedia. Berikutnya uji GUI desktop dan pilot tugas utuh, lalu penjadwal manager/checkpoint/inbox antar-divisi. Hermes, kuota dan semua model belum diuji.
 3. Telegram manager (Bu Yuli) untuk tanya status divisi, baca saja.
 4. Backup/restore dari UI dan migrasi penyimpanan (lihat `analysis/lembur-audit-2026-10-14/09-IMPLEMENTATION-ROADMAP.md`).

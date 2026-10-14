@@ -126,7 +126,7 @@ test('HTTP persistence, concurrent conflict and origin protection', async () => 
     assert.equal(persisted.facilitySessions[0].status, 'active');
     await server.stop(); server = await launch(dir);
     const restored = await (await fetch(`${server.url}/api/state`)).json();
-    const { builderChat, aiRuntime, ...restoredData } = restored; assert.deepEqual(restoredData, persisted); assert.equal(persisted.builderChat, undefined); assert.equal(persisted.aiRuntime, undefined);
+    const { builderChat, aiRuntime, officeSessions, ...restoredData } = restored; assert.deepEqual(restoredData, persisted); assert.equal(persisted.builderChat, undefined); assert.equal(persisted.aiRuntime, undefined); assert.equal(persisted.officeSessions, undefined);
     const ended = await fetch(`${server.url}/api/command`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ revision: restored.revision, command: { type: 'facility-end', id: restored.facilitySessions[0].id, notes: 'Catatan bertahan setelah restart.' } }) });
     assert.equal(ended.status, 200); assert.equal((await ended.json()).facilitySessions[0].status, 'ended');
     const healthy = await (await fetch(`${server.url}/api/state`)).json();

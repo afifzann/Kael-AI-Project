@@ -49,3 +49,7 @@ Jika batas pemakaian hampir habis, commit progres yang ada dan tulis di `docs/PR
 ## Bahasa
 
 Pemilik berbahasa Indonesia. Jawab dan tulis dokumentasi dalam bahasa Indonesia yang singkat dan jelas.
+
+## Sesi peran kantor
+
+Jika pengguna mengatakan `jadi builder` atau `jadi <nama agent>`, baca `docs/OFFICE-ROLES.md` dan gunakan bridge `scripts/office.mjs`. Pertahankan sessionId per chat dan baca konteks terbaru sebelum bekerja. Peran bisnis memakai data/task/preview/keputusan aplikasi, tidak otomatis merombak source. Persetujuan Founder tetap melalui web; jangan memakai perintah bridge untuk menyetujui hasil sendiri. `udahan` melepaskan peran. Aturan coding di atas tetap berlaku saat pengguna meminta pengembangan source.

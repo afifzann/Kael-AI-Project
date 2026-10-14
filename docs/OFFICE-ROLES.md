@@ -1,0 +1,51 @@
+# Sesi kantor pada Claude Code dan Codex
+
+Tujuan alur ini: percakapan berada pada aplikasi AI, kantor/data berada pada instalasi Kael, sedangkan dashboard menampilkan pekerjaan, preview dan keputusan. Gunakan satu chat tetap per peran. Ini implementasi Kael sendiri; tidak memakai kode, aset, akun atau endpoint produk referensi.
+
+## Memulai
+
+Buka **folder instalasi kantor yang menjalankan server** di bagian Code aplikasi Claude. Untuk checkout pengembang: `C:/Kael AI`. Pada VPS, sambungkan aplikasi ke folder kantor di VPS melalui koneksi SSH yang didukung client; login provider/VPS tetap milik pengguna. Membuka folder lain bernama serupa tidak memuat instruksi/hook kantor ini.
+
+Buat chat baru dan ketik `jadi builder`. Untuk manager/pelaksana, buat chat lain dan ketik `jadi Nama Agent` menggunakan nama pada menu Divisi. Pin chat tersebut dari aplikasi AI. Ketik `udahan` untuk melepaskan peran sesi. Kael tidak membuat atau mengeklik chat/sidebar aplikasi desktop secara otomatis.
+
+Claude memakai hook proyek `.claude/settings.json`: `UserPromptSubmit` mengikat peran pada ID sesi Claude dan menyisipkan konteks terbaru; `SessionStart` memulihkan ikatan saat resume; `PostToolUse` memperbarui aktivitas; `Stop`/`SessionEnd` menandai luang. Hanya event identitas/perintah peran yang diproses, tidak membaca file transcript atau seluruh riwayat chat. Hook harus dimuat oleh client pada proyek yang dipercaya. Restart/buka ulang sesi jika konfigurasi baru belum terbaca. Jika hook tidak tersedia, ikuti jalur CLI di bawah.
+
+Untuk Codex atau sesi tanpa hook: setelah pengguna mengatakan `jadi <nama>`, jalankan `node scripts/office.mjs open "Nama Agent" Codex` (gunakan Claude untuk client Claude). Simpan `sessionId` keluaran di konteks chat, lalu baca `node scripts/office.mjs context SESSION_ID` sebelum bekerja. Jangan membuka sesi peran baru setiap pesan. Saat melanjutkan chat yang sama, gunakan ID yang sama. Memori peran dapat dibaca dari sesi baru tanpa menyalin seluruh riwayat client.
+
+Jika nama berulang, jalankan `node scripts/office.mjs roles` lalu minta pengguna memilih ID/divisi. Jangan memilih agent lain secara diam-diam. Nama/peran berasal dari data kantor, bukan daftar tetap; divisi baru langsung dapat dibuka sebagai sesi.
+
+## Tindakan yang tersedia
+
+Semua perubahan melalui `node scripts/office.mjs send SESSION_ID request.json`. File permintaan boleh dibuat di `proposals/`; jangan mengubah `app-data/` langsung. Baca ulang context sebelum mengirim, gunakan revision/memory version terkini, dan laporkan tersimpan hanya setelah API mengonfirmasi. Jika timeout atau konflik, periksa kondisi sumber dahulu dan jangan mengulang buta.
+
+Builder berdiskusi satu hal per giliran dan menyiapkan JSON:
+
+```json
+{"action":"propose","revision":0,"targetId":"","proposal":{"name":"Layanan pelanggan","manager":"Maya","workers":[{"id":"","name":"Nara","role":"Menyusun draft jawaban"}],"steps":"Brief → draft → review manager → keputusan Founder","criteria":"Sesuai fakta produk","limits":"Tidak mengirim, membayar atau menyetujui otomatis","provider":"manual","model":""}}
+```
+
+`targetId` kosong membuat usulan divisi baru; edit mempertahankan semua ID anggota lama. Preview tim/SOP muncul di web **Builder**. Tunggu pemilik menerapkan melalui web; baca context untuk memeriksa `proposals[].status`. Ruangan/furnitur memakai preset kantor. Workflow dan produksi khusus tetap memakai konfigurasi tersendiri. Ini tidak menyediakan editor ruang bebas.
+
+Manager menerima `baru: <pekerjaan>` dengan menyusun rencana, kemudian mengirim:
+
+```json
+{"action":"command","revision":0,"command":{"type":"manager-plan","divisionId":"ID_DIVISI_SENDIRI","title":"Riset jawaban pelanggan","goal":"Tujuan dari pemilik","criteria":"Kriteria yang dapat diperiksa","tasks":[{"agentId":"ID_PELAKSANA","title":"Susun draft sesuai katalog"}]}}
+```
+
+Satu rencana dapat membagi 1–12 tugas ke pelaksana berbeda. Rencana masuk Keputusan dan **belum boleh berjalan sebelum disetujui pemilik**. Setelah disetujui, `lanjut` dapat memanggil `{"action":"run","revision":0,"taskId":"ID_TUGAS"}` untuk runner pelaksana yang dikonfigurasi. Jika provider belum tersedia, minta pengaturan; jangan mengaku agent sudah bekerja. Runner menyimpan hasil untuk review, tanpa approval otomatis.
+
+Pelaksana pada sesi aplikasi AI dapat memakai command `start`, `result` (dengan `content`), dan `hold` (dengan status paused/blocked dan reason) hanya pada tugasnya sendiri. Baca hasil penuh melalui `{"action":"task","taskId":"ID_TUGAS","version":1}`; context umum hanya memberi cuplikan. Manager wajib membaca hasil penuh pada sesi yang sama sebelum mengirim `review` dengan `id`, `version`, `accept` dan `note`. Review diterima membuat keputusan hasil bagi pemilik; tidak mengesahkan hasil. Produksi KaelaCH dan workflow n8n tidak boleh dijalankan ulang melalui jalur task umum.
+
+`apa aja yang nunggu aku?`, `ada error?`, `laporan` berarti baca context terbaru lalu jelaskan keputusan, kendala, hasil dan status yang benar-benar ada. Manager hanya melihat divisinya; Builder dapat merangkum seluruh kantor. Status n8n yang terputus/parsial tidak boleh disimpulkan sehat. Jangan memperbaiki atau mengirim data ke layanan luar dari pertanyaan status.
+
+Catat ringkasan penting dengan `{"action":"memory","version":0,"text":"Ringkasan fakta dan langkah berikutnya"}`. Memori dibagi per ID peran dan memiliki version guard antarclient. Catatan kerja yang sengaja dibagikan ke divisi memakai command `division-note` dengan `divisionId` dan `text`; server menambahkan identitas penulis. Catatan/hasiI tersimpan menjadi konteks sesi berikutnya. Jangan menyalin chain-of-thought, credential, seluruh transcript atau payload sensitif.
+
+## Batas dan keamanan
+
+- Keputusan Founder, penghapusan data, penggantian identitas peran dalam command, publikasi, pembayaran dan pengiriman eksternal tidak tersedia bagi bridge sesi AI. Jawaban persetujuan tetap melalui web yang memakai autentikasi pemilik.
+- Bridge memakai kunci lokal terbatas milik instalasi, bukan OAuth/password Claude. Helper membaca kunci tanpa mencetaknya; jangan membacanya melalui tool model. Kunci tersebut adalah akses operator lokal yang dipercaya, bukan sandbox OS antara proses AI yang berbagi user/filesystem.
+- Model chat dipilih di aplikasi AI. Setelan provider/model pelaksana di dashboard berlaku untuk runner task, tidak mengubah model sesi desktop secara otomatis.
+- Ikatan peran/memori tersimpan di `office-sessions.json` dalam direktori data; backup secara privat. Aktivitas lebih tua dari dua menit tidak dianggap sedang bekerja. Riwayat chat asli dan pin tetap dikelola aplikasi AI.
+- Belum ada penjadwal manager/heartbeat otonom, bot Telegram, provisioning SSH, installer VPS atau pemindahan seluruh chat web ke histori desktop. Alur ini menghubungkan sesi peran yang benar-benar dibuka pengguna dengan pekerjaan/data Kael.
+
+Acuan perilaku hook: [Dokumentasi resmi Claude Code](https://code.claude.com/docs/en/hooks). Pola referensi yang diadaptasi secara independen: [Panduan peran Lembur](https://lembur.id/bantuan/kenalan-kantor/) dan audit lokal laporan 05; kode/aset/endpoint produk tersebut tidak disalin.

@@ -17,6 +17,10 @@ Buka http://localhost:5173. Memerlukan Node.js 24+. Perintah dev menjalankan Vit
 
 Saat pertama dibuka, siapkan akun pemilik. Ambil kode sekali pakai dengan `node scripts/owner-access.mjs` di terminal server, lalu isi sendiri nama/email dan frasa sandi minimal 15 karakter. Data kantor yang sudah ada tetap dipertahankan. Berikutnya masuk dengan email/kata sandi; tombol Keluar ada di bar atas. API dan preview dilindungi sesi. Lupa password: jalankan `node scripts/owner-access.mjs --reset` sendiri di terminal server, lalu gunakan **Lupa kata sandi?** di web; kode berlaku sekali selama 15 menit. Panduan lengkap dan batas deployment: [Akses pemilik](docs/OWNER-ACCESS.md).
 
+## Sesi AI dan dashboard
+
+Buka folder kantor pada Code di aplikasi Claude, buat chat dan ketik `jadi builder`. Untuk manager/pelaksana, buat sesi lain dengan `jadi Nama Agent` sesuai data Divisi. Claude memakai hook proyek; Codex memakai bridge sessionId sesuai instruksi proyek. Diskusi berlangsung di aplikasi AI; rencana, hasil, catatan kerja dan preview tersimpan di Kael, persetujuan Founder tetap melalui web. Model sesi dipilih pada aplikasi AI. Panduan: [Sesi peran kantor](docs/OFFICE-ROLES.md).
+
 ## Builder percakapan
 
 Buka Builder → Mulai diskusi, pilih Claude/Codex dan ceritakan kebutuhan tim. AI menyusun usulan manager/pelaksana dan SOP; koreksi melalui chat atau form preview, simpan perubahan, lalu terapkan saat siap. Draft tersimpan per instalasi, ruangan mengikuti preset, dan pekerjaan tidak dimulai otomatis. Panduan/batas: [Builder percakapan](docs/BUILDER-DIALOGUE.md).

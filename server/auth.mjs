@@ -125,7 +125,7 @@ export async function createAuth({ directory, secure = false, now = Date.now }) 
   }
   function authorize(req, res, send) {
     if (owner && builderKey && req.headers.authorization?.startsWith('Bearer ') && same(req.headers.authorization.slice(7), builderKey)) {
-      if (req.method === 'GET' && req.url === '/api/state' || req.method === 'POST' && req.url === '/api/command') return 'builder';
+      if (req.method === 'GET' && req.url === '/api/state' || req.method === 'POST' && ['/api/command', '/api/office-bridge'].includes(req.url)) return 'builder';
       send(res, 403, { error: 'Akses Builder hanya untuk membaca kantor dan mengatur tim.' }); return null;
     }
     const current = session(req);

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 // Sources only: dependencies/build are prepared on the destination, never copied from the owner's machine.
 export async function packageBuyer(root, output) {
-  const files = ['package.json', 'package-lock.json', 'index.html', 'tsconfig.json', 'vite.config.ts', 'scripts/dev.mjs', 'scripts/owner-access.mjs', 'scripts/building.mjs', 'docs/BUYER-SETUP.md'];
+  const files = ['package.json', 'package-lock.json', 'index.html', 'tsconfig.json', 'vite.config.ts', 'scripts/dev.mjs', 'scripts/owner-access.mjs', 'scripts/building.mjs', 'scripts/office.mjs', 'scripts/claude-office-hook.mjs', '.claude/settings.json', 'docs/OFFICE-ROLES.md', 'docs/BUYER-SETUP.md'];
   async function visit(relative) {
     const stat = await lstat(path.join(root, relative));
     if (stat.isSymbolicLink()) throw new Error(`Tautan file tidak boleh masuk paket: ${relative}`);
@@ -39,9 +39,9 @@ export async function packageBuyer(root, output) {
     }
     await save(relative, bytes);
   }
-  await save('README.md', await readFile(path.join(root, 'docs/BUYER-SETUP.md')));
+  await save('README.md', Buffer.from((await readFile(path.join(root, 'docs/BUYER-SETUP.md'), 'utf8')).replaceAll('(OFFICE-ROLES.md)', '(docs/OFFICE-ROLES.md)')));
   await save('.gitignore', Buffer.from('node_modules/\ndist/\napp-data/\n.env\n.env.*\n*.log\n'));
-  const instructions = '# Kantor buyer\n\nBaca README.md. Data kantor berada di app-data; jangan mengubahnya langsung. Jangan membaca atau mencetak .env, password, atau kunci. Pengaturan tim dilakukan melalui node scripts/building.mjs inspect, preview, apply dengan revision terbaru. Tugas dan persetujuan hasil dilakukan melalui dashboard. Jangan menyatakan provider terhubung sebelum status runtime terverifikasi. Jangan memberi persetujuan pemilik otomatis.\n';
+  const instructions = '# Kantor buyer\n\nBaca README.md. Data kantor berada di app-data; jangan mengubahnya langsung. Jangan membaca atau mencetak .env, password, atau kunci. Pengaturan tim dilakukan melalui node scripts/building.mjs inspect, preview, apply dengan revision terbaru. Untuk jadi builder / jadi nama agent, baca docs/OFFICE-ROLES.md dan gunakan scripts/office.mjs. Konteks hook Claude dipakai bila tersedia; chat Codex menyimpan sessionId yang sama. Tugas/hasil dapat dikirim sesi AI melalui bridge terbatas; persetujuan Founder tetap melalui dashboard. Jangan menyatakan provider terhubung sebelum status runtime terverifikasi. Jangan memberi persetujuan pemilik otomatis.\n';
   await save('AGENTS.md', Buffer.from(instructions)); await save('CLAUDE.md', Buffer.from(instructions));
   await writeFile(path.join(output, 'buyer-manifest.json'), JSON.stringify({ format: 1, version: JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8')).version, files: hashes }, null, 2) + '\n', { flag: 'wx' });
   return { output, files: Object.keys(hashes).length };

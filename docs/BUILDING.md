@@ -1,5 +1,7 @@
 # Building dari coding agent
 
+**Arah utama v2.40:** mulai dari sesi Code pada folder kantor dan ketik `jadi builder`. Gunakan `scripts/office.mjs` untuk membaca konteks dan mengirim usulan ke preview web; penerapan dilakukan pemilik. Claude memakai hook native, Codex memakai sessionId tetap. Panduan lengkap: [OFFICE-ROLES.md](OFFICE-ROLES.md). Jalur skill/bridge lama di bawah dipertahankan untuk kompatibilitas; peran sesi baru memakai preview sebagai gate.
+
 **Pembaruan v2.39:** diskusi AI sekarang juga tersedia langsung pada halaman Builder web, dengan draft, preview tim/SOP dan penerapan oleh pemilik. Panduan: [Builder percakapan](BUILDER-DIALOGUE.md). Diskusi web terpisah dari riwayat sesi desktop; uraian bridge sesi Codex di bawah tetap berlaku untuk jalur coding agent. Ruang Builder mengutamakan giliran web yang sedang aktif, kemudian bridge desktop yang terverifikasi.
 
 ## Builder studio · sesi Builder

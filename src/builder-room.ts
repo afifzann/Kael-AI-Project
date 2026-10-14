@@ -12,7 +12,7 @@ export const builderSession = {
 export function builderChatLink(presence?: BuilderPresence) {
   return presence?.connection === 'online' && /^codex:\/\/threads\/[a-f0-9-]{36}$/.test(presence.chatUrl || '')
     ? `<a class="op-button primary" href="${presence!.chatUrl}">Lanjut di Codex ↗</a>`
-    : '<span class="op-muted">Sesi coding agent desktop belum dihubungkan.</span>';
+    : presence?.connection === 'online' && ['Claude', 'Codex'].includes(presence.source || '') ? `<span class="op-muted">Sesi Builder · ${presence.source}</span>` : '<span class="op-muted">Sesi coding agent desktop belum dihubungkan.</span>';
 }
 
 export type BuilderPresence = {

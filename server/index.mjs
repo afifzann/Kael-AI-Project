@@ -10,6 +10,7 @@ import { createBuilderSession } from './builder-session.mjs';
 import { createRuntime } from './runtime.mjs';
 import { createAuth, builderCommands } from './auth.mjs';
 import { createBuilderDialogue } from './builder-dialogue.mjs';
+import { createOfficeBridge } from './office-bridge.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const directory = process.env.KAEL_DATA_DIR || path.join(root, 'app-data');
@@ -21,19 +22,20 @@ try { state = JSON.parse(await readFile(file, 'utf8')); if (state.schema !== 1 |
 catch (error) { if (error.code !== 'ENOENT') throw new Error(`Data tersimpan tidak bisa dibuka. File dipertahankan: ${error.message}`); state = initialState(); await writeFile(file, JSON.stringify(state, null, 2)); }
 let queue = Promise.resolve();
 const client = createN8nClient(), snapshots = new Map();
-let production, runtime, builderDialogue;
+let production, runtime, builderDialogue, officeBridge;
 const builder = createBuilderSession();
-const builderPresence = () => { const web = builderDialogue?.presence(), desktop = builder.presence(); return web?.status === 'working' || desktop.connection !== 'online' ? web || desktop : desktop; };
+const builderPresence = () => { const natives = officeBridge?.presence().filter(s => s.agentId === 'builder') || [], native = natives.find(s => s.phase === 'working' && Date.now() - Date.parse(s.updatedAt) < 120000) || natives.at(-1); if (native) return { connection: 'online', status: native.phase === 'working' && Date.now() - Date.parse(native.updatedAt) < 120000 ? 'working' : 'completed', source: native.client, checkedAt: new Date().toISOString(), lastEventAt: native.updatedAt, turnId: native.sessionId, partial: false, error: '' }; const web = builderDialogue?.presence(), desktop = builder.presence(); return web?.status === 'working' || desktop.connection !== 'online' ? web || desktop : desktop; };
 async function monitorBuilder() { await builder.read(); setTimeout(monitorBuilder, 2000).unref(); }
 void monitorBuilder();
-const publicState = () => ({ ...state, builderChat: builderPresence(), ...(runtime ? { aiRuntime: runtime.status() } : {}), ...(production?.taskIds().length ? { productionTaskIds: production.taskIds() } : {}), ...(production?.summary().length ? { productions: production.summary() } : {}), ...(state.workflowBindings?.length ? { n8n: state.workflowBindings.map(b => snapshots.get(b.workflowId) || { workflowId: b.workflowId, connection: 'syncing', checkedAt: '', error: '', running: [], waiting: [], recent: [], partial: false }) } : {}) });
-async function persist(next) { delete next.n8n; delete next.productions; delete next.builderChat; delete next.aiRuntime; await writeFile(file + '.tmp', JSON.stringify(next, null, 2)); await rename(file + '.tmp', file); state = next; }
+const publicState = () => ({ ...state, builderChat: builderPresence(), officeSessions: officeBridge?.presence() || [], ...(runtime ? { aiRuntime: runtime.status() } : {}), ...(production?.taskIds().length ? { productionTaskIds: production.taskIds() } : {}), ...(production?.summary().length ? { productions: production.summary() } : {}), ...(state.workflowBindings?.length ? { n8n: state.workflowBindings.map(b => snapshots.get(b.workflowId) || { workflowId: b.workflowId, connection: 'syncing', checkedAt: '', error: '', running: [], waiting: [], recent: [], partial: false }) } : {}) });
+async function persist(next) { delete next.n8n; delete next.productions; delete next.builderChat; delete next.aiRuntime; delete next.officeSessions; await writeFile(file + '.tmp', JSON.stringify(next, null, 2)); await rename(file + '.tmp', file); state = next; }
 async function mutate(command) {
   const operation=queue.then(async()=>{await persist(applyCommand(state,command));return state;});queue=operation.catch(()=>{});return operation;
 }
 production = await createProduction({ directory, getState:()=>state, mutate, ...globalThis[Symbol.for('kael.production.fixture')] });
 runtime = await createRuntime({ directory, getState:()=>state, mutate, ...globalThis[Symbol.for('kael.runtime.fixture')] });
 builderDialogue = await createBuilderDialogue({ directory, getState: () => state, mutate, status: provider => runtime.status(provider), ...globalThis[Symbol.for('kael.builder.fixture')] });
+officeBridge = await createOfficeBridge({ directory, getState: publicState, mutate, runtime, dialogue: builderDialogue });
 async function monitor() {
   let failed = false;
   for (const binding of state.workflowBindings || []) {
@@ -60,6 +62,16 @@ const server = http.createServer(async (req, res) => {
   if (origin && !['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:4173', 'http://127.0.0.1:4173'].includes(origin)) return send(res, 403, { error: 'Origin tidak diizinkan.' });
   if (await auth.handle(req, res, send)) return;
   const role = auth.authorize(req, res, send); if (!role) return;
+  if (req.method === 'POST' && req.url === '/api/office-bridge') {
+    if (!req.headers['content-type']?.startsWith('application/json')) return send(res, 415, { error: 'Gunakan JSON.' });
+    try {
+      const chunks = []; let bytes = 0;
+      for await (const chunk of req) { bytes += chunk.length; if (bytes > 200000) return send(res, 413, { error: 'Permintaan terlalu besar.' }); chunks.push(chunk); }
+      const input = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+      if (!input || Array.isArray(input) || typeof input !== 'object') throw new Error('Permintaan tidak valid.');
+      return send(res, 200, await officeBridge.action(input));
+    } catch (e) { return send(res, 400, { error: e instanceof Error ? e.message : 'Sesi kantor belum dapat diproses.' }); }
+  }
   if (req.url === '/api/builder-discussions') {
     if (req.method === 'GET') return send(res, 200, { discussions: builderDialogue.list() });
     if (req.method !== 'POST') return send(res, 405, { error: 'Gunakan GET atau POST.' });
@@ -98,7 +110,7 @@ const server = http.createServer(async (req, res) => {
       const command=input.command;
       if(role==='builder' && !builderCommands.includes(command?.type)) return send(res,403,{error:'Builder tidak berwenang menjalankan tugas, memulihkan error atau memberi keputusan Founder.'});
       if (command?.type === 'onboarding' && command.step === 'connection' && command.provider !== 'manual' && !runtime.status(command.provider).available) throw new Error('Provider yang dipilih belum tersedia/login di server ini. Hubungkan dahulu atau pilih lanjut manual.');
-      if(['run-start','run-begin','run-end','builder-apply'].includes(command?.type))throw new Error('Run AI hanya dapat dimulai melalui runtime.');
+      if(['run-start','run-begin','run-end','builder-apply','office-command','manager-plan'].includes(command?.type))throw new Error('Run AI hanya dapat dimulai melalui runtime.');
       const target=command?.type==='decide'?state.decisions.find(d=>d.id===command.id)?.targetId:command?.id;
       if(['start','hold','result','review','revise-task','cancel-task','decide'].includes(command?.type)&&production.taskIds().includes(target))throw new Error('Gunakan halaman Produksi untuk hasil, revisi dan keputusan episode ini.');
       if(command?.type==='agent-archive'){const division=state.divisions.find(d=>d.id===state.agents.find(a=>a.id===command.id)?.divisionId);if(division&&(/kaelach/i.test(division.name)||production.summary().some(p=>p.divisionId===division.id)))throw new Error('Anggota divisi produksi mengikuti alur produksi yang ada dan belum dapat diarsipkan.');}

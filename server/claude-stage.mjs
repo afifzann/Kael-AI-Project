@@ -14,6 +14,7 @@ function executable() {
   if (existsSync(path.join(npm, 'cli.js'))) return { command: process.execPath, prefix: [path.join(npm, 'cli.js')] };
   return { command: 'claude.exe', prefix: [] };
 }
+export { executable as claudeExecutable };
 function environment() {
   const env = { ...process.env };
   for (const key of Object.keys(env)) if (/(?:_KEY|_TOKEN|_SECRET|_PASSWORD)$|^N8N_|^CODEX_APP_TOOLS_PIPE_PATH$|^ANTHROPIC_|^CLAUDE_CODE_|^CLAUDE_AGENT_/i.test(key)) delete env[key];

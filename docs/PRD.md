@@ -1,9 +1,15 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.39 — Builder percakapan
+Versi 2.40 — Sesi peran aplikasi AI
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
 Tanggal: 14 Oktober 2026  
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.40 — peran pada sesi Claude/Codex
+
+Arah interaksi utama diperbaiki: pengguna berdiskusi di sesi aplikasi AI pada folder kantor, menjalankan `jadi builder` atau `jadi <nama agent>`, sementara dashboard menerima rencana, hasil, catatan kerja, preview dan keputusan. Hook Claude mengikat ID sesi native, menyisipkan konteks peran pada setiap prompt/resume, memperbarui aktivitas dan menandai luang setelah giliran. Codex memakai perintah bridge dan sessionId tetap. Peran/memori dinamis mengikuti ID agent, bukan daftar contoh; memori lintasclient memakai version guard, histori privat tetap pada client.
+
+Builder mengirim usulan ke preview web. Manager dapat mengajukan satu rencana dengan tugas per pelaksana, menunggu keputusan manusia, menjalankan runner yang tersedia, membaca hasil penuh dan melakukan review terikat versi. Pelaksana hanya mengirim hasil pada tugasnya sendiri; role bridge menolak approval Founder, penghapusan dan perubahan lintasdivisi. Workflow/produksi khusus tetap menggunakan alurnya sendiri. Sesi terbaru memengaruhi aktivitas karakter tanpa menulis animasi sebagai bukti hasil. Tidak membuat/mem-pin chat aplikasi otomatis, tidak menyediakan manager terjadwal atau installer VPS. Rincian: [Sesi kantor](OFFICE-ROLES.md).
 
 ## Perbaikan v2.39 — Builder percakapan
 

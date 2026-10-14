@@ -1,5 +1,9 @@
 # Kael AI Office — kontrak desain
 
+## Sesi aplikasi AI — v2.40 (14 Oktober 2026)
+
+Builder mengutamakan instruksi masuk peran pada client serta preview usulan. Chat web menjadi opsi eksplisit, tanpa menghapus draft lama. Proposal desktop tidak menampilkan composer web seolah-olah itu sesi native; koreksi percakapan tetap melalui client, perubahan preview tetap dapat disimpan/dibuang. Catatan divisi menjelaskan perbedaan ringkasan kerja dengan riwayat privat client. Presence native fresh memperbarui robot; medis tetap prioritas. Tidak mengubah geometri/material kantor atau mengklaim chat/sidebar otomatis dibuat.
+
 ## Builder percakapan — v2.39 (14 Oktober 2026)
 
 UI Craft mengikuti token dashboard monokrom dengan aksen teal kecil. Percakapan dan preview berada dalam dua kolom desktop, menumpuk pada tablet/mobile. Nama/tugas memakai label native; SOP/kriteria/batas dalam disclosure. Teks AI dirender sebagai teks aman, tanpa Markdown/HTML aktif. Status draft/working/error/applied eksplisit, tidak memakai persentase palsu atau animasi mengetik simulasi. Giliran provider dapat dihentikan; scroll tetap pada bacaan lama atau mengikuti pesan terbaru bila dekat bagian bawah. Perubahan lokal harus disimpan/dibuang sebelum apply atau berpindah diskusi. Fokus keyboard, error role alert dan input mobile 16px tersedia. Handoff sesi desktop serta konfigurasi manual menjadi pilihan sekunder. Geometri/material kantor tidak dirombak; status Builder mengikuti aktivitas web yang sebenarnya. QA handler bukan validasi browser/GPU langsung.

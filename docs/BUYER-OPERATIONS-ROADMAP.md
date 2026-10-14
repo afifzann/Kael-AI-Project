@@ -42,3 +42,23 @@ Nomor 1–3 menjelaskan pekerjaan inti yang perlu dilengkapi sebelum menjanjikan
 - UI menampilkan langkah berikutnya, pemilik tugas, kendala dan keputusan pada tempat yang sama; tidak menambah menu global untuk setiap divisi/alat atau menjadikan aktivitas karakter sebagai bukti pekerjaan AI.
 
 Verifikasi Kael pada checkpoint `5175e88`: 131 tes lulus, build aplikasi/paket lulus, startup paket terpisah memakai akun/data fixture. Belum QA visual langsung, instalasi VPS/Claude baru atau bisnis berjalan otonom. Tidak ada perubahan operasional kantor/VPS asal berdasarkan lampiran ini.
+
+## Tambahan pemilik: alur penjual kit sampai kantor buyer berjalan
+
+Sumber tambahan: pesan pemilik 14 Oktober 2026, disusun dari jejak installer/update/panduan Lembur. Ini analisis referensi; tidak memverifikasi backend pembayaran/lisensi mereka. Ringkasan harga operasional, waktu pemasangan, persentase waitlist, lisensi, layanan dan penanda per pembeli bukan keputusan atau janji produk Kael.
+
+Alur target Kael: **promosi/demo → checkout → pembayaran terverifikasi → email kode/instruksi → pengecekan VPS → aktivasi dan pengunduhan paket → instalasi/HTTPS → akun pemilik dan koneksi AI → Builder melengkapi bisnis → tugas pertama → update/support.** Buyer menyediakan VPS dan akun AI sendiri. Bisnis Kael menggunakan jual lepas sesuai keputusan pemilik; durasi update/support dan biaya layanan tambahan perlu ditentukan terpisah.
+
+| Bagian | Rancangan Kael / batas keputusan |
+| --- | --- |
+| Penawaran | Jelaskan aplikasi, template, Builder, batas kemampuan dan biaya VPS/AI terpisah. Kursus video boleh menjadi pelengkap, belum ditetapkan sebagai paket wajib. Jangan menjanjikan bisnis otonom sebelum alur kerjanya teruji. |
+| Pembayaran dan email | Sistem memverifikasi pembayaran melalui penyedia, menerbitkan satu pesanan/kode dan mengirim email. Notifikasi pembayaran berulang tidak membuat pesanan/kode ganda; email gagal dapat dikirim ulang tanpa mengubah lisensi. AI membantu penanganan kendala, tidak menentukan pembayaran sah. |
+| Aktivasi VPS | Periksa OS/CPU/ruang/port sebelum memakai slot. Aktivasi ulang pada instalasi yang sama tidak membuat slot baru tanpa alasan; kegagalan/retry dan pindah VPS harus dapat ditangani. Batas 2 VPS pada referensi tidak otomatis menjadi aturan Kael. Identitas instalasi/sidik mesin bukan otomatis data anonim; jangan mengirim isi kantor, chat atau kredensial. |
+| Paket dan keaslian | Unduhan terbatas masa berlaku, manifest checksum dan verifikasi rilis bertanda tangan. SHA256 sendiri memeriksa kecocokan bytes, belum membuktikan pembuat paket bila metadata sumber ikut diganti. Penanda per pembeli di referensi masih dugaan, bukan bukti forensik pasti; watermark tidak diperlukan untuk tahap berikutnya dan bukan pengganti aktivasi. |
+| Instalasi | Installer boleh memakai root untuk persiapan OS, tetapi aplikasi/AI berjalan sebagai user terbatas. Bisa melanjutkan pemasangan yang terputus, menjaga data yang sudah ada, menampilkan progres/error dan alamat web yang bisa diuji. Waktu sekitar 5 menit dalam referensi bukan SLA Kael. |
+| Mulai bekerja | Setup akun, login provider sendiri, pilih/edit template, lalu Builder mengumpulkan fakta, harga, sumber, gaya dan batas tindakan. Tim tidak menjalankan tugas yang membutuhkan fakta bisnis belum tersedia; tampilkan informasi yang masih kurang. Kode setup akun terpisah dari kode pembelian. |
+| Setelah penjualan | Update mempertahankan data/customisasi dan bisa dipulihkan; diagnosis menyaring rahasia; pemulihan akses, email kode dan perpindahan VPS punya panduan. Kebijakan update/support, harga jual dan syarat penggunaan Kael ditentukan pemilik sebelum penjualan. Kantor buyer tetap terpisah dari divisi bisnis pengembang. |
+
+Pembagian tanggung jawab: layanan pusat mengurus pesanan, lisensi, rilis dan alamat subdomain bila disediakan; VPS buyer menyimpan kantor, tugas, hasil, akun dan integrasi. Proses lisensi saat pemasangan/update tidak berarti layanan pusat boleh membaca kantor buyer. Ketergantungan subdomain dan perilaku ketika layanan pusat tidak tersedia perlu dijelaskan sebelum dijual.
+
+Status implementasi tetap: paket sumber bersih + setup awal tersedia; transaksi, email kode, aktivasi/slot, unduhan rilis bertanda tangan, installer VPS, layanan domain dan update aman **belum dibuat**. Prioritas tetap menuntaskan kemampuan inti AI/Builder, menguji tugas pertama, lalu pemasangan/perawatan sebelum checkout produksi. Tambahan ini tidak mengubah sistem jual lepas menjadi langganan atau mengubah data kantor.

@@ -92,6 +92,8 @@ Tambahan pemilik **Alur Sistem Kantor AI — Kael Ai**, versi 2 (24 bagian, klai
 
 Verifikasi setelah tambahan analisis: 131/131 tes lulus dan build lulus; peringatan bundle sekitar 752 kB tetap ada. Tambahan ini hanya mengubah dokumen roadmap/progres, tanpa kode runtime atau data kantor.
 
+Tambahan pemilik tentang alur penjual kit sudah dipetakan pada bagian akhir `docs/BUYER-OPERATIONS-ROADMAP.md`: promosi/penawaran, pembayaran/email deterministik, aktivasi VPS, keaslian paket, installer, kelengkapan bisnis dan update/support. Status implementasi dipertahankan jujur; harga/slot/waktu pasang/penanda per pembeli pada referensi tidak dijadikan janji Kael. Model Kael tetap jual lepas, VPS/akun AI buyer sendiri; ketentuan update/support/slot belum ditetapkan. Tidak ada pembayaran, email, aktivasi atau perubahan VPS yang dijalankan dari tambahan ini.
+
 1. Pemilik sudah membuat akun. Periksa UI login/tahap 3–7 dan onboarding pada instance buyer terpisah, lalu coba satu tugas serta tinjau/revisi hasil. Kelengkapan P2 (recovery, izin tindakan/broker dan isolasi proses) belum selesai.
 2. Runtime untuk Claude (atau Hermes) setelah cara login/kuotanya dipastikan.
 3. Telegram manager (Bu Yuli) untuk tanya status divisi, baca saja.

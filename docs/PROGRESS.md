@@ -88,6 +88,10 @@ Status tes terakhir: 131 tes lulus, typecheck/build aplikasi dan paket buyer lul
 
 ## Langkah berikutnya (kandidat)
 
+Tambahan pemilik **Alur Sistem Kantor AI — Kael Ai**, versi 2 (24 bagian, klaim kit 0.19.2/VPS), sudah dibaca seluruhnya. Pemetaan kemampuan Kael vs referensi dan usulan urutan lanjutan ada di `docs/BUYER-OPERATIONS-ROADMAP.md`. Ini analisis dokumen, bukan verifikasi ulang VPS/kit atau penerapan semua fiturnya. Gap utama: Builder adaptif/runtime Claude, koordinasi manager dan pemeriksa terpisah, kelanjutan keputusan, serah terima antar-divisi, jadwal/budget/notifikasi, kemudian installer/perawatan/penjualan. Tidak menjalankan perintah/cron atau mengubah kantor asal dari lampiran. Checkpoint implementasi onboarding/paket: `5175e88`.
+
+Verifikasi setelah tambahan analisis: 131/131 tes lulus dan build lulus; peringatan bundle sekitar 752 kB tetap ada. Tambahan ini hanya mengubah dokumen roadmap/progres, tanpa kode runtime atau data kantor.
+
 1. Pemilik sudah membuat akun. Periksa UI login/tahap 3–7 dan onboarding pada instance buyer terpisah, lalu coba satu tugas serta tinjau/revisi hasil. Kelengkapan P2 (recovery, izin tindakan/broker dan isolasi proses) belum selesai.
 2. Runtime untuk Claude (atau Hermes) setelah cara login/kuotanya dipastikan.
 3. Telegram manager (Bu Yuli) untuk tanya status divisi, baca saja.

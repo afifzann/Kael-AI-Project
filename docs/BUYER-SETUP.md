@@ -43,7 +43,7 @@ Ringkasan menampilkan panduan berdasarkan data sebenarnya: bentuk tim → buat b
 
 Untuk mengganti provider/model agent: Divisi → Anggota → pilih agent → Setelan → Claude/Codex. Kosongkan model untuk default CLI atau isi alias/ID yang tersedia pada akunmu. Pengaturan → AI pada server menunjukkan koneksi per provider. Setiap run menggunakan sesi baru dengan konteks tugas; bukan seluruh riwayat chat akunmu. Kuota menjadi tanggungan akun buyer sendiri.
 
-Builder yang tersedia saat ini adalah konfigurasi tim manual serta bridge lokal `scripts/building.mjs` untuk coding agent; diskusi AI adaptif di web dan koordinasi manager otomatis belum tersedia. Paket tidak terhubung ke chat Builder pengembang. Pengaturan mengubah konteks bisnis; Anggota mengubah provider/model; Builder mengubah nama/peran dan menambah tim. Editor bebas ruangan, logo dan domain belum tersedia.
+Halaman **Builder** menyediakan diskusi Claude/Codex, draft tersimpan, preview tim/SOP yang dapat diedit dan penerapan eksplisit oleh pemilik. Pilih divisi baru atau edit divisi tugas lokal, ceritakan kebutuhan, tinjau proposal, lalu terapkan. Kirim koreksi jika perlu; simpan perubahan form sebelum menerapkan. Ruangan mengikuti preset anggota. Manager otomatis, edit geometri bebas dan integrasi otomatis belum tersedia. Bridge lokal `scripts/building.mjs` dan konfigurasi manual tetap tersedia. Paket tidak terhubung ke chat Builder pengembang. Pengaturan mengubah konteks bisnis; Anggota mengubah provider/model; Builder mengubah nama/peran dan menambah tim. Editor bebas ruangan, logo dan domain belum tersedia. Diskusi web tersimpan di direktori data kantor dan ikut dicadangkan secara privat; tidak menyalin riwayat desktop pengembang.
 
 ## Data dan bantuan
 

@@ -1,6 +1,14 @@
 # Status implementasi lokal — 14 Oktober 2026
 
-Status terbaru: **PRD v2.38 — Pemulihan akses pemilik**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+Status terbaru: **PRD v2.39 — Builder percakapan**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+
+## PRD v2.39 — diskusi Builder, preview dan penerapan
+
+`server/builder-dialogue.mjs` menjalankan giliran provider melalui adapter yang sudah ada, menyimpan pesan/usulan/versi/target di arsip lokal per instalasi dan mengelola stop/retry/interrupted. Prompt hanya memuat konteks bisnis, daftar divisi, tim/SOP target, proposal sebelumnya dan 30 pesan terakhir; tidak memuat hasil divisi lain atau history desktop. Model tidak memiliki endpoint mutasi. `src/builder-model.ts` memvalidasi usulan dengan bentuk/ukuran/ID yang terbatas. `builder-apply` pada domain memakai ulang division/division-edit/sop-save/agent-settings sebagai satu revision dan menyimpan provenance penerapan. Command umum menolak perintah internal ini; API diskusi membutuhkan owner/CSRF, bukan kunci bridge.
+
+`src/builder-dialogue.ts/css` menampilkan diskusi, pemilihan provider/model/target, draft tersimpan, preview editable, SOP disclosure, stop/retry/cancel, simpan/buang perubahan dan apply eksplisit. Form kotor tidak bisa diterapkan atau berpindah diskusi diam-diam; konflik memakai versi semula. Offline tidak menyebabkan loop request otomatis. Status/pintu masuk Builder studio/profil disesuaikan, dengan handoff coding agent dan formulir manual tetap tersedia. QA menggunakan handler DOM tiruan, bukan klaim visual browser. Rincian: [BUILDER-DIALOGUE.md](BUILDER-DIALOGUE.md).
+
+Verifikasi akhir 153 tes dan build aplikasi/paket buyer lulus; endpoint anonim/bridge tetap ditolak, state pemilik revision 9 dan hash tetap. Claude Builder sungguhan menghasilkan proposal pada data sintetis lalu diterapkan melalui langkah pengujian eksplisit; tidak ada task/keputusan dibuat dan kantor pemilik tidak dimutasi. Bukti `evidence/builder-smoke/run-yktSFw/check.json`. Codex Builder/sandbox OS penuh, semua model, visual dan VPS belum diuji.
 
 ## PRD v2.38 — pemulihan password
 

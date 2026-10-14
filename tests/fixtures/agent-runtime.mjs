@@ -7,3 +7,7 @@ globalThis[Symbol.for('kael.runtime.fixture')] = {
     return { summary: 'Fixture selesai', blocked: false, data: { content: `Hasil fixture (${model || 'default'})\n` + (prompt.match(/SOP divisi v\d+/)?.[0] || 'tanpa SOP') } };
   }
 };
+
+globalThis[Symbol.for('kael.builder.fixture')] = {
+  turn: async () => ({ summary: 'Fixture Builder', blocked: false, data: { reply: 'Usulan fixture siap ditinjau.', proposal: { name: 'Support Fixture', manager: 'Maya', workers: [{ id: '', name: 'Nara', role: 'Menyiapkan jawaban' }], steps: 'Brief → draft → review → keputusan Founder', criteria: 'Sesuai fakta produk', limits: 'Tidak mengirim atau menyetujui otomatis', provider: 'manual', model: '' } } })
+};

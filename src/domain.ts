@@ -4,6 +4,7 @@ import type { WorkflowBinding, WorkflowSnapshot } from './n8n';
 import type { Production } from './production-model';
 import { teamTemplates, templateLimits, type Onboarding } from './onboarding-model.ts';
 import { runnableProviders, type RuntimeInfo } from './runtime-status.ts';
+import { validateBuilderProposal } from './builder-model.ts';
 export { runnableProviders, runtimeFor } from './runtime-status.ts';
 export type AgentIncident = { id: string; agentId: string; reason: string; reportedAt: string; resolvedAt: string; resolution: string; bedIndex: number; executionId?: string };
 export type FacilitySession = { id: string; roomId: string; purpose: 'briefing' | 'review' | 'break'; title: string; agenda: string; participantIds: string[]; briefId: string; status: 'active' | 'ended'; startedAt: string; endedAt: string; notes: string };
@@ -21,7 +22,7 @@ export const agentProviders: AgentProvider[] = ['manual', 'Claude', 'Codex', 'He
 export type AgentRun = { id: string; taskId: string; agentId: string; provider: AgentProvider; model: string; status: 'queued' | 'running' | 'done' | 'blocked' | 'failed' | 'cancelled' | 'interrupted'; queuedAt?: string; context?: string; taskNotes?: string; startedAt: string; endedAt: string; summary: string; error: string; resultVersion: number };
 // Providers with a working local runtime adapter. Others can be chosen as a plan but cannot run yet.
 export function activeRun(s: Pick<State, 'runs'>, taskId: string) { return s.runs?.find(r => r.taskId === taskId && ['queued', 'running'].includes(r.status)); }
-export type State = { schema: 1; revision: number; provider: string; onboarding?: Onboarding; business: { name: string; audience: string; facts: string; updatedAt: string }; divisions: { id: string; name: string; managerId: string; company?: string }[]; agents: Agent[]; briefs: Brief[]; tasks: Task[]; decisions: Decision[]; facilitySessions?: FacilitySession[]; incidents?: AgentIncident[]; workflowBindings?: WorkflowBinding[]; n8n?: WorkflowSnapshot[]; productions?: Production[]; productionTaskIds?: string[]; builderChat?: BuilderPresence; sops?: Sop[]; agentSettings?: AgentSettings[]; archivedAgents?: ArchivedAgent[]; divisionNotes?: DivisionNote[]; runs?: AgentRun[]; aiRuntime?: RuntimeInfo; events: { id: string; at: string; message: string; targetId: string }[] };
+export type State = { schema: 1; revision: number; provider: string; onboarding?: Onboarding; business: { name: string; audience: string; facts: string; updatedAt: string }; divisions: { id: string; name: string; managerId: string; company?: string }[]; agents: Agent[]; briefs: Brief[]; tasks: Task[]; decisions: Decision[]; facilitySessions?: FacilitySession[]; incidents?: AgentIncident[]; workflowBindings?: WorkflowBinding[]; n8n?: WorkflowSnapshot[]; productions?: Production[]; productionTaskIds?: string[]; builderChat?: BuilderPresence; builderApplications?: { discussionId: string; divisionId: string }[]; sops?: Sop[]; agentSettings?: AgentSettings[]; archivedAgents?: ArchivedAgent[]; divisionNotes?: DivisionNote[]; runs?: AgentRun[]; aiRuntime?: RuntimeInfo; events: { id: string; at: string; message: string; targetId: string }[] };
 export type Command = { type: string; [key: string]: unknown };
 const id = () => crypto.randomUUID();
 const now = () => new Date().toISOString();
@@ -41,6 +42,20 @@ function decision(s: State, type: Decision['type'], targetId: string, title: str
 export function applyCommand(state: State, c: Command): State {
   const s: State = structuredClone(state);
   switch (c.type) {
+    case 'builder-apply': {
+      ensure(c.baseRevision === s.revision, 'Kantor berubah setelah usulan dibuat. Lanjutkan diskusi untuk meninjau data terbaru sebelum menerapkan.');
+      const discussionId = required(c.discussionId, 'ID diskusi', 80), targetId = optional(c.targetId, 'ID divisi', 80);
+      ensure(!s.builderApplications?.some(v => v.discussionId === discussionId), 'Diskusi ini sudah diterapkan.');
+      const p = validateBuilderProposal(s, targetId, c.proposal), previousIds = new Set(s.agents.map(a => a.id));
+      const apply = (command: Command) => { const next = applyCommand(s, command); next.revision = s.revision; Object.assign(s, next); };
+      if (targetId) apply({ type: 'division-edit', id: targetId, name: p.name, manager: p.manager, workers: p.workers.filter(w => w.id), ...(p.workers.some(w => !w.id) ? { addWorkers: p.workers.filter(w => !w.id).map(({ name, role }) => ({ name, role })) } : {}) });
+      else apply({ type: 'division', name: p.name, manager: p.manager, workers: p.workers.map(({ name, role }) => ({ name, role })) });
+      const divisionId = targetId || s.divisions.at(-1)!.id;
+      apply({ type: 'sop-save', divisionId, baseVersion: latestSop(s, divisionId)?.version || 0, steps: p.steps, criteria: p.criteria, limits: p.limits });
+      for (const agent of s.agents.filter(a => !previousIds.has(a.id))) apply({ type: 'agent-settings', agentId: agent.id, provider: p.provider, model: p.model, notes: '' });
+      (s.builderApplications ||= []).push({ discussionId, divisionId });
+      log(s, `Usulan Builder diterapkan untuk ${p.name}. Pekerjaan belum dimulai.`, divisionId); break;
+    }
     case 'onboarding': {
       const setup = s.onboarding;
       ensure(setup && !setup.completedAt, 'Penyiapan awal tidak tersedia atau sudah selesai. Gunakan Pengaturan atau Builder.');

@@ -17,6 +17,10 @@ Buka http://localhost:5173. Memerlukan Node.js 24+. Perintah dev menjalankan Vit
 
 Saat pertama dibuka, siapkan akun pemilik. Ambil kode sekali pakai dengan `node scripts/owner-access.mjs` di terminal server, lalu isi sendiri nama/email dan frasa sandi minimal 15 karakter. Data kantor yang sudah ada tetap dipertahankan. Berikutnya masuk dengan email/kata sandi; tombol Keluar ada di bar atas. API dan preview dilindungi sesi. Lupa password: jalankan `node scripts/owner-access.mjs --reset` sendiri di terminal server, lalu gunakan **Lupa kata sandi?** di web; kode berlaku sekali selama 15 menit. Panduan lengkap dan batas deployment: [Akses pemilik](docs/OWNER-ACCESS.md).
 
+## Builder percakapan
+
+Buka Builder → Mulai diskusi, pilih Claude/Codex dan ceritakan kebutuhan tim. AI menyusun usulan manager/pelaksana dan SOP; koreksi melalui chat atau form preview, simpan perubahan, lalu terapkan saat siap. Draft tersimpan per instalasi, ruangan mengikuti preset, dan pekerjaan tidak dimulai otomatis. Panduan/batas: [Builder percakapan](docs/BUILDER-DIALOGUE.md).
+
 ## Monitoring n8n
 
 Isi `N8N_BASE_URL` (URL instance, tanpa `/api/v1`) dan `N8N_API_KEY` di `.env` pada root proyek. Template tanpa rahasia tersedia di `.env.example`. `.env` dan variannya dikecualikan dari Git; jangan menaruh key dalam variabel berawalan `VITE_`, profil bisnis atau chat. `npm run dev` dan `npm run server` memuat konfigurasi ini ke proses backend saat mulai; restart setelah mengubahnya. Menu Workflow n8n memantau binding tersimpan dengan polling. Binding workflow mengikuti agent dan divisi yang dikonfigurasi, dengan satu workflow per agent pelaksana; manager mengawasi divisinya. Status, riwayat dan error dibaca tanpa menjalankan atau mengubah workflow. Error baru membuka insiden medis; pemulihan lokal tidak memperbaiki atau menjalankan ulang n8n. Panduan dan batas: [N8N](docs/N8N.md).

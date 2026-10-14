@@ -1,5 +1,9 @@
 # Kael AI Office — kontrak desain
 
+## Builder percakapan — v2.39 (14 Oktober 2026)
+
+UI Craft mengikuti token dashboard monokrom dengan aksen teal kecil. Percakapan dan preview berada dalam dua kolom desktop, menumpuk pada tablet/mobile. Nama/tugas memakai label native; SOP/kriteria/batas dalam disclosure. Teks AI dirender sebagai teks aman, tanpa Markdown/HTML aktif. Status draft/working/error/applied eksplisit, tidak memakai persentase palsu atau animasi mengetik simulasi. Giliran provider dapat dihentikan; scroll tetap pada bacaan lama atau mengikuti pesan terbaru bila dekat bagian bawah. Perubahan lokal harus disimpan/dibuang sebelum apply atau berpindah diskusi. Fokus keyboard, error role alert dan input mobile 16px tersedia. Handoff sesi desktop serta konfigurasi manual menjadi pilihan sekunder. Geometri/material kantor tidak dirombak; status Builder mengikuti aktivitas web yang sebenarnya. QA handler bukan validasi browser/GPU langsung.
+
 ## Status runtime — v2.37 (14 Oktober 2026)
 
 Status Codex/Claude dipisahkan pada Pengaturan, onboarding dan detail tugas. Login salah satu provider tidak mengaktifkan tombol provider lain. Form memilih model per agent dan menjelaskan batas teks/alat; tidak memakai klaim semua model atau kuota tersedia. Tampilan mengikuti form, daftar fakta dan token dashboard yang ada; tidak mengubah geometri kantor atau menambah menu global per provider. Polling memperbarui koneksi tanpa menunggu perubahan data bisnis. QA browser langsung belum dilakukan.

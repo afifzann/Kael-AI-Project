@@ -1,5 +1,7 @@
 # Tambahan acuan alur bisnis dan kantor buyer
 
+Pembaruan v2.39: Builder percakapan → draft → preview editable → penerapan tim/SOP sudah tersedia; Claude diuji nyata pada kantor sintetis, Codex diuji fixture. Pemulihan password lokal tersedia sejak v2.38. Batas: preset ruangan, divisi lokal, belum manager otonom/integrasi otomatis/installer/penjualan. Tabel historis di bawah harus dibaca bersama [BUILDER-DIALOGUE.md](BUILDER-DIALOGUE.md) dan progres terbaru.
+
 Pembaruan implementasi v2.37: runtime Claude tugas teks sudah dibuat dan diuji sungguhan pada fixture sintetis tanpa approval otomatis; status per provider tersedia di dashboard/onboarding. Paket terbaru `releases/kael-buyer-0.2.0-claude/`. Tabel dan urutan di bawah mencatat baseline checkpoint sebelumnya; bagian Builder adaptif, manager, installer dan penjualan tetap belum selesai. Rincian terbaru: [CLAUDE-RUNTIME.md](CLAUDE-RUNTIME.md), [PROGRESS.md](PROGRESS.md).
 
 14 Oktober 2026. Sumber: dokumen pemilik **Alur Sistem Kantor AI — Kael Ai**, versi 2, 24 bagian; lampiran `C:/Users/afifz/.codex/attachments/c0adc72b-f227-41a4-889e-a51c71a163d8/Pasted text.txt`. Seluruh lampiran sudah dibaca. Dokumen menyatakan hasil pemeriksaan VPS Lembur/kit 0.19.2; klaim tersebut belum diverifikasi ulang terhadap VPS atau source versi itu. Ini tambahan referensi, bukan instruksi untuk menjalankan perintah/cron, membuka rahasia, menyalin kode Lembur atau mengubah kantor pemilik. Detail kantor asal, task, domain dan pengaturan pribadinya tidak masuk paket buyer.

@@ -10,6 +10,20 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Builder percakapan, draft dan penerapan — PRD v2.39
+
+Builder web memakai Claude/Codex lokal untuk diskusi adaptif dan menyusun manager, 1–12 pelaksana, SOP/serah terima, kriteria dan batas tindakan. Diskusi tersimpan per instalasi, dapat dilanjutkan setelah refresh/restart, preview editable dengan simpan/buang perubahan, stop/retry/cancel dan penerapan eksplisit. Divisi baru mendapat ruangan/karakter/furnitur preset. Edit divisi lokal mempertahankan ID manager/pekerja lama, pekerjaan/hasil/keputusan, SOP versi lama serta setelan provider anggota lama. Divisi workflow dan produksi khusus KaelaCH tetap melalui konfigurasi masing-masing. Tidak membuat tugas, approval atau integrasi otomatis.
+
+File utama: `src/builder-model.ts`, `server/builder-dialogue.mjs`, `src/builder-dialogue.ts/css`, domain, server dan integrasi dashboard/studio/profil. API diskusi memakai owner/CSRF; bridge key tidak mendapat akses. Usulan divalidasi, perubahan tim/SOP atomik satu revision, provenance mencegah duplikasi setelah crash/response gagal. Konflik kantor/diskusi tidak diulang otomatis. Invalid output menjaga pesan/draft lama; giliran restart menunggu retry manusia. Offline UI tidak berulang otomatis. Percakapan web tidak membaca/menampilkan history desktop. Arsip lokal saat ini 100 diskusi, sekitar 30 giliran tiap diskusi; belum pengarsipan khusus.
+
+Skill Building, ECC Agent Harness Construction dan UI Craft dipakai sesuai alur existing serta tema monokrom. Tes mencakup validasi/ID/SOP/settings/history, apply sekali, stale/race, stop/late output, restart, malformed/failed/offline/retry, auth/CSRF gate melalui handler bersama, prompt scoped, XSS escaping, dirty draft, konflik versi dan polling. Verifikasi akhir: 153/153 tes lulus, typecheck/build aplikasi dan paket buyer final lulus. Warning bundle kantor sekitar 766 kB tetap ada. Uji Claude sungguhan opt-in `scripts/check-builder-runtime.mjs Claude` berhasil: satu manager/pelaksana dan SOP, setelah langkah penerapan pengujian eksplisit, 0 task/keputusan. Bukti `evidence/builder-smoke/run-yktSFw/check.json`, seluruh bisnis/data sintetis terpisah; tidak memuat atau mengubah kantor pemilik.
+
+Server final dimuat ulang tersembunyi setelah dipastikan tidak ada task/produksi/giliran Builder web aktif (PID dev 18420). Frontend HTTP 200, endpoint diskusi anonim 401 dan bridge key 403, Codex/Claude available true. State pemilik tetap revision 9 dengan hash `FF4149D5C6B5150C7E3833BA6917D470B6D6A3EF5FCFCDB726F35A868BF979F4`. Akun/password tidak dibaca dan tidak ada proposal diterapkan pada kantor pemilik. Paket terbaru `releases/kael-buyer-0.2.0-builder-2/`: 70 file sumber dengan checksum valid, typecheck/build lulus menggunakan dependensi lokal; belum npm ci/VPS bersih.
+
+Panduan baru `docs/BUILDER-DIALOGUE.md`; PRD, implementasi, README, BUILDING, BUYER-SETUP, roadmap dan DESIGN diperbarui. Belum diverifikasi: QA browser/GPU/responsif langsung, Builder Codex sungguhan/semua model, VPS bersih dan sandbox OS penuh. Preview ruangan berupa kebutuhan preset, bukan render draft 3D. Langkah berikutnya: manager menyusun usulan rencana dan pembagian tugas yang ditinjau Founder; installer/TLS/lisensi/penjualan tetap tahap terpisah.
+
+## Selesai sebelumnya
+
 ### Pemulihan password dashboard — PRD v2.38
 
 Permintaan pemilik lupa password ditangani dengan kode pemulihan lokal, tanpa memilih password atau mengubah akun pemilik. Jalankan sendiri `node scripts/owner-access.mjs --reset`, lalu pilih Lupa kata sandi? di web dan isi kode/password baru. Kode hanya tampil di terminal pemilik, hash disimpan 15 menit dan terikat pada hash password sebelumnya; sekali pakai/rotasi, rate limit terpisah, validasi konfirmasi dan pencabutan semua sesi tersedia. Akun rusak tidak ditimpa. Data/tim/riwayat/hasil/keputusan dan kunci Builder tidak diubah oleh reset. Tidak ada layanan email atau dependensi baru.
@@ -107,7 +121,7 @@ Verifikasi revisi dokumen: 27 topik unik berurutan dan acuan/status utama diperi
 
 - Keputusan owner nomor 1–3 di `KEPUTUSAN-OWNER.md` (menentukan langkah koding berikutnya).
 
-Status tes terakhir: 141 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis; belum pengujian semua model/provider. Bundle kantor sekitar 752 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual langsung belum dilakukan.
+Status tes terakhir: 153 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis; belum pengujian semua model/provider. Bundle kantor sekitar 765 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual langsung belum dilakukan.
 
 ## Langkah berikutnya (kandidat)
 
@@ -118,6 +132,6 @@ Verifikasi setelah tambahan analisis: 131/131 tes lulus dan build lulus; peringa
 Tambahan pemilik tentang alur penjual kit sudah dipetakan pada bagian akhir `docs/BUYER-OPERATIONS-ROADMAP.md`: promosi/penawaran, pembayaran/email deterministik, aktivasi VPS, keaslian paket, installer, kelengkapan bisnis dan update/support. Status implementasi dipertahankan jujur; harga/slot/waktu pasang/penanda per pembeli pada referensi tidak dijadikan janji Kael. Model Kael tetap jual lepas, VPS/akun AI buyer sendiri; ketentuan update/support/slot belum ditetapkan. Tidak ada pembayaran, email, aktivasi atau perubahan VPS yang dijalankan dari tambahan ini.
 
 1. Pemilik sudah membuat akun. Periksa UI login/tahap 3–7 dan onboarding pada instance buyer terpisah, lalu coba satu tugas serta tinjau/revisi hasil. Kelengkapan P2 (recovery email, izin tindakan/broker dan isolasi proses) belum selesai.
-2. Runtime Claude tugas teks sudah tersedia. Berikutnya Builder adaptif; Hermes tetap belum tersedia. Kuota dan semua model provider belum diuji.
+2. Builder adaptif untuk tim/SOP lokal sudah tersedia. Berikutnya manager menyusun usulan rencana/pembagian tugas, lalu pemeriksa terpisah dan kelanjutan keputusan. Hermes, kuota dan semua model belum diuji.
 3. Telegram manager (Bu Yuli) untuk tanya status divisi, baca saja.
 4. Backup/restore dari UI dan migrasi penyimpanan (lihat `analysis/lembur-audit-2026-10-14/09-IMPLEMENTATION-ROADMAP.md`).

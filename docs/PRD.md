@@ -1,9 +1,15 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.38 — Pemulihan akses pemilik
+Versi 2.39 — Builder percakapan
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
 Tanggal: 14 Oktober 2026  
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.39 — Builder percakapan
+
+Builder web memakai Claude/Codex lokal untuk berdiskusi adaptif, menyimpan draft dan menyusun usulan manager/pelaksana, SOP, kriteria dan batas tindakan. Pemilik dapat melanjutkan chat, mengedit preview, menyimpan perubahan, membatalkan draft atau menerapkan konfigurasi secara eksplisit. Penyiapan tim/SOP bersifat atomik dengan revision guard dan penanda penerapan untuk mencegah duplikasi. Edit menjaga ID, pekerjaan dan setelan anggota lama; provider/model baru hanya untuk anggota baru. Hasil AI tidak pernah diterapkan otomatis, dan tidak membuat tugas/approval/koneksi eksternal.
+
+Diskusi terpisah per instalasi, dapat dilanjutkan setelah refresh/restart, dan giliran gagal/interrupted tidak diulang otomatis. Preview ruangan berupa kebutuhan preset otomatis, bukan editor 3D bebas. Divisi workflow/produksi khusus tetap memakai konfigurasi masing-masing. Studio mengikuti giliran Builder aktif. Panduan/batas: [Builder percakapan](BUILDER-DIALOGUE.md).
 
 ## Perbaikan v2.38 — lupa kata sandi
 

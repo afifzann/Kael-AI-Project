@@ -1,5 +1,7 @@
 # Building dari coding agent
 
+**Pembaruan v2.39:** diskusi AI sekarang juga tersedia langsung pada halaman Builder web, dengan draft, preview tim/SOP dan penerapan oleh pemilik. Panduan: [Builder percakapan](BUILDER-DIALOGUE.md). Diskusi web terpisah dari riwayat sesi desktop; uraian bridge sesi Codex di bawah tetap berlaku untuk jalur coding agent. Ruang Builder mengutamakan giliran web yang sedang aktif, kemudian bridge desktop yang terverifikasi.
+
 ## Builder studio · sesi Builder
 
 Sesi Codex pemilik yang semula bernama Kael AI sudah diganti menjadi **Builder**. ID tetap `01a1299a-b553-7902-921f-fa99bc978f1e`; riwayat sesi tetap berada di Codex. Kantor → Fasilitas & server → Builder studio berisi satu karakter Builder, workstation, papan rencana, rak dan penyimpanan.

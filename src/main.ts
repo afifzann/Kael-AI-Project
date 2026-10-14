@@ -27,7 +27,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <details class="office-navigation" name="office-navigation"><summary>Ruangan kantor <span>⌄</span></summary><div class="office-navigation-content">
       ${rooms.map(room => `<button class="room-nav selected" aria-current="true" data-room="${room.id}"><span class="room-icon">${icon('office')}</span><span>${room.name}<small>Founder office</small></span><i class="status-dot"></i></button>`).join('')}
       <div id="division-rooms"></div></div></details>
-      <details class="office-navigation" name="office-navigation"><summary>Fasilitas & server <span>⌄</span></summary><div class="office-navigation-content" id="facility-rooms">${facilityLayouts.map(r => `<button class="room-nav facility-nav" data-room="${r.id}"><span class="room-icon">${icon(r.kind)}</span><span>${r.name}<small>${r.kind === 'builder' ? '1 Builder · Chat Codex' : r.kind === 'server' ? 'Obsidian belum terhubung' : `${r.capacity} tempat`}</small></span></button>`).join('')}</div></details>
+      <details class="office-navigation" name="office-navigation"><summary>Fasilitas & server <span>⌄</span></summary><div class="office-navigation-content" id="facility-rooms">${facilityLayouts.map(r => `<button class="room-nav facility-nav" data-room="${r.id}"><span class="room-icon">${icon(r.kind)}</span><span>${r.name}<small>${r.kind === 'builder' ? '1 Builder · AI studio' : r.kind === 'server' ? 'Obsidian belum terhubung' : `${r.capacity} tempat`}</small></span></button>`).join('')}</div></details>
     </aside>
     <main class="main">
       <div class="room-heading"><div><div class="eyebrow">WORKSPACE / 01</div><h1>Founder office<span>.</span></h1><p>Tempat visi dimulai.</p></div><div class="office-room-controls"><label for="room-select">Ruangan</label><select id="room-select"><option value="founder">Founder office</option><option value="all">Semua ruangan</option></select><div class="room-meta">1 karakter</div></div></div>
@@ -54,7 +54,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <div class="detail-separator"></div><dl class="profile-facts"><div><dt>Divisi</dt><dd id="profile-division">Founder</dd></div><div><dt>Ruangan</dt><dd id="profile-room">Founder office</dd></div><div><dt>Koneksi agen</dt><dd class="muted" id="profile-connection">Belum terhubung</dd></div></dl>
       <section id="profile-n8n" hidden></section><p id="profile-outfit" class="profile-outfit"></p><section id="profile-tasks" class="profile-tasks" hidden><h3>Pekerjaan anggota</h3><div id="profile-task-list"></div></section><button id="profile-work" class="profile-link" hidden>Buka pekerjaan →</button>
       <button id="profile-health" class="profile-link" hidden>Catat error</button>
-      <div id="profile-builder-chat" class="profile-builder-chat" hidden>${builderChatLink()}<small>Karakter mengikuti aktivitas sesi Builder di Codex.</small></div>
+      <div id="profile-builder-chat" class="profile-builder-chat" hidden><button class="op-button primary" data-open-builder>Diskusi & usulan</button>${builderChatLink()}<small>Karakter mengikuti giliran Builder yang aktif.</small></div>
       <div class="status-editor"><label>Status karakter <span>SIMULASI</span></label><div class="segmented" role="group" aria-label="Status simulasi Kael"><button data-status="focus" aria-pressed="true">Fokus</button><button data-status="idle" aria-pressed="false">Santai</button><button data-status="offline" aria-pressed="false">Offline</button></div><p id="status-description" role="status">Kael sedang menyusun ide di meja kerja.</p></div>
       <button id="focus-kael" class="focus-button">${icon('focus')} <span id="profile-focus-text">Fokus ke Kael</span></button>
       <div class="integration-note"><span>○</span><p>Profil karakter kantor.<small>Status kerja berasal dari pencatatan lokal. Gerak karakter merupakan simulasi.</small></p></div>
@@ -187,10 +187,10 @@ try {
     $('#profile-focus-text').textContent = `Fokus ke ${name}`;
     $('#profile-builder-chat').hidden = !isBuilder;
     if (isBuilder) {
-      $('#profile-connection').textContent = 'Sesi Builder · Codex';
+      $('#profile-connection').textContent = 'Builder · Diskusi web / coding agent';
       $('#profile-badge').textContent = 'BUILDER';
-      $('#profile-desc').textContent = 'Merancang ruangan, tim, furniture dan alur kerja bersama Founder melalui sesi Builder di Codex. Saat sesi aktif, kembali ke meja dan bekerja. Saat selesai, bisa bersantai bersama penghuni lain.';
-      $('.integration-note small').textContent = 'Aktivitas mengikuti status giliran sesi Builder. Diskusi berlangsung di Codex.';
+      $('#profile-desc').textContent = 'Menyusun usulan tim dan SOP bersama Founder melalui diskusi web atau sesi coding agent. Ruangan mengikuti preset kantor. Kembali bekerja saat giliran aktif dan bersantai setelah selesai.';
+      $('.integration-note small').textContent = 'Aktivitas mengikuti giliran Builder yang aktif. Tinjau usulan di halaman Builder sebelum menerapkan.';
       $('#profile-work').hidden = true; $('#profile-tasks').hidden = true;
     }
     details.setAttribute('aria-label', `Profil ${name}`);
@@ -218,7 +218,7 @@ try {
     const state = (event as CustomEvent<State>).detail; latestState = state; office.syncTeams(state);
     $('#workspace-name').textContent = state.business.name;
     $('#workspace-initial').textContent = state.business.name.slice(0, 1).toUpperCase();
-    $('#profile-builder-chat').innerHTML = builderChatLink(state.builderChat) + '<small>Karakter mengikuti sesi Builder yang dihubungkan.</small>';
+    $('#profile-builder-chat').innerHTML = '<button class="op-button primary" data-open-builder>Diskusi & usulan</button>' + builderChatLink(state.builderChat) + '<small>Karakter mengikuti sesi Builder yang dihubungkan.</small>';
     document.querySelectorAll<HTMLButtonElement | HTMLSelectElement>('.agent-navigation button,.agent-navigation select').forEach(control => control.disabled = false);
     const agentSelect = $<HTMLSelectElement>('#agent-select');
     const members = roster(), signature = members.map(a => `${a.id}/${a.name}/${a.role}`).join('|');
@@ -239,7 +239,7 @@ try {
     $('.room-heading h1').textContent = name;
     const facility = facilityLayouts.find(r => r.id === id);
     $('.room-heading p').textContent = facility ? facility.description : latestState?.divisions.find(d => d.id === id)?.company ? latestState.divisions.find(d => d.id === id)!.company! + ' · Satu agent per workflow n8n' : id === 'founder' ? 'Tempat visi dimulai.' : 'Ruang kerja tim, tersusun bersama kantor.';
-    $('.room-meta').textContent = facility ? facility.kind === 'builder' ? '1 Builder · Chat Codex' : facility.kind === 'server' ? 'Infrastruktur · Lokal' : facility.kind === 'medical' ? '4 kasur · Pemulihan agent' : `${facility.capacity} tempat · Fasilitas bersama` : `${count} karakter · Kantor lokal`;
+    $('.room-meta').textContent = facility ? facility.kind === 'builder' ? '1 Builder · AI studio' : facility.kind === 'server' ? 'Infrastruktur · Lokal' : facility.kind === 'medical' ? '4 kasur · Pemulihan agent' : `${facility.capacity} tempat · Fasilitas bersama` : `${count} karakter · Kantor lokal`;
     $('.scene-tag').textContent = name.toUpperCase();
     $('.scene-shell').setAttribute('aria-label', `Kantor 3D: ${name}`);
     $('.scene-caption').hidden = id !== 'founder';

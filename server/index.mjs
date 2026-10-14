@@ -81,8 +81,8 @@ const server = http.createServer(async (req, res) => {
     const operation = queue.then(async () => {
       if (input.revision !== state.revision) return send(res, 409, { error: 'Data telah diperbarui di halaman lain. Data terbaru dimuat; tinjau sebelum mencoba kembali.' });
       const command=input.command;
-      if (command?.type === 'onboarding' && command.step === 'connection' && command.provider === 'Codex' && !runtime.status().available) throw new Error('Codex belum tersedia/login di server ini. Hubungkan dahulu atau pilih lanjut manual.');
       if(role==='builder' && !builderCommands.includes(command?.type)) return send(res,403,{error:'Builder tidak berwenang menjalankan tugas, memulihkan error atau memberi keputusan Founder.'});
+      if (command?.type === 'onboarding' && command.step === 'connection' && command.provider !== 'manual' && !runtime.status(command.provider).available) throw new Error('Provider yang dipilih belum tersedia/login di server ini. Hubungkan dahulu atau pilih lanjut manual.');
       if(['run-start','run-begin','run-end'].includes(command?.type))throw new Error('Run AI hanya dapat dimulai melalui runtime.');
       const target=command?.type==='decide'?state.decisions.find(d=>d.id===command.id)?.targetId:command?.id;
       if(['start','hold','result','review','revise-task','cancel-task','decide'].includes(command?.type)&&production.taskIds().includes(target))throw new Error('Gunakan halaman Produksi untuk hasil, revisi dan keputusan episode ini.');

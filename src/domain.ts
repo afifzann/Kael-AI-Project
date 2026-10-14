@@ -3,6 +3,8 @@ import type { BuilderPresence } from './builder-room';
 import type { WorkflowBinding, WorkflowSnapshot } from './n8n';
 import type { Production } from './production-model';
 import { teamTemplates, templateLimits, type Onboarding } from './onboarding-model.ts';
+import { runnableProviders, type RuntimeInfo } from './runtime-status.ts';
+export { runnableProviders, runtimeFor } from './runtime-status.ts';
 export type AgentIncident = { id: string; agentId: string; reason: string; reportedAt: string; resolvedAt: string; resolution: string; bedIndex: number; executionId?: string };
 export type FacilitySession = { id: string; roomId: string; purpose: 'briefing' | 'review' | 'break'; title: string; agenda: string; participantIds: string[]; briefId: string; status: 'active' | 'ended'; startedAt: string; endedAt: string; notes: string };
 export type TaskStatus = 'queued' | 'running' | 'blocked' | 'paused' | 'review' | 'approval' | 'done' | 'cancelled';
@@ -18,9 +20,8 @@ export type DivisionNote = { id: string; divisionId: string; text: string; creat
 export const agentProviders: AgentProvider[] = ['manual', 'Claude', 'Codex', 'Hermes'];
 export type AgentRun = { id: string; taskId: string; agentId: string; provider: AgentProvider; model: string; status: 'queued' | 'running' | 'done' | 'blocked' | 'failed' | 'cancelled' | 'interrupted'; queuedAt?: string; context?: string; taskNotes?: string; startedAt: string; endedAt: string; summary: string; error: string; resultVersion: number };
 // Providers with a working local runtime adapter. Others can be chosen as a plan but cannot run yet.
-export const runnableProviders: AgentProvider[] = ['Codex'];
 export function activeRun(s: Pick<State, 'runs'>, taskId: string) { return s.runs?.find(r => r.taskId === taskId && ['queued', 'running'].includes(r.status)); }
-export type State = { schema: 1; revision: number; provider: string; onboarding?: Onboarding; business: { name: string; audience: string; facts: string; updatedAt: string }; divisions: { id: string; name: string; managerId: string; company?: string }[]; agents: Agent[]; briefs: Brief[]; tasks: Task[]; decisions: Decision[]; facilitySessions?: FacilitySession[]; incidents?: AgentIncident[]; workflowBindings?: WorkflowBinding[]; n8n?: WorkflowSnapshot[]; productions?: Production[]; productionTaskIds?: string[]; builderChat?: BuilderPresence; sops?: Sop[]; agentSettings?: AgentSettings[]; archivedAgents?: ArchivedAgent[]; divisionNotes?: DivisionNote[]; runs?: AgentRun[]; aiRuntime?: { available: boolean; label: string; reason: string; executing: string[] }; events: { id: string; at: string; message: string; targetId: string }[] };
+export type State = { schema: 1; revision: number; provider: string; onboarding?: Onboarding; business: { name: string; audience: string; facts: string; updatedAt: string }; divisions: { id: string; name: string; managerId: string; company?: string }[]; agents: Agent[]; briefs: Brief[]; tasks: Task[]; decisions: Decision[]; facilitySessions?: FacilitySession[]; incidents?: AgentIncident[]; workflowBindings?: WorkflowBinding[]; n8n?: WorkflowSnapshot[]; productions?: Production[]; productionTaskIds?: string[]; builderChat?: BuilderPresence; sops?: Sop[]; agentSettings?: AgentSettings[]; archivedAgents?: ArchivedAgent[]; divisionNotes?: DivisionNote[]; runs?: AgentRun[]; aiRuntime?: RuntimeInfo; events: { id: string; at: string; message: string; targetId: string }[] };
 export type Command = { type: string; [key: string]: unknown };
 const id = () => crypto.randomUUID();
 const now = () => new Date().toISOString();
@@ -60,11 +61,11 @@ export function applyCommand(state: State, c: Command): State {
         log(s, template ? 'Tim awal diterapkan oleh pemilik. SOP tersimpan; belum ada tugas atau persetujuan otomatis.' : 'Pemilik memilih kantor kosong. Tim dapat dibuat melalui Builder.');
       } else if (c.step === 'connection') {
         ensure(setup.step === 'connection', 'Selesaikan profil dan pilihan tim terlebih dahulu.');
-        ensure(c.provider === 'manual' || c.provider === 'Codex', 'Runtime ini belum tersedia untuk penyiapan awal.');
-        s.provider = c.provider;
+        ensure(c.provider === 'manual' || runnableProviders.includes(c.provider as AgentProvider), 'Runtime ini belum tersedia untuk penyiapan awal.');
+        s.provider = c.provider as AgentProvider;
         for (const agent of s.agents) apply({ type: 'agent-settings', agentId: agent.id, provider: c.provider, model: '', notes: '' });
         s.onboarding!.step = 'ready'; s.onboarding!.completedAt = now();
-        log(s, `Penyiapan awal selesai dengan ${c.provider === 'manual' ? 'pelaksanaan manual; AI dapat dihubungkan nanti' : 'runtime Codex'}. Tugas pertama tetap memerlukan briefing dan keputusan pemilik.`);
+        log(s, `Penyiapan awal selesai dengan ${c.provider === 'manual' ? 'pelaksanaan manual; AI dapat dihubungkan nanti' : 'runtime ' + c.provider}. Tugas pertama tetap memerlukan briefing dan keputusan pemilik.`);
       } else throw new Error('Langkah penyiapan tidak valid.');
       break;
     }

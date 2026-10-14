@@ -1,6 +1,6 @@
 # Kael AI — Virtual Office & Meja Founder
 
-Kantor Founder dan divisi 3D dengan workspace operasional lokal. Buat tim, susun brief, setujui rencana, jalankan tugas manual atau melalui runtime Codex, simpan hasil berversi, periksa hasil dan jawab keputusan. Pemeriksaan dan persetujuan tetap tindakan manusia. Status terbaru: [Progres](docs/PROGRESS.md).
+Kantor Founder dan divisi 3D dengan workspace operasional lokal. Buat tim, susun brief, setujui rencana, jalankan tugas manual atau melalui runtime Codex/Claude Code, simpan hasil berversi, periksa hasil dan jawab keputusan. Pemeriksaan dan persetujuan tetap tindakan manusia. Status terbaru: [Progres](docs/PROGRESS.md). Panduan koneksi Claude: [Claude Code](docs/CLAUDE-RUNTIME.md).
 
 Tema v2.10 memakai navy, charcoal, abu sejuk, ivory dan oak pucat; karakter robot dengan visor LED/ear pods, serta furnitur modern membulat. Header dashboard tetap di atas saat scroll. Referensi terbaru dan pilihan desain: [Navy & robot](docs/references/navy-robot-direction.md).
 
@@ -26,7 +26,7 @@ Isi `N8N_BASE_URL` (URL instance, tanpa `/api/v1`) dan `N8N_API_KEY` di `.env` p
 1. Buka Meja Founder dan pilih Builder atau ketik `/builder` di kolom perintah. Panduan lokal meminta nama divisi, manager, lalu nama dan tugas agent satu per satu. Tinjau preview dan pilih Terapkan tim. Untuk input langsung tersedia Tim & divisi → Tambah langsung.
 2. Isi Pengetahuan bisnis jika sudah tersedia, lalu buat briefing tiga langkah.
 3. Buka draft briefing dan ajukan rencana. Tinjau di Keputusan dan setujui.
-4. Buka Pekerjaan, pilih tugas, lalu mulai pekerjaan manual atau gunakan Jalankan dengan AI jika provider agent sudah diatur ke Codex.
+4. Buka Pekerjaan, pilih tugas, lalu mulai pekerjaan manual atau gunakan Jalankan dengan AI jika provider agent sudah diatur ke Codex/Claude dan login tersedia pada server. Provider/model dipilih di Divisi → Anggota → Setelan; koneksi terlihat di Pengaturan → AI pada server.
 5. Buka konteks untuk disalin ke AI pilihanmu bila dibutuhkan. Kael tidak mengirimnya.
 6. Masukkan hasil, lakukan pemeriksaan manual, lalu jawab keputusan Founder.
 7. Pilih fasilitas di Kantor virtual untuk membuat sesi briefing, review atau istirahat. Pilih peserta; simpan checkpoint pekerjaan berjalan sebelum meeting. Akhiri sesi dengan catatan hasil yang dapat dibuka kembali melalui Riwayat.

@@ -1,9 +1,15 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.36 — Paket sumber buyer dan penyiapan awal
+Versi 2.37 — Runtime Claude Code per agent
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
 Tanggal: 14 Oktober 2026  
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.37 — runtime Claude Code
+
+Tugas teks umum bisa memakai Codex atau CLI Claude Code resmi dengan login pengguna sendiri. Provider/model berasal dari snapshot setelan agent saat run dibuat. Status koneksi per provider ditampilkan pada Pengaturan, onboarding dan detail pekerjaan; Codex tersedia tidak mengaktifkan tugas Claude, dan sebaliknya. Antrean melewati provider yang tidak tersedia tanpa menjalankan run offline atau berpindah provider diam-diam. Pilihan onboarding selain manual memerlukan koneksi provider terkait.
+
+Claude menerima konteks brief/SOP/memori terbatas dan mengembalikan keluaran terstruktur tanpa alat eksternal, MCP, browser atau sesi chat sebelumnya. Proses dibatasi waktu/giliran/output, dapat dihentikan, dan tidak menggunakan bypass permission. Gagal/kuota/model/format tidak sah menjeda pekerjaan dengan instruksi retry; versi lama dipertahankan. Hasil baru selalu berstatus review dan pemeriksaan/persetujuan tetap manual. Tidak otomatis mengganti provider agent lama. Produksi video tetap Codex; Builder adaptif, manager otonom, Hermes dan deployment VPS belum tersedia. Panduan dan sumber resmi: [Claude runtime](CLAUDE-RUNTIME.md).
 
 ## Perbaikan v2.36 — paket sumber buyer dan penyiapan awal
 

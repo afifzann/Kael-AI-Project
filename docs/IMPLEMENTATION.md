@@ -1,6 +1,12 @@
 # Status implementasi lokal — 14 Oktober 2026
 
-Status terbaru: **PRD v2.36 — Paket sumber buyer dan penyiapan awal**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+Status terbaru: **PRD v2.37 — Runtime Claude Code per agent**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+
+## PRD v2.37 — Claude Code
+
+`server/claude-stage.mjs` mencari executable resmi, mengecek login tanpa menerbitkan identitas/token, menjalankan tugas lewat stdin/JSON schema dengan shell false, safe/restricted/no-tools/no-MCP/no-persistence dan batas giliran/waktu/output. Tidak memakai bare mode (tidak memuat login subscription). stdout/stderr vendor tidak dipublikasikan; bentuk hasil divalidasi dan kesalahan tidak menjadi hasil. Runtime memakai dispatcher berdasarkan provider snapshot dan cache status per provider; antrean provider offline tidak memblokir provider siap. Produksi tetap menggunakan adapter Codex.
+
+`src/runtime-status.ts` menyediakan tipe/helper status tanpa membawa kode 3D ke entry login. Domain menerima Claude untuk run/onboarding; server memeriksa koneksi provider saat setup/start. Detail tugas, setelan agent, Pengaturan dan onboarding menampilkan kemampuan terbaru; polling juga merespons perubahan status runtime. Uji fixture mencakup isolasi argv/env, parsing, gagal, abort/timeout, antrean campuran dan scope koneksi. `scripts/check-agent-runtime.mjs Claude` adalah uji opt-in terpisah; uji nyata pada Windows 2.1.291/akun Pro menghasilkan v1 review tanpa approval, bukti `evidence/agent-runtime-smoke/run-NvR1zi/check.json`. Tidak memakai data pemilik. Rincian: [CLAUDE-RUNTIME.md](CLAUDE-RUNTIME.md).
 
 ## PRD v2.36 — penyiapan buyer
 

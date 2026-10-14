@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { initialState, applyCommand } from '../src/domain.ts';
+import { runnableProviders, runtimeFor } from '../src/runtime-status.ts';
 import { firstWorkSteps, teamTemplates, templateLimits } from '../src/onboarding-model.ts';
 import { authenticateTestServer, rawFetch } from './helpers/auth-client.mjs';
 import { spawn } from 'node:child_process';
@@ -41,7 +42,7 @@ test('buyer setup saves editable team/SOP once, creates no tasks/approvals, pres
 test('empty/manual setup stays empty, legacy offices cannot be reset and onboarding needs no fixed roster', () => {
   let s = applyCommand(initialState(), profile);
   s = applyCommand(s, { type: 'onboarding', step: 'team', template: 'empty' });
-  assert.throws(() => applyCommand(s, { type: 'onboarding', step: 'connection', provider: 'Claude' }), /belum tersedia/);
+  assert.throws(() => applyCommand(s, { type: 'onboarding', step: 'connection', provider: 'Hermes' }), /belum tersedia/);
   s = applyCommand(s, { type: 'onboarding', step: 'connection', provider: 'manual' });
   assert.deepEqual([s.divisions, s.agents, s.tasks, s.decisions], [[], [], [], []]);
   assert.equal(firstWorkSteps(s)[0].done, false);
@@ -54,6 +55,17 @@ test('empty/manual setup stays empty, legacy offices cannot be reset and onboard
   assert.ok(firstWorkSteps(done).every(v => v.done));
 });
 
+test('provider status stays scoped; Codex availability cannot enable a Claude task', () => {
+  const legacy = { aiRuntime: { available: true, label: 'Codex', reason: '', executing: [] } };
+  assert.equal(runtimeFor(legacy, 'Codex').available, true); assert.equal(runtimeFor(legacy, 'Claude'), undefined);
+  const current = { aiRuntime: { ...legacy.aiRuntime, providers: { Codex: { available: false, reason: 'Codex offline' }, Claude: { available: true, reason: '' } } } };
+  assert.equal(runtimeFor(current, 'Codex').available, false); assert.equal(runtimeFor(current, 'Claude').available, true);
+  let state = applyCommand(initialState(), profile);
+  state = applyCommand(state, { type: 'onboarding', step: 'team', template: 'empty' });
+  state = applyCommand(state, { type: 'onboarding', step: 'connection', provider: 'Claude' });
+  assert.equal(state.provider, 'Claude'); assert.ok(state.onboarding.completedAt); assert.deepEqual(state.decisions, []);
+});
+
 test('setup UI resumes saved steps, reports failed save, and opens office only after final API success', async () => {
   const source = readFileSync(new URL('../src/onboarding.ts', import.meta.url), 'utf8');
   const code = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
@@ -63,7 +75,7 @@ test('setup UI resumes saved steps, reports failed save, and opens office only a
   const root = { innerHTML: '', querySelector: selector => selector === 'form' ? form : selector === '[role="alert"]' ? error : heading };
   class FixtureFormData extends Map { constructor() { super(fields); } }
   const exports = {};
-  runInNewContext(code, { exports, require: name => name.includes('onboarding-model') ? { teamTemplates, templateLimits } : {}, document: { querySelector: () => root }, FormData: FixtureFormData, fetch: async (url, options) => {
+  runInNewContext(code, { exports, require: name => name.includes('onboarding-model') ? { teamTemplates, templateLimits } : name.includes('runtime-status') ? { runnableProviders, runtimeFor } : {}, document: { querySelector: () => root }, FormData: FixtureFormData, fetch: async (url, options) => {
     if (!options) return { ok: true, json: async () => structuredClone(state) };
     if (reject) return { ok: false, status: 400, json: async () => ({ error: 'Fixture: tidak tersimpan' }) };
     const input = JSON.parse(options.body); assert.equal(input.revision, state.revision); state = applyCommand(state, input.command);

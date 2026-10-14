@@ -1,5 +1,9 @@
 # Kael AI Office — kontrak desain
 
+## Status runtime — v2.37 (14 Oktober 2026)
+
+Status Codex/Claude dipisahkan pada Pengaturan, onboarding dan detail tugas. Login salah satu provider tidak mengaktifkan tombol provider lain. Form memilih model per agent dan menjelaskan batas teks/alat; tidak memakai klaim semua model atau kuota tersedia. Tampilan mengikuti form, daftar fakta dan token dashboard yang ada; tidak mengubah geometri kantor atau menambah menu global per provider. Polling memperbarui koneksi tanpa menunggu perubahan data bisnis. QA browser langsung belum dilakukan.
+
 ## Penyiapan buyer — v2.36 (14 Oktober 2026)
 
 UI Craft mengikuti kontrak monokrom + aksen teal kecil yang sudah ditentukan pemilik, memakai TypeScript dan CSS biasa. Setelah login, penyiapan baru tiga langkah: konteks bisnis, tinjauan tim, pelaksanaan. Form satu kolom, radio template berlabel, preview nama/peran editable dan SOP disclosure. Status koneksi menggunakan teks dengan batas kemampuan yang jelas, bukan klaim AI aktif. Tidak ada ornamen/hero atau metrik baru. Error submit fokus ke pesan; heading fokus setelah perpindahan; kontrol native dan target 44px, input mobile 16px. Progres disimpan per submit, bukan autosave setiap ketikan. Panduan tugas pertama hanya muncul pada instalasi yang menyelesaikan onboarding, mengikuti data sebenarnya dan terlipat setelah selesai. Kantor 3D tidak dirombak; identitas lengkap karakter/logo/domain belum menjadi bagian tahap ini. QA browser/responsif langsung belum diverifikasi.

@@ -89,7 +89,7 @@ test('restart pauses interrupted execution, resumes queued work once, and queued
 });
 
 test('runs need a runnable provider and an approved, startable task', () => {
-  const claude = approvedTask('x', 'Claude'); assert.throws(() => applyCommand(claude, { type: 'run-start', taskId: claude.tasks[0].id }), /Atur provider Codex/);
+  const hermes = approvedTask('x', 'Hermes'); assert.throws(() => applyCommand(hermes, { type: 'run-start', taskId: hermes.tasks[0].id }), /Atur provider Codex/);
   let s = approvedTask(); const id = s.tasks[0].id;
   s = applyCommand(s, { type: 'run-start', taskId: id });
   assert.equal(s.runs.at(-1).status, 'queued');
@@ -110,6 +110,22 @@ test('a finished run stores a new version for review and never approves it', () 
   assert.equal(s.tasks[0].status, 'review'); assert.equal(s.tasks[0].results[0].content, 'Hasil AI'); assert.equal(s.runs[0].resultVersion, 1);
   assert.equal(s.decisions.filter(d => d.targetId === id).length, 0, 'no decision is created until a person reviews');
   assert.throws(() => applyCommand(s, { type: 'run-end', id: s.runs[0].id, outcome: 'done', content: 'lagi' }), /sudah selesai/);
+});
+
+test('Claude routes by agent settings, reports its own connection and skips an unavailable provider queue', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'kael-claude-runtime-'));
+  const codex = approvedTask('Codex menunggu', 'Codex'), claude = approvedTask('Claude siap', 'Claude');
+  let s = { ...codex, divisions: [...codex.divisions, ...claude.divisions], agents: [...codex.agents, ...claude.agents], agentSettings: [...codex.agentSettings, ...claude.agentSettings], briefs: [...codex.briefs, ...claude.briefs], tasks: [...codex.tasks, ...claude.tasks], decisions: [...codex.decisions, ...claude.decisions] };
+  const first = s.tasks[0].id, second = s.tasks[1].id, calls = [];
+  s = applyCommand(s, { type: 'run-start', taskId: first }); s = applyCommand(s, { type: 'run-start', taskId: second });
+  const runtime = await createRuntime({ directory, getState: () => s, mutate: async c => { s = applyCommand(s, c); }, status: provider => ({ available: provider === 'Claude', label: provider, reason: 'Belum login' }), turn: async input => { calls.push(input); return { blocked: false, summary: 'Fixture Claude selesai', data: { content: 'Hasil dari Claude fixture' } }; } });
+  try {
+    for (let i = 0; i < 100 && s.tasks[1].status !== 'review'; i++) await new Promise(r => setTimeout(r, 10));
+    assert.equal(s.tasks[1].status, 'review'); assert.equal(s.tasks[0].status, 'queued'); assert.equal(calls.length, 1); assert.equal(calls[0].provider, 'Claude'); assert.equal(calls[0].model, 'model-uji');
+    assert.equal(runtime.status('Claude').available, true); assert.equal(runtime.status('Codex').available, false); assert.equal(runtime.status().providers.Claude.available, true);
+    assert.equal(s.decisions.some(d => d.type === 'result'), false); await runtime.cancel(first);
+    await assert.rejects(runtime.start(first), /Belum login/);
+  } finally { runtime.close(); }
 });
 
 test('blocked, failed and stopped runs keep old results and leave the task resumable', () => {

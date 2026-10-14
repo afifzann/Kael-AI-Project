@@ -21,7 +21,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </header>
   <div class="workspace">
     <aside class="sidebar" aria-label="Navigasi utama">
-      <div class="workspace-switch"><span class="mini-logo">K</span><span>Kael HQ<small>Personal workspace</small></span></div>
+      <div class="workspace-switch"><span class="mini-logo" id="workspace-initial">K</span><span><span id="workspace-name">Kantor</span><small>Workspace pribadi</small></span></div>
       <div class="sidebar-heading"><span>Workspace</span></div>
       <button class="overview" id="overview">${icon('layers')}<span>Kantor virtual</span></button>
       <details class="office-navigation" name="office-navigation"><summary>Ruangan kantor <span>⌄</span></summary><div class="office-navigation-content">
@@ -216,6 +216,8 @@ try {
   $('[data-room="founder"]').onclick = office.reset;
   window.addEventListener('kael:state', event => {
     const state = (event as CustomEvent<State>).detail; latestState = state; office.syncTeams(state);
+    $('#workspace-name').textContent = state.business.name;
+    $('#workspace-initial').textContent = state.business.name.slice(0, 1).toUpperCase();
     $('#profile-builder-chat').innerHTML = builderChatLink(state.builderChat) + '<small>Karakter mengikuti sesi Builder yang dihubungkan.</small>';
     document.querySelectorAll<HTMLButtonElement | HTMLSelectElement>('.agent-navigation button,.agent-navigation select').forEach(control => control.disabled = false);
     const agentSelect = $<HTMLSelectElement>('#agent-select');

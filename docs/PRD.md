@@ -1,9 +1,17 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.35 — Tahap 7 bagian awal: akses pemilik dan pemisahan instalasi
+Versi 2.36 — Paket sumber buyer dan penyiapan awal
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
 Tanggal: 14 Oktober 2026  
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.36 — paket sumber buyer dan penyiapan awal
+
+Instalasi baru mengikuti penyiapan setelah akun pemilik dibuat: nama/konteks bisnis, tinjauan template atau kantor kosong, lalu pilihan pelaksanaan manual/Codex. Nama divisi, manager, pelaksana dan tugas dapat diubah sebelum template diterapkan. SOP dan batas tindakan ditampilkan untuk ditinjau. Langkah tersimpan secara atomik dengan revision guard; reload/restart melanjutkan langkah tersimpan tanpa menggandakan tim. Penyiapan tidak membuat tugas, menjalankan AI atau menyetujui hasil. Kantor lama tanpa metadata onboarding tetap dibuka normal dan tidak direset.
+
+Ringkasan buyer menampilkan panduan tugas pertama berdasarkan data tersimpan, dari tim sampai hasil diterima. Tombol mengikuti tahap sebenarnya: briefing yang belum diajukan, keputusan yang sudah tersedia atau pekerjaan yang perlu diperiksa. Hasil tersimpan tidak dianggap sudah ditinjau. Sidebar mengikuti nama bisnis buyer. Menyelesaikan setup secara manual tidak dinyatakan sebagai koneksi AI; runtime Codex diperiksa di server, sedangkan Claude/Hermes belum didukung.
+
+`npm run package:buyer` membuat paket sumber lewat allowlist aplikasi dan checksum file, tanpa data, kredensial, lingkungan, backup, catatan proyek privat, dependensi terpasang atau sesi Builder pengembang. Folder tujuan yang sudah ada ditolak. SOP runtime recap dipisahkan dari catatan operasional pemilik. Panduan buyer menjelaskan startup lokal/tunnel SSH privat dan batas implementasi. Ini bukan installer VPS, lisensi, checkout atau email aktivasi. Diskusi Builder adaptif, manager otomatis, white-label lengkap, domain publik dan onboarding Claude belum dibuat. Lihat [Penyiapan buyer](BUYER-SETUP.md).
 
 ## Perbaikan v2.35 — akses pemilik dan pemisahan instalasi
 

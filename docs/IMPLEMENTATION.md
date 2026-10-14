@@ -1,6 +1,14 @@
 # Status implementasi lokal — 14 Oktober 2026
 
-Status terbaru: **PRD v2.35 — Tahap 7 bagian awal: akses pemilik dan pemisahan instalasi**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+Status terbaru: **PRD v2.36 — Paket sumber buyer dan penyiapan awal**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+
+## PRD v2.36 — penyiapan buyer
+
+`src/onboarding.ts` berjalan setelah autentikasi/CSRF dan sebelum aplikasi 3D. Form tiga langkah menyimpan profil bisnis, pilihan template dengan identitas/peran yang dapat diedit atau mulai kosong, serta provider manual/Codex. Error penyimpanan tetap terlihat; conflict memuat tahap terbaru tanpa replay. `src/onboarding-model.ts` berisi katalog dua template, batas tindakan dan progres tugas pertama. `src/domain.ts` memakai kembali validasi perintah bisnis/divisi/SOP/setelan secara atomik satu revision. `server/index.mjs` menolak pilihan Codex yang runtime-nya tidak tersedia. State kantor lama tanpa onboarding tidak dimigrasikan/reset.
+
+Ringkasan mengikuti data pekerjaan/keputusan sebenarnya dan sidebar mengikuti nama bisnis. AI tidak dipanggil saat setup, pemeriksaan manager tidak diklaim otomatis, persetujuan pemilik tetap lewat gate lama. `scripts/package-buyer.mjs` membatasi sumber paket, menolak symlink/file non-sumber, melewati cache Python, mengosongkan identitas Builder pengembang dan membuat manifest SHA256. `server/recap/sop.md` menjadi SOP aplikasi agar startup tidak bergantung pada dokumen riwayat kantor pemilik. Output release diabaikan Git; sources/script/panduan ditrack.
+
+Uji mencakup handler form, langkah/revision/validasi domain, restart HTTP/auth/runtime, paket fixture kotor, checksum dan startup paket aplikasi sungguhan dengan akun/data sementara. Dependensi uji berasal dari pemasangan lokal yang sudah ada; belum membuktikan npm ci pada VPS bersih. Panduan: [BUYER-SETUP.md](BUYER-SETUP.md). Installer/TLS/domain/lisensi/email/Claude, Builder AI adaptif dan QA visual belum selesai.
 
 ## PRD v2.35 — akses pemilik
 

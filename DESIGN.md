@@ -1,5 +1,9 @@
 # Kael AI Office — kontrak desain
 
+## Penyiapan buyer — v2.36 (14 Oktober 2026)
+
+UI Craft mengikuti kontrak monokrom + aksen teal kecil yang sudah ditentukan pemilik, memakai TypeScript dan CSS biasa. Setelah login, penyiapan baru tiga langkah: konteks bisnis, tinjauan tim, pelaksanaan. Form satu kolom, radio template berlabel, preview nama/peran editable dan SOP disclosure. Status koneksi menggunakan teks dengan batas kemampuan yang jelas, bukan klaim AI aktif. Tidak ada ornamen/hero atau metrik baru. Error submit fokus ke pesan; heading fokus setelah perpindahan; kontrol native dan target 44px, input mobile 16px. Progres disimpan per submit, bukan autosave setiap ketikan. Panduan tugas pertama hanya muncul pada instalasi yang menyelesaikan onboarding, mengikuti data sebenarnya dan terlipat setelah selesai. Kantor 3D tidak dirombak; identitas lengkap karakter/logo/domain belum menjadi bagian tahap ini. QA browser/responsif langsung belum diverifikasi.
+
 ## Dashboard aktif — v2.30, tahap 2 (14 Oktober 2026)
 
 Pekerjaan adalah surface lintas divisi dan sumber, bukan dashboard n8n. Work queue menggunakan daftar baris yang memisahkan judul/penanggung jawab, status kerja, sumber serta pelaksanaan/koneksi. Filter pencarian/divisi/status/sumber ditempatkan bersama; halaman maksimal 20 baris. Warna tetap monokrom + status semantik, ikon SVG proyek, tanpa kartu metrik tambahan atau persentase progres yang tidak memiliki bukti.

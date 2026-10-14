@@ -6,6 +6,8 @@ Tema v2.10 memakai navy, charcoal, abu sejuk, ivory dan oak pucat; karakter robo
 
 ## Jalankan
 
+Paket sumber buyer dan panduan setup terpisah: [Penyiapan buyer](docs/BUYER-SETUP.md). Jalankan `npm run package:buyer` untuk membuat folder baru `releases/kael-buyer-0.2.0/` tanpa data/kredensial/sesi kantor pengembang; paket menolak menimpa folder yang sudah ada. Ini paket uji lokal, belum installer VPS atau produk siap jual.
+
 ```sh
 npm install
 npm run dev

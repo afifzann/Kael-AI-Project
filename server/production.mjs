@@ -57,7 +57,7 @@ export async function createProduction({directory,getState,mutate,turn=codexStag
   const find=id=>{const job=db.episodes.find(j=>j.id===id&&j.status!=='deleted');if(!job)throw new Error('Produksi tidak ditemukan.');return job;};
   const members=job=>{const agents=getState().agents.filter(a=>a.divisionId===job.divisionId);const manager=agents.find(a=>a.manager),nara=agents.find(a=>a.name==='Nara'),echo=agents.find(a=>a.name==='Echo'),zetsu=agents.find(a=>a.name==='Zetsu');if(!manager||!nara||!echo||!zetsu)throw new Error('Tim KaelaCH membutuhkan manager, Nara, Echo dan Zetsu.');return {manager,nara,echo,zetsu};};
   const schema=path.join(base,'response-schema.json');await writeFile(schema,JSON.stringify({type:'object',properties:{summary:{type:'string'},blocked:{type:'boolean'},reason:{type:'string'},payload:{type:'string'}},required:['summary','blocked','reason','payload'],additionalProperties:false}));
-  const sop=await readFile(path.join(root,'docs/KAELACH-RECAP.md'),'utf8');
+  const sop=await readFile(path.join(root,'server/recap/sop.md'),'utf8');
   async function stage(job,agent,name,instruction,context,signal) {
     signal.throwIfAborted();
     if(getState().incidents?.some(i=>i.agentId===agent.id&&!i.resolvedAt)||getState().facilitySessions?.some(s=>s.status==='active'&&s.participantIds.includes(agent.id)))throw new Error(`${agent.name} sedang dalam pemulihan atau sesi fasilitas. Akhiri sesi/pemulihan sebelum mencoba ulang.`);

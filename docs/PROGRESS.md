@@ -6,9 +6,23 @@ Terakhir diperbarui: 14 Oktober 2026.
 
 ## Tujuan akhir
 
-Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisensi dan pembaruan lewat layanan pusat minimal). Acuan: `analysis/lembur-audit-2026-10-14/`, roadmap P0–P7 di laporan 09. Tahap 1–6 membangun workspace/runtime (P1); tahap 7 bagian awal membangun akses pemilik (sebagian P2). Yang belum: keputusan P0 (laporan 10), kelengkapan P2 izin/broker, P3 penyimpanan dan backup, P4 installer, P5 pembaruan dan lisensi.
+Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisensi dan pembaruan lewat layanan pusat minimal). Acuan: `analysis/lembur-audit-2026-10-14/`, roadmap P0–P7 di laporan 09. Tahap 1–6 membangun workspace/runtime (P1); tahap 7 bagian awal membangun akses pemilik (sebagian P2). Paket sumber buyer dan onboarding awal sekarang tersedia; belum installer. Yang belum: keputusan P0 (laporan 10), kelengkapan P2 izin/broker, P3 penyimpanan dan backup, P4 installer, P5 pembaruan dan lisensi.
 
 ## Selesai
+
+### Paket sumber buyer dan penyiapan awal — PRD v2.36
+
+User menyetujui paket buyer bersih dan setup awal sebelum divisi bisnis internal. Instalasi baru setelah login mengikuti profil/konteks bisnis → tinjau template Tim konten/Tim operasional atau mulai kosong → pelaksanaan manual/Codex terdeteksi. Nama divisi, manager, pelaksana/peran editable sebelum penerapan; SOP dan batas tindakan ditampilkan. Langkah disimpan atomik satu revision; reload/restart melanjutkan, stale retry/duplikasi ditolak. Tidak membuat tugas, menjalankan AI atau memberi approval. Kantor lama tanpa metadata onboarding tidak direset/dipaksa setup ulang. Sidebar mengikuti nama bisnis. Ringkasan buyer memberi panduan tugas pertama berdasarkan status briefing/hasil/keputusan yang sebenarnya, dengan tombol ke tahap yang tepat.
+
+File utama: `src/onboarding.ts`, `src/onboarding-model.ts`, `src/onboarding.css`, `src/domain.ts`, `src/entry.ts`, `src/main.ts`, `src/operations.ts`, `server/index.mjs`. UI Craft mengikuti kontrak monokrom/aksen kecil, form native satu kolom, fokus keyboard, pesan error, retry dan ukuran mobile. Diskusi Builder AI adaptif, koordinasi manager otomatis, white-label lengkap, domain dan runtime Claude/Hermes tetap belum tersedia; tahap ini tidak menyatakan AI terhubung hanya karena login dashboard atau memilih model.
+
+`scripts/package-buyer.mjs`/`npm run package:buyer` membuat 64 file sumber melalui allowlist + manifest SHA256. Tidak membaca/menyalin .env, app-data, akun/kunci, backup, catatan proyek privat, history chat atau node_modules. Sesi Builder pengembang dikosongkan pada salinan paket; folder yang sudah ada ditolak. Cache Python dikecualikan khusus; symlink/non-sumber lain ditolak. Startup paket terpisah menemukan ketergantungan pada catatan `docs/KAELACH-RECAP.md`; SOP runtime kini berada di `server/recap/sop.md`, mempertahankan sumber/cerita, audio, enam lapisan editing, QC dan persetujuan. Catatan pemilik tidak ikut paket.
+
+Paket uji aktual: `releases/kael-buyer-0.2.0/` (diabaikan Git), panduan `docs/BUYER-SETUP.md`. Paket aktual typecheck/build berhasil; manifest 64 checksum valid. Tes startup paket menggunakan folder/data/akun sementara dan dependensi lokal lewat junction, bukan npm ci pada VPS bersih. Tidak ada AI sungguhan dipanggil atau hasil pemilik diubah. Tes domain/handler UI/HTTP/auth mencakup validasi, gagal simpan, resume/restart, runtime tak tersedia, konflik, scope Builder, keadaan kosong, checksum dan pemisahan data. Verifikasi akhir: **131/131 tes lulus**, build lulus. Peringatan bundle sekitar 752 kB tetap ada.
+
+Server lokal dimuat ulang setelah scope baca Builder memastikan 0 run antre/aktif dan 0 produksi aktif; PID dev baru 22236. Frontend 5173 HTTP 200 memuat entry, auth menunjukkan akun pemilik sudah ada, API state anonim 401. Password/kode setup pemilik tidak dibaca/dicetak. Hash state tetap `FF4149D5C6B5150C7E3833BA6917D470B6D6A3EF5FCFCDB726F35A868BF979F4`, revision 9. Sesi browser lama perlu login ulang setelah restart.
+
+Belum diverifikasi: QA visual/responsif/browser langsung, npm ci/pemasangan pada Ubuntu/VPS bersih, TLS/domain publik, installer, lisensi/checkout/email, backup penuh, runtime Claude/Hermes dan Builder adaptif. Paket ini fondasi uji, belum siap dijual. Berikutnya: menuntaskan koneksi AI buyer dan pendampingan tugas pertama, lalu installer VPS dengan uji instalasi bersih; jangan membuka dev server ke internet.
 
 ### Tahap 1 — navigasi dan pusat divisi
 Sidebar dan Pengaturan dirapikan. Ringkasan menampilkan preview Kael, pekerjaan berjalan, dan tindakan penting. Setiap divisi punya enam bagian yang konsisten: Ringkasan, Pekerjaan, Anggota, Percakapan, Hasil, SOP & integrasi. Pencarian mencakup perusahaan, divisi, agent, dan peran.
@@ -70,11 +84,11 @@ Verifikasi revisi dokumen: 27 topik unik berurutan dan acuan/status utama diperi
 
 - Keputusan owner nomor 1–3 di `KEPUTUSAN-OWNER.md` (menentukan langkah koding berikutnya).
 
-Status tes terakhir: 124 tes lulus, typecheck/build lulus di Node.js 24.21.0. Bundle kantor sekitar 751 kB (peringatan >500 kB tetap ada) dan dimuat setelah login; entry login sekitar 6 kB. QA visual langsung belum dilakukan.
+Status tes terakhir: 131 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Bundle kantor sekitar 752 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 14 kB. QA visual langsung belum dilakukan.
 
 ## Langkah berikutnya (kandidat)
 
-1. Pemilik menyelesaikan setup akun dan memeriksa UI login/tahap 3–7, lalu mencoba satu tugas serta meninjau/revisi hasil. Kelengkapan P2 (recovery, izin tindakan/broker dan isolasi proses) belum selesai.
+1. Pemilik sudah membuat akun. Periksa UI login/tahap 3–7 dan onboarding pada instance buyer terpisah, lalu coba satu tugas serta tinjau/revisi hasil. Kelengkapan P2 (recovery, izin tindakan/broker dan isolasi proses) belum selesai.
 2. Runtime untuk Claude (atau Hermes) setelah cara login/kuotanya dipastikan.
 3. Telegram manager (Bu Yuli) untuk tanya status divisi, baca saja.
 4. Backup/restore dari UI dan migrasi penyimpanan (lihat `analysis/lembur-audit-2026-10-14/09-IMPLEMENTATION-ROADMAP.md`).

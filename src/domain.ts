@@ -2,6 +2,7 @@ import { facilityLayouts, serverAgent } from './facilities.ts';
 import type { BuilderPresence } from './builder-room';
 import type { WorkflowBinding, WorkflowSnapshot } from './n8n';
 import type { Production } from './production-model';
+import { teamTemplates, templateLimits, type Onboarding } from './onboarding-model.ts';
 export type AgentIncident = { id: string; agentId: string; reason: string; reportedAt: string; resolvedAt: string; resolution: string; bedIndex: number; executionId?: string };
 export type FacilitySession = { id: string; roomId: string; purpose: 'briefing' | 'review' | 'break'; title: string; agenda: string; participantIds: string[]; briefId: string; status: 'active' | 'ended'; startedAt: string; endedAt: string; notes: string };
 export type TaskStatus = 'queued' | 'running' | 'blocked' | 'paused' | 'review' | 'approval' | 'done' | 'cancelled';
@@ -19,7 +20,7 @@ export type AgentRun = { id: string; taskId: string; agentId: string; provider: 
 // Providers with a working local runtime adapter. Others can be chosen as a plan but cannot run yet.
 export const runnableProviders: AgentProvider[] = ['Codex'];
 export function activeRun(s: Pick<State, 'runs'>, taskId: string) { return s.runs?.find(r => r.taskId === taskId && ['queued', 'running'].includes(r.status)); }
-export type State = { schema: 1; revision: number; provider: string; business: { name: string; audience: string; facts: string; updatedAt: string }; divisions: { id: string; name: string; managerId: string; company?: string }[]; agents: Agent[]; briefs: Brief[]; tasks: Task[]; decisions: Decision[]; facilitySessions?: FacilitySession[]; incidents?: AgentIncident[]; workflowBindings?: WorkflowBinding[]; n8n?: WorkflowSnapshot[]; productions?: Production[]; productionTaskIds?: string[]; builderChat?: BuilderPresence; sops?: Sop[]; agentSettings?: AgentSettings[]; archivedAgents?: ArchivedAgent[]; divisionNotes?: DivisionNote[]; runs?: AgentRun[]; aiRuntime?: { available: boolean; label: string; reason: string; executing: string[] }; events: { id: string; at: string; message: string; targetId: string }[] };
+export type State = { schema: 1; revision: number; provider: string; onboarding?: Onboarding; business: { name: string; audience: string; facts: string; updatedAt: string }; divisions: { id: string; name: string; managerId: string; company?: string }[]; agents: Agent[]; briefs: Brief[]; tasks: Task[]; decisions: Decision[]; facilitySessions?: FacilitySession[]; incidents?: AgentIncident[]; workflowBindings?: WorkflowBinding[]; n8n?: WorkflowSnapshot[]; productions?: Production[]; productionTaskIds?: string[]; builderChat?: BuilderPresence; sops?: Sop[]; agentSettings?: AgentSettings[]; archivedAgents?: ArchivedAgent[]; divisionNotes?: DivisionNote[]; runs?: AgentRun[]; aiRuntime?: { available: boolean; label: string; reason: string; executing: string[] }; events: { id: string; at: string; message: string; targetId: string }[] };
 export type Command = { type: string; [key: string]: unknown };
 const id = () => crypto.randomUUID();
 const now = () => new Date().toISOString();
@@ -27,7 +28,7 @@ function required(value: unknown, name: string, max = 10000): string { if (typeo
 function ensure(value: unknown, message: string): asserts value { if (!value) throw new Error(message); }
 function get<T extends { id: string }>(items: T[], key: unknown): T { const item = items.find(x => x.id === key); ensure(item, 'Data tidak ditemukan. Muat ulang halaman.'); return item; }
 function log(s: State, message: string, targetId = '') { s.events.unshift({ id: id(), at: now(), message, targetId }); }
-export function initialState(): State { return { schema: 1, revision: 0, provider: 'manual', business: { name: 'Kael HQ', audience: '', facts: '', updatedAt: now() }, divisions: [], agents: [], briefs: [], tasks: [], decisions: [], events: [] }; }
+export function initialState(): State { return { schema: 1, revision: 0, provider: 'manual', onboarding: { step: 'profile', template: '', completedAt: '' }, business: { name: 'Kantor saya', audience: '', facts: '', updatedAt: now() }, divisions: [], agents: [], briefs: [], tasks: [], decisions: [], events: [] }; }
 export function latestSop(s: Pick<State, 'sops'>, divisionId: string) { return s.sops?.filter(v => v.divisionId === divisionId).reduce<Sop | undefined>((a, v) => !a || v.version > a.version ? v : a, undefined); }
 export function memberName(s: Pick<State, 'agents' | 'archivedAgents'>, agentId: string) {
   const agent = s.agents.find(a => a.id === agentId); if (agent) return agent.name;
@@ -39,6 +40,34 @@ function decision(s: State, type: Decision['type'], targetId: string, title: str
 export function applyCommand(state: State, c: Command): State {
   const s: State = structuredClone(state);
   switch (c.type) {
+    case 'onboarding': {
+      const setup = s.onboarding;
+      ensure(setup && !setup.completedAt, 'Penyiapan awal tidak tersedia atau sudah selesai. Gunakan Pengaturan atau Builder.');
+      // Reuse validated commands, but save the entire step as one revision.
+      const apply = (command: Command) => { const next = applyCommand(s, command); next.revision = s.revision; Object.assign(s, next); };
+      if (c.step === 'profile') {
+        ensure(['profile', 'team'].includes(setup.step), 'Profil awal sudah disimpan. Gunakan Pengaturan untuk mengubahnya.');
+        apply({ ...c, type: 'business' }); s.onboarding!.step = 'team';
+      } else if (c.step === 'team') {
+        ensure(setup.step === 'team' && !s.divisions.length && !s.agents.length, 'Tim awal sudah diterapkan atau penyiapan profil belum selesai.');
+        const template = teamTemplates.find(t => t.id === c.template);
+        ensure(template || c.template === 'empty', 'Template tidak tersedia.');
+        if (template) {
+          apply({ type: 'division', name: c.name, manager: c.manager, workers: c.workers });
+          apply({ type: 'sop-save', divisionId: s.divisions[0].id, baseVersion: 0, steps: template.steps, criteria: template.criteria, limits: templateLimits });
+        }
+        s.onboarding!.template = String(c.template); s.onboarding!.step = 'connection';
+        log(s, template ? 'Tim awal diterapkan oleh pemilik. SOP tersimpan; belum ada tugas atau persetujuan otomatis.' : 'Pemilik memilih kantor kosong. Tim dapat dibuat melalui Builder.');
+      } else if (c.step === 'connection') {
+        ensure(setup.step === 'connection', 'Selesaikan profil dan pilihan tim terlebih dahulu.');
+        ensure(c.provider === 'manual' || c.provider === 'Codex', 'Runtime ini belum tersedia untuk penyiapan awal.');
+        s.provider = c.provider;
+        for (const agent of s.agents) apply({ type: 'agent-settings', agentId: agent.id, provider: c.provider, model: '', notes: '' });
+        s.onboarding!.step = 'ready'; s.onboarding!.completedAt = now();
+        log(s, `Penyiapan awal selesai dengan ${c.provider === 'manual' ? 'pelaksanaan manual; AI dapat dihubungkan nanti' : 'runtime Codex'}. Tugas pertama tetap memerlukan briefing dan keputusan pemilik.`);
+      } else throw new Error('Langkah penyiapan tidak valid.');
+      break;
+    }
     case 'agent-error': {
       const agent = c.agentId === serverAgent.id ? serverAgent : get(s.agents, c.agentId);
       const reason = required(c.reason, 'Alasan error', 2000), incidents = s.incidents ||= [];

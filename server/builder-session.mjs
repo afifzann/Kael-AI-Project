@@ -21,6 +21,7 @@ export function createBuilderSession({ file = process.env.KAEL_BUILDER_SESSION_F
     else if (['task_complete', 'turn_aborted', 'task_failed'].includes(item.type) && (!turnId || !item.turn_id || item.turn_id === turnId)) status = item.type === 'task_complete' ? 'completed' : 'interrupted';
   }
   async function read() {
+    if (!builderSession.threadId) return snapshot;
     let handle;
     try {
       handle = await open(file, 'r');

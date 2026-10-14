@@ -29,4 +29,5 @@ backup-ui-*/
 /evidence/*
 !/evidence/*.md
 /proposals/
+/releases/
 /video-reference.jpg

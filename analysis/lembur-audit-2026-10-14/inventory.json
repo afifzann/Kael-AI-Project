@@ -1,0 +1,5973 @@
+{
+  "summary": {
+    "source": "C:/Kael AI/lembur-backup-lengkap/kantor",
+    "generatedAt": "2026-10-14T02:24:06.738Z",
+    "entries": 785,
+    "files": 733,
+    "directories": 52,
+    "excluded": 28
+  },
+  "entries": [
+    {
+      "path": ".bashrc",
+      "kind": "file",
+      "bytes": 3771,
+      "modified": "2026-10-08T09:24:12.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".bash_history",
+      "kind": "file",
+      "bytes": 1351,
+      "modified": "2026-10-08T13:09:22.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".bash_logout",
+      "kind": "file",
+      "bytes": 220,
+      "modified": "2026-10-08T09:24:12.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".cache",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T12:58:01.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".claude",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-13T20:11:28.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".claude.json",
+      "kind": "file",
+      "bytes": 60136,
+      "modified": "2026-10-14T02:11:30.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".config",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T12:58:00.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".kantor-alamat",
+      "kind": "file",
+      "bytes": 29,
+      "modified": "2026-10-08T09:27:40.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".kantor-alamat-lembur",
+      "kind": "file",
+      "bytes": 29,
+      "modified": "2026-10-08T09:27:40.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".kantor-kode",
+      "kind": "file",
+      "bytes": 23,
+      "modified": "2026-10-08T09:24:13.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".kantor-wizard-selesai",
+      "kind": "file",
+      "bytes": 24,
+      "modified": "2026-10-08T09:33:50.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".kantor-wizard.json",
+      "kind": "file",
+      "bytes": 182,
+      "modified": "2026-10-08T09:31:44.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".kantor-wizard.log",
+      "kind": "file",
+      "bytes": 30,
+      "modified": "2026-10-08T09:29:24.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".local",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:28:04.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".npm",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:31:58.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".profile",
+      "kind": "file",
+      "bytes": 807,
+      "modified": "2026-10-08T09:24:12.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": ".ssh",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:24:13.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "cadangan-kantor",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-09T01:51:44.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "kantor",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:31:57.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/.claude",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-09T01:17:58.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "kantor/.rahasia",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T11:23:04.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "kantor/alat",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-09T01:51:44.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/alat/cek-listing.mjs",
+      "kind": "file",
+      "bytes": 5388,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "c91a5b3258e46c9ebd84cd818d3623d49c159a30ed6ae956a8de98db37413db2",
+      "lines": 77
+    },
+    {
+      "path": "kantor/alat/drive-folder.mjs",
+      "kind": "file",
+      "bytes": 4131,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "b782f77ae803a72a4a931e47aa44ad83a28632a96ed77adf3da53df35ed63b59",
+      "lines": 66
+    },
+    {
+      "path": "kantor/alat/font.mjs",
+      "kind": "file",
+      "bytes": 3959,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "1e2a804fe005fb87a6c0907205428aea35ff3ebb0529cfbe0efbe17ef151f210",
+      "lines": 60
+    },
+    {
+      "path": "kantor/alat/gaya.mjs",
+      "kind": "file",
+      "bytes": 2217,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "4f86da141423c62012d3abe306492f4283015349beb420fb947d3b0e39851846",
+      "lines": 27
+    },
+    {
+      "path": "kantor/alat/hitung-csv.mjs",
+      "kind": "file",
+      "bytes": 6486,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "8c31214e3fdc81a92982d1d83ae4e6723808cf31046d29cf690557fa6fbaf2fb",
+      "lines": 112
+    },
+    {
+      "path": "kantor/alat/kas.mjs",
+      "kind": "file",
+      "bytes": 14747,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "ba1c3959431f1da15c6bb89786eaa81eb04049151422da46627772c9b900a238",
+      "lines": 215
+    },
+    {
+      "path": "kantor/alat/password-dashboard.mjs",
+      "kind": "file",
+      "bytes": 2302,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "c0182c67f0c9c07141727184638fd6a14a75298bac7431bda9f9fbc01865a1ee",
+      "lines": 33
+    },
+    {
+      "path": "kantor/alat/repliz-inti.mjs",
+      "kind": "file",
+      "bytes": 26070,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "49ff9e0a46eb84373207d89266cb32439851e4c126fb9ec4f947aaf60f215586",
+      "lines": 405
+    },
+    {
+      "path": "kantor/alat/repliz.mjs",
+      "kind": "file",
+      "bytes": 4464,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "19875cd3b61c2e6e5dc34d17eb5d3c320d95e82b0473cae5fe544011efb3cc76",
+      "lines": 72
+    },
+    {
+      "path": "kantor/alat/satpam-drive.mjs",
+      "kind": "file",
+      "bytes": 8933,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "e9bc73e287d5c0574776b8282a721b5b53b2de5b292a89218e6d8a99e1382a0f",
+      "lines": 132
+    },
+    {
+      "path": "kantor/alat/selesai-titipan.mjs",
+      "kind": "file",
+      "bytes": 1397,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "c93b66ac8f651be082cc51e07c9e2d459186740e96856ae60fad788cff066dec",
+      "lines": 24
+    },
+    {
+      "path": "kantor/alat/tagihan.mjs",
+      "kind": "file",
+      "bytes": 5804,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "d3a4d16d07e785be075039dcf0c0036a55c1356a5154fb686374b3f1bf7b20db",
+      "lines": 83
+    },
+    {
+      "path": "kantor/alat/web.mjs",
+      "kind": "file",
+      "bytes": 11313,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "8ef9e2e5c27d6323995640b15b392ceddeb636896bcafcb698e4c6198ec6eccb",
+      "lines": 172
+    },
+    {
+      "path": "kantor/alat/xlsx-ke-csv.mjs",
+      "kind": "file",
+      "bytes": 5467,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "84fcdeb144005edd464f2d2f570f6b6f790c5a9cd57cde1c210b49b0120fab5a",
+      "lines": 85
+    },
+    {
+      "path": "kantor/BANK-IDE.md",
+      "kind": "file",
+      "bytes": 719,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "a45b87540628a2fe4bd0b01574f2645612ebc331b1bce533b2beb9e8f7723c65",
+      "lines": 18
+    },
+    {
+      "path": "kantor/BIAYA.md",
+      "kind": "file",
+      "bytes": 1930,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "d2ed44d5b1ee7d5f9c206e3891c8f6a983c97366c88aac264e2029d6316cf634",
+      "lines": 31
+    },
+    {
+      "path": "kantor/brand",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "kantor/carousel",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:32:00.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/carousel/naskah-contoh.json",
+      "kind": "file",
+      "bytes": 277,
+      "modified": "2026-10-08T09:31:57.000Z",
+      "status": "inventoried",
+      "sha256": "4609936c4948887d16e4892eeb48ff9b1bfad995366377a613a221e20f041717",
+      "lines": 2
+    },
+    {
+      "path": "kantor/carousel/node_modules",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:32:00.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "kantor/carousel/package-lock.json",
+      "kind": "file",
+      "bytes": 1093,
+      "modified": "2026-10-08T09:32:00.000Z",
+      "status": "inventoried",
+      "sha256": "3a3c10866829ce7dd65760564ab5be5526b3a6559ae5e8cd1cd61b229d11ea8e",
+      "lines": 41
+    },
+    {
+      "path": "kantor/carousel/package.json",
+      "kind": "file",
+      "bytes": 90,
+      "modified": "2026-10-08T09:32:00.000Z",
+      "status": "inventoried",
+      "sha256": "359dae74f17b0f10dc68c444ea8733b57f421a265547224cb24e79e228c8d258",
+      "lines": 1
+    },
+    {
+      "path": "kantor/carousel/render.mjs",
+      "kind": "file",
+      "bytes": 1677,
+      "modified": "2026-10-08T09:31:57.000Z",
+      "status": "inventoried",
+      "sha256": "6842ab309cb5fb7476a056fd884adef543044c4a780e0d1b3fba229efcdb5a78",
+      "lines": 32
+    },
+    {
+      "path": "kantor/carousel/template.html",
+      "kind": "file",
+      "bytes": 1555,
+      "modified": "2026-10-08T09:31:57.000Z",
+      "status": "inventoried",
+      "sha256": "18765fdeb8c5365fab9d3256efdcefb8a9c5f65f5f14491bfde378e7718369f8",
+      "lines": 29
+    },
+    {
+      "path": "kantor/catatan",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-10T02:11:04.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "kantor/CLAUDE.md",
+      "kind": "file",
+      "bytes": 3945,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "9bc6580fdbb919baf417569afa6484770cd2d3421cf3c6a3c3ea2875ff3d9a46",
+      "lines": 61
+    },
+    {
+      "path": "kantor/dashboard",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-09T01:51:44.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-09T01:51:44.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/app.js",
+      "kind": "file",
+      "bytes": 12976,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "a5baa129df58d41d4f05012b5e0d9a3a88d7abd164bb974d306a0080c16d7f59",
+      "lines": 279
+    },
+    {
+      "path": "kantor/dashboard/aset/gaya.css",
+      "kind": "file",
+      "bytes": 55291,
+      "modified": "2026-10-05T08:05:33.000Z",
+      "status": "inventoried",
+      "sha256": "4b383e3a5c4de2a8d183bfc075c06fa0b8c9b86c06e1acdac5d8b087ca31bc86",
+      "lines": 667
+    },
+    {
+      "path": "kantor/dashboard/aset/jakarta.woff2",
+      "kind": "file",
+      "bytes": 27348,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/kantor.js",
+      "kind": "file",
+      "bytes": 22557,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "e1afb943fa1c2bf9907cae3a31192f936e7912a27aa9fe099d5e1afb6bffd07f",
+      "lines": 348
+    },
+    {
+      "path": "kantor/dashboard/aset/LISENSI-font-OFL.txt",
+      "kind": "file",
+      "bytes": 4402,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "995c7199cab65954f545996326755daee7b63cc6b42b06c13da1f9502ab08a99",
+      "lines": 94
+    },
+    {
+      "path": "kantor/dashboard/aset/LISENSI-karakter-MIT.txt",
+      "kind": "file",
+      "bytes": 1389,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "b48808d4b3370b8805879e5dded2047691bd04b483099150f90acfd8c0419726",
+      "lines": 27
+    },
+    {
+      "path": "kantor/dashboard/aset/orang",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/claude-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 11726,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/claude-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 11882,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/claude-1-front-left.webp",
+      "kind": "file",
+      "bytes": 6062,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/claude-1-front-right.webp",
+      "kind": "file",
+      "bytes": 6022,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/claude-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 5280,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/claude-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 5390,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 12034,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12386,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-1-front-left.webp",
+      "kind": "file",
+      "bytes": 5480,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-1-front-right.webp",
+      "kind": "file",
+      "bytes": 5462,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 4286,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 4294,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 12246,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12354,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-2-front-left.webp",
+      "kind": "file",
+      "bytes": 5730,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-2-front-right.webp",
+      "kind": "file",
+      "bytes": 5682,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 5254,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/dev-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 5230,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 11626,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 11504,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-1-front-left.webp",
+      "kind": "file",
+      "bytes": 4900,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-1-front-right.webp",
+      "kind": "file",
+      "bytes": 4918,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 4494,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 4598,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 11994,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12478,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-2-front-left.webp",
+      "kind": "file",
+      "bytes": 5508,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-2-front-right.webp",
+      "kind": "file",
+      "bytes": 5518,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 4612,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 4594,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-3-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 9340,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-3-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 9514,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-3-front-left.webp",
+      "kind": "file",
+      "bytes": 5270,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-3-front-right.webp",
+      "kind": "file",
+      "bytes": 5266,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-3-rear-left.webp",
+      "kind": "file",
+      "bytes": 4134,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/employee-3-rear-right.webp",
+      "kind": "file",
+      "bytes": 4162,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/explore-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 12330,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/explore-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12198,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/explore-1-front-left.webp",
+      "kind": "file",
+      "bytes": 5704,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/explore-1-front-right.webp",
+      "kind": "file",
+      "bytes": 5782,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/explore-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 5408,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/explore-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 5332,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/frontend-dev-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 12314,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/frontend-dev-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12392,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/frontend-dev-1-front-left.webp",
+      "kind": "file",
+      "bytes": 6136,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/frontend-dev-1-front-right.webp",
+      "kind": "file",
+      "bytes": 6166,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/frontend-dev-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 5236,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/frontend-dev-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 5168,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-hijab-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17552,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-hijab-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17350,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-hijab-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15204,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-hijab-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15304,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-hijab-front-left.webp",
+      "kind": "file",
+      "bytes": 12118,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-hijab-front-right.webp",
+      "kind": "file",
+      "bytes": 12112,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-hijab-rear-left.webp",
+      "kind": "file",
+      "bytes": 9584,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-hijab-rear-right.webp",
+      "kind": "file",
+      "bytes": 9892,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-peci-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 18756,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-peci-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 19210,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-peci-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15982,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-peci-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15686,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-peci-front-left.webp",
+      "kind": "file",
+      "bytes": 14832,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-peci-front-right.webp",
+      "kind": "file",
+      "bytes": 15352,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-peci-rear-left.webp",
+      "kind": "file",
+      "bytes": 13194,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-peci-rear-right.webp",
+      "kind": "file",
+      "bytes": 13106,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-pria-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 18924,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-pria-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 19022,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-pria-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16492,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-pria-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16334,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-pria-front-left.webp",
+      "kind": "file",
+      "bytes": 13836,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-pria-front-right.webp",
+      "kind": "file",
+      "bytes": 14242,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-pria-rear-left.webp",
+      "kind": "file",
+      "bytes": 11406,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-pria-rear-right.webp",
+      "kind": "file",
+      "bytes": 11722,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-wanita-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17484,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-wanita-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17400,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-wanita-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15256,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-wanita-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15208,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-wanita-front-left.webp",
+      "kind": "file",
+      "bytes": 13038,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-wanita-front-right.webp",
+      "kind": "file",
+      "bytes": 12792,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-wanita-rear-left.webp",
+      "kind": "file",
+      "bytes": 10238,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/owner-wanita-rear-right.webp",
+      "kind": "file",
+      "bytes": 9368,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/security-audit-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 9614,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/security-audit-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 9620,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/security-audit-1-front-left.webp",
+      "kind": "file",
+      "bytes": 4456,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/security-audit-1-front-right.webp",
+      "kind": "file",
+      "bytes": 4448,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/security-audit-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 3464,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang/security-audit-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 3516,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/claude-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16856,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/claude-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16410,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/claude-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 14658,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/claude-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 14816,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/claude-1-front-left.webp",
+      "kind": "file",
+      "bytes": 13448,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/claude-1-front-right.webp",
+      "kind": "file",
+      "bytes": 13522,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/claude-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 11316,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/claude-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 11498,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/dev-2-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16560,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/dev-2-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16138,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/dev-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16392,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/dev-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16342,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/dev-2-front-left.webp",
+      "kind": "file",
+      "bytes": 12790,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/dev-2-front-right.webp",
+      "kind": "file",
+      "bytes": 12790,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/dev-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 11884,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/dev-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 11816,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 15880,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 15410,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15348,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15296,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-1-front-left.webp",
+      "kind": "file",
+      "bytes": 12712,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-1-front-right.webp",
+      "kind": "file",
+      "bytes": 12870,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 10812,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 11026,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-2-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16930,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-2-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17156,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15596,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15814,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-2-front-left.webp",
+      "kind": "file",
+      "bytes": 13520,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-2-front-right.webp",
+      "kind": "file",
+      "bytes": 13728,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 11542,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 11456,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-3-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16774,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-3-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16342,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-3-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15132,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-3-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15436,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-3-front-left.webp",
+      "kind": "file",
+      "bytes": 13058,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-3-front-right.webp",
+      "kind": "file",
+      "bytes": 13110,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-3-rear-left.webp",
+      "kind": "file",
+      "bytes": 11026,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/employee-3-rear-right.webp",
+      "kind": "file",
+      "bytes": 11224,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/explore-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 18814,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/explore-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 18902,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/explore-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16570,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/explore-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16876,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/explore-1-front-left.webp",
+      "kind": "file",
+      "bytes": 15414,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/explore-1-front-right.webp",
+      "kind": "file",
+      "bytes": 15422,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/explore-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 13818,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/explore-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 13792,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/frontend-dev-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16834,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/frontend-dev-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16628,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/frontend-dev-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 14714,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/frontend-dev-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 14578,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/frontend-dev-1-front-left.webp",
+      "kind": "file",
+      "bytes": 13640,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/frontend-dev-1-front-right.webp",
+      "kind": "file",
+      "bytes": 13950,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/frontend-dev-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 11830,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/frontend-dev-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 11670,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-hijab-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 14704,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-hijab-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 14502,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-hijab-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 12364,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-hijab-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12294,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-hijab-front-left.webp",
+      "kind": "file",
+      "bytes": 10714,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-hijab-front-right.webp",
+      "kind": "file",
+      "bytes": 10718,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-hijab-rear-left.webp",
+      "kind": "file",
+      "bytes": 9278,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-hijab-rear-right.webp",
+      "kind": "file",
+      "bytes": 9382,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-peci-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17378,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-peci-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17054,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-peci-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16050,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-peci-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16122,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-peci-front-left.webp",
+      "kind": "file",
+      "bytes": 15870,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-peci-front-right.webp",
+      "kind": "file",
+      "bytes": 15808,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-peci-rear-left.webp",
+      "kind": "file",
+      "bytes": 14600,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-peci-rear-right.webp",
+      "kind": "file",
+      "bytes": 14548,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-pria-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16850,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-pria-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16550,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-pria-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15474,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-pria-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15282,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-pria-front-left.webp",
+      "kind": "file",
+      "bytes": 12878,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-pria-front-right.webp",
+      "kind": "file",
+      "bytes": 13050,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-pria-rear-left.webp",
+      "kind": "file",
+      "bytes": 11302,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-pria-rear-right.webp",
+      "kind": "file",
+      "bytes": 11134,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-wanita-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16916,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-wanita-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16716,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-wanita-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15002,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-wanita-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 14714,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-wanita-front-left.webp",
+      "kind": "file",
+      "bytes": 12344,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-wanita-front-right.webp",
+      "kind": "file",
+      "bytes": 12234,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-wanita-rear-left.webp",
+      "kind": "file",
+      "bytes": 10304,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-cozy/owner-wanita-rear-right.webp",
+      "kind": "file",
+      "bytes": 10410,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/claude-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 18008,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/claude-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17446,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/claude-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15790,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/claude-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15954,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/claude-1-front-left.webp",
+      "kind": "file",
+      "bytes": 12468,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/claude-1-front-right.webp",
+      "kind": "file",
+      "bytes": 12890,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/claude-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 10780,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/claude-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 10660,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/dev-2-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17784,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/dev-2-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17636,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/dev-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 17266,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/dev-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 17154,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/dev-2-front-left.webp",
+      "kind": "file",
+      "bytes": 11992,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/dev-2-front-right.webp",
+      "kind": "file",
+      "bytes": 11934,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/dev-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 10938,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/dev-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 11096,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16906,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16756,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16318,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16192,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-1-front-left.webp",
+      "kind": "file",
+      "bytes": 12146,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-1-front-right.webp",
+      "kind": "file",
+      "bytes": 12200,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 10440,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 10550,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-2-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 18764,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-2-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 18614,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16960,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 17244,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-2-front-left.webp",
+      "kind": "file",
+      "bytes": 13758,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-2-front-right.webp",
+      "kind": "file",
+      "bytes": 13780,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 10934,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 11110,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-3-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17614,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-3-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16986,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-3-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16580,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-3-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16646,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-3-front-left.webp",
+      "kind": "file",
+      "bytes": 13950,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-3-front-right.webp",
+      "kind": "file",
+      "bytes": 13946,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-3-rear-left.webp",
+      "kind": "file",
+      "bytes": 11022,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/employee-3-rear-right.webp",
+      "kind": "file",
+      "bytes": 11016,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/explore-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 19248,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/explore-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 18920,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/explore-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 18222,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/explore-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 18186,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/explore-1-front-left.webp",
+      "kind": "file",
+      "bytes": 14200,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/explore-1-front-right.webp",
+      "kind": "file",
+      "bytes": 14248,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/explore-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 13484,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/explore-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 13520,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/frontend-dev-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17578,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/frontend-dev-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17100,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/frontend-dev-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16168,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/frontend-dev-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16284,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/frontend-dev-1-front-left.webp",
+      "kind": "file",
+      "bytes": 14426,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/frontend-dev-1-front-right.webp",
+      "kind": "file",
+      "bytes": 14120,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/frontend-dev-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 11088,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/frontend-dev-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 11070,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-hijab-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16566,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-hijab-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16306,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-hijab-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15674,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-hijab-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15754,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-hijab-front-left.webp",
+      "kind": "file",
+      "bytes": 9800,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-hijab-front-right.webp",
+      "kind": "file",
+      "bytes": 10002,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-hijab-rear-left.webp",
+      "kind": "file",
+      "bytes": 8918,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-hijab-rear-right.webp",
+      "kind": "file",
+      "bytes": 9078,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-peci-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 19276,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-peci-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 19124,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-peci-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 18456,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-peci-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 18494,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-peci-front-left.webp",
+      "kind": "file",
+      "bytes": 15856,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-peci-front-right.webp",
+      "kind": "file",
+      "bytes": 15864,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-peci-rear-left.webp",
+      "kind": "file",
+      "bytes": 15272,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-peci-rear-right.webp",
+      "kind": "file",
+      "bytes": 15174,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-pria-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16848,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-pria-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16668,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-pria-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16324,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-pria-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16210,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-pria-front-left.webp",
+      "kind": "file",
+      "bytes": 12476,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-pria-front-right.webp",
+      "kind": "file",
+      "bytes": 12462,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-pria-rear-left.webp",
+      "kind": "file",
+      "bytes": 11012,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-pria-rear-right.webp",
+      "kind": "file",
+      "bytes": 10902,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-wanita-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16770,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-wanita-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16318,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-wanita-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16318,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-wanita-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16138,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-wanita-front-left.webp",
+      "kind": "file",
+      "bytes": 11866,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-wanita-front-right.webp",
+      "kind": "file",
+      "bytes": 11630,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-wanita-rear-left.webp",
+      "kind": "file",
+      "bytes": 9876,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/orang-modern/owner-wanita-rear-right.webp",
+      "kind": "file",
+      "bytes": 10126,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/ruang-cozy.webp",
+      "kind": "file",
+      "bytes": 125644,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/ruang-kantor.webp",
+      "kind": "file",
+      "bytes": 470530,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/ruang-modern.webp",
+      "kind": "file",
+      "bytes": 150058,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/ruang-studio.webp",
+      "kind": "file",
+      "bytes": 519436,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/tampilan-cozy.webp",
+      "kind": "file",
+      "bytes": 32528,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/tampilan-kantor.webp",
+      "kind": "file",
+      "bytes": 62776,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/aset/tampilan-modern.webp",
+      "kind": "file",
+      "bytes": 38542,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/dashboard/drive-cek.json",
+      "kind": "file",
+      "bytes": 64,
+      "modified": "2026-10-09T01:37:05.000Z",
+      "status": "inventoried",
+      "sha256": "5231b8bfbf6db2935f5d5459054a4574584b45ba564889062fba07c611abe042",
+      "lines": 2
+    },
+    {
+      "path": "kantor/dashboard/server.mjs",
+      "kind": "file",
+      "bytes": 106595,
+      "modified": "2026-10-05T09:43:01.000Z",
+      "status": "inventoried",
+      "sha256": "b0e08b2e4ae4989d1a45ddb1f9eae4f49db0da8a4e88dea956e31d9a251f5e36",
+      "lines": 1155
+    },
+    {
+      "path": "kantor/dashboard/situs.mjs",
+      "kind": "file",
+      "bytes": 6411,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "eea4bce88965f6166c35d4826c9e3b819848cc4d54b949e1cd65ff776b3ffe8e",
+      "lines": 94
+    },
+    {
+      "path": "kantor/dashboard/tampilan.json",
+      "kind": "file",
+      "bytes": 50,
+      "modified": "2026-10-09T01:51:57.000Z",
+      "status": "inventoried",
+      "sha256": "11853b69d8247479395247b98ed7e24745bb2bf77014cd7932af42001fcdc30f",
+      "lines": 5
+    },
+    {
+      "path": "kantor/DETAK-PROMPT.md",
+      "kind": "file",
+      "bytes": 2458,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "ed535aee46a1b5f7192873189621a7b6ec8c83df2f85c69c9aac09e64bcbcd49",
+      "lines": 30
+    },
+    {
+      "path": "kantor/detak.sh",
+      "kind": "file",
+      "bytes": 8768,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "0123cff18ca24e9a39342d6f93ac4eb03739eed8baf1c212b9bc76a262c22a13",
+      "lines": 138
+    },
+    {
+      "path": "kantor/hasil",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:32:45.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "kantor/kotak-masuk",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-09T01:51:44.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "kantor/LAPORAN-template.md",
+      "kind": "file",
+      "bytes": 902,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "1805d651bdf1965d2c7bc372dd78d6fbd96431ec194f7c9656103189d3141712",
+      "lines": 30
+    },
+    {
+      "path": "kantor/masuk",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "kantor/notif.sh",
+      "kind": "file",
+      "bytes": 1716,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "d4c97da30a6d4c401f14d12afd0967b3ec7c0b05ef871f16438ecb64f1df94f5",
+      "lines": 35
+    },
+    {
+      "path": "kantor/ORGANISASI.md",
+      "kind": "file",
+      "bytes": 1129,
+      "modified": "2026-10-09T01:51:57.000Z",
+      "status": "inventoried",
+      "sha256": "f1781483b77000b7d17f46726f6848fb7af2b06a49814f30d0d2c276214bb11c",
+      "lines": 19
+    },
+    {
+      "path": "kantor/PAGAR.md",
+      "kind": "file",
+      "bytes": 4536,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "fa59df3a4b76014bc1dec87b49a9814c6d019e4be8a5b9f4f6227bac6b099d4b",
+      "lines": 62
+    },
+    {
+      "path": "kantor/panduan-hp.md",
+      "kind": "file",
+      "bytes": 4274,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "b4fdcca71715538e73df2e1b25a55b1114468276cddb22edb801d0e851c51e74",
+      "lines": 67
+    },
+    {
+      "path": "kantor/peran",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-09T01:51:44.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/peran/PERAN-bima.md",
+      "kind": "file",
+      "bytes": 1201,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "71c3cc20051b58ba4131452a8c7613c26f162516b1e6759a7c7f4ca8f28aa83e",
+      "lines": 25
+    },
+    {
+      "path": "kantor/peran/PERAN-builder.md",
+      "kind": "file",
+      "bytes": 12852,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "81f2b1585f568b80bee6386f2182ea68ab8c15ca8320ed4ba8b128286ed141c3",
+      "lines": 128
+    },
+    {
+      "path": "kantor/peran/PERAN-sari.md",
+      "kind": "file",
+      "bytes": 1407,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "555334eafcee7acb0a7a100c45d549a0494eb8a2b39401512590762f91e4cc3e",
+      "lines": 25
+    },
+    {
+      "path": "kantor/skill",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/skill/anti-slop-indo.md",
+      "kind": "file",
+      "bytes": 3207,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "8180a48f47608b3ef5fb77636bcc467e80050a4ce592818901cb7f8eb526cce7",
+      "lines": 59
+    },
+    {
+      "path": "kantor/sop",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-09T01:51:44.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kantor/sop/draf-balesan.md",
+      "kind": "file",
+      "bytes": 1255,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "0c39216db3d8d6221bffb27bcc9214c9e0eb2466a1d28eb8ffb1c8ccf26073ba",
+      "lines": 26
+    },
+    {
+      "path": "kantor/sop/ide-konten.md",
+      "kind": "file",
+      "bytes": 1255,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "2133e1586a48f3a24612b75908813e10a5dcd1bd60d5c1f9d61d883ae31ae4b5",
+      "lines": 28
+    },
+    {
+      "path": "kantor/sop/posting-sosmed.md",
+      "kind": "file",
+      "bytes": 1792,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "d1ba99c8781e94bec1d038b3ba95663fd4f3b35781de5c03df1910efafdd54e0",
+      "lines": 32
+    },
+    {
+      "path": "kantor/sop/rekap-pesanan.md",
+      "kind": "file",
+      "bytes": 1360,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "86f70fdd097a0d74f886350561caf2a89994bfc48de46fb4bcb5abdf29a9a95f",
+      "lines": 29
+    },
+    {
+      "path": "kantor/SOP-template.md",
+      "kind": "file",
+      "bytes": 1308,
+      "modified": "2026-10-08T09:31:49.000Z",
+      "status": "inventoried",
+      "sha256": "0185f4b73fc333b7e917f2fb6c5732c66eb37cda99ed4c9404a17cb96403c6c2",
+      "lines": 39
+    },
+    {
+      "path": "kantor/task",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-09T01:51:44.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "kit-kantor-ai",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-05T06:48:44.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/.kit-id",
+      "kind": "file",
+      "bytes": 17,
+      "modified": "2026-10-05T06:48:44.000Z",
+      "status": "metadata-only"
+    },
+    {
+      "path": "kit-kantor-ai/alat",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-06T04:39:34.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/alat/cek-listing.mjs",
+      "kind": "file",
+      "bytes": 5388,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "c91a5b3258e46c9ebd84cd818d3623d49c159a30ed6ae956a8de98db37413db2",
+      "lines": 77
+    },
+    {
+      "path": "kit-kantor-ai/alat/drive-folder.mjs",
+      "kind": "file",
+      "bytes": 4131,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "b782f77ae803a72a4a931e47aa44ad83a28632a96ed77adf3da53df35ed63b59",
+      "lines": 66
+    },
+    {
+      "path": "kit-kantor-ai/alat/font.mjs",
+      "kind": "file",
+      "bytes": 3959,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "1e2a804fe005fb87a6c0907205428aea35ff3ebb0529cfbe0efbe17ef151f210",
+      "lines": 60
+    },
+    {
+      "path": "kit-kantor-ai/alat/gaya.mjs",
+      "kind": "file",
+      "bytes": 2217,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "4f86da141423c62012d3abe306492f4283015349beb420fb947d3b0e39851846",
+      "lines": 27
+    },
+    {
+      "path": "kit-kantor-ai/alat/hitung-csv.mjs",
+      "kind": "file",
+      "bytes": 6486,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "8c31214e3fdc81a92982d1d83ae4e6723808cf31046d29cf690557fa6fbaf2fb",
+      "lines": 112
+    },
+    {
+      "path": "kit-kantor-ai/alat/kas.mjs",
+      "kind": "file",
+      "bytes": 14747,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "ba1c3959431f1da15c6bb89786eaa81eb04049151422da46627772c9b900a238",
+      "lines": 215
+    },
+    {
+      "path": "kit-kantor-ai/alat/password-dashboard.mjs",
+      "kind": "file",
+      "bytes": 2302,
+      "modified": "2026-10-06T04:39:34.000Z",
+      "status": "inventoried",
+      "sha256": "c0182c67f0c9c07141727184638fd6a14a75298bac7431bda9f9fbc01865a1ee",
+      "lines": 33
+    },
+    {
+      "path": "kit-kantor-ai/alat/repliz-inti.mjs",
+      "kind": "file",
+      "bytes": 26070,
+      "modified": "2026-10-05T08:02:52.000Z",
+      "status": "inventoried",
+      "sha256": "49ff9e0a46eb84373207d89266cb32439851e4c126fb9ec4f947aaf60f215586",
+      "lines": 405
+    },
+    {
+      "path": "kit-kantor-ai/alat/repliz.mjs",
+      "kind": "file",
+      "bytes": 4464,
+      "modified": "2026-10-05T08:05:11.000Z",
+      "status": "inventoried",
+      "sha256": "19875cd3b61c2e6e5dc34d17eb5d3c320d95e82b0473cae5fe544011efb3cc76",
+      "lines": 72
+    },
+    {
+      "path": "kit-kantor-ai/alat/satpam-drive.mjs",
+      "kind": "file",
+      "bytes": 8933,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "e9bc73e287d5c0574776b8282a721b5b53b2de5b292a89218e6d8a99e1382a0f",
+      "lines": 132
+    },
+    {
+      "path": "kit-kantor-ai/alat/selesai-titipan.mjs",
+      "kind": "file",
+      "bytes": 1397,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "c93b66ac8f651be082cc51e07c9e2d459186740e96856ae60fad788cff066dec",
+      "lines": 24
+    },
+    {
+      "path": "kit-kantor-ai/alat/tagihan.mjs",
+      "kind": "file",
+      "bytes": 5804,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "d3a4d16d07e785be075039dcf0c0036a55c1356a5154fb686374b3f1bf7b20db",
+      "lines": 83
+    },
+    {
+      "path": "kit-kantor-ai/alat/web.mjs",
+      "kind": "file",
+      "bytes": 11313,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "8ef9e2e5c27d6323995640b15b392ceddeb636896bcafcb698e4c6198ec6eccb",
+      "lines": 172
+    },
+    {
+      "path": "kit-kantor-ai/alat/xlsx-ke-csv.mjs",
+      "kind": "file",
+      "bytes": 5467,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "84fcdeb144005edd464f2d2f570f6b6f790c5a9cd57cde1c210b49b0120fab5a",
+      "lines": 85
+    },
+    {
+      "path": "kit-kantor-ai/ATURAN.md",
+      "kind": "file",
+      "bytes": 4062,
+      "modified": "2026-10-04T05:52:57.000Z",
+      "status": "inventoried",
+      "sha256": "65ccb904b8b33b69547e2c22662d9d9d89cc77a48cd58a959c8f5d12a91cce5b",
+      "lines": 63
+    },
+    {
+      "path": "kit-kantor-ai/BANK-IDE.md",
+      "kind": "file",
+      "bytes": 719,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "a45b87540628a2fe4bd0b01574f2645612ebc331b1bce533b2beb9e8f7723c65",
+      "lines": 18
+    },
+    {
+      "path": "kit-kantor-ai/BIAYA.md",
+      "kind": "file",
+      "bytes": 1930,
+      "modified": "2026-10-03T20:03:27.000Z",
+      "status": "inventoried",
+      "sha256": "d2ed44d5b1ee7d5f9c206e3891c8f6a983c97366c88aac264e2029d6316cf634",
+      "lines": 31
+    },
+    {
+      "path": "kit-kantor-ai/bonus",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-03T12:13:59.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/bonus/jalur-hemat",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/bonus/jalur-hemat/detak-opencode.sh",
+      "kind": "file",
+      "bytes": 1845,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "8a180eb1cb58d488bb30830420eab391d3a55cc7b6c158c15f18d268edd70445",
+      "lines": 44
+    },
+    {
+      "path": "kit-kantor-ai/bonus/jalur-hemat/opencode.json",
+      "kind": "file",
+      "bytes": 832,
+      "modified": "2026-10-04T03:23:16.000Z",
+      "status": "inventoried",
+      "sha256": "c17e13d6ef87b903b7d949af2267a7d240c8b7ab414682b42d683afffca8c735",
+      "lines": 37
+    },
+    {
+      "path": "kit-kantor-ai/bonus/jalur-hemat/prompt-bot-telegram.md",
+      "kind": "file",
+      "bytes": 3165,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "02509cc1db9e2b863d2b7d627c67aca90eb9319b238f5f0e0beaf1d99c263b2a",
+      "lines": 60
+    },
+    {
+      "path": "kit-kantor-ai/bonus/jalur-hemat/README.md",
+      "kind": "file",
+      "bytes": 4752,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "8661b34746ad701279231d593ac4446a693b90dcf6d5e8bfbc3da8bfa9eb1d81",
+      "lines": 98
+    },
+    {
+      "path": "kit-kantor-ai/bonus/prompt-dashboard-visual.md",
+      "kind": "file",
+      "bytes": 3276,
+      "modified": "2026-10-04T03:49:50.000Z",
+      "status": "inventoried",
+      "sha256": "371ea879f408709e9bd0e1dad7019985266ed4ce24c358cf7e45c599958934a2",
+      "lines": 62
+    },
+    {
+      "path": "kit-kantor-ai/brand",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-03T12:11:51.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/brand/brief-template.md",
+      "kind": "file",
+      "bytes": 836,
+      "modified": "2026-10-03T12:11:48.000Z",
+      "status": "inventoried",
+      "sha256": "04230c5fa54564c2dbd17ad14e264012ce4fc0f1eb457e295982fb71210d6d49",
+      "lines": 24
+    },
+    {
+      "path": "kit-kantor-ai/brand/fakta-template.md",
+      "kind": "file",
+      "bytes": 675,
+      "modified": "2026-10-03T12:11:51.000Z",
+      "status": "inventoried",
+      "sha256": "d68a6c0f19e61f9f1ebbbbe461ce048b9f9b647ac1d12f877772ffa86e7e238f",
+      "lines": 23
+    },
+    {
+      "path": "kit-kantor-ai/cek",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-1.sh",
+      "kind": "file",
+      "bytes": 1049,
+      "modified": "2026-10-03T16:24:28.000Z",
+      "status": "inventoried",
+      "sha256": "5c5d7f5db768bc5fd2df978fa2292a03e11a7e31c6d8d47dbaabf09350e129dc",
+      "lines": 14
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-10.sh",
+      "kind": "file",
+      "bytes": 1092,
+      "modified": "2026-10-03T16:27:10.000Z",
+      "status": "inventoried",
+      "sha256": "de2b814e3dc7bf22d57a336ba1cccc5b7ffd0422faf607990de23ae170ac6b09",
+      "lines": 12
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-11.sh",
+      "kind": "file",
+      "bytes": 916,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "0aac8f59e3e6a10c07961aaace859e1dfd6122db76ace996232a20e09f1a9cec",
+      "lines": 15
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-12.sh",
+      "kind": "file",
+      "bytes": 545,
+      "modified": "2026-10-03T16:26:45.000Z",
+      "status": "inventoried",
+      "sha256": "17d70d9c73e1a1a3b77fdbed2efaf56f1616736b89ffb057a0df1947388e6927",
+      "lines": 12
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-2.sh",
+      "kind": "file",
+      "bytes": 1052,
+      "modified": "2026-10-03T12:11:13.000Z",
+      "status": "inventoried",
+      "sha256": "8fb551f81d647ca713f6779b48560e3668f487dd6459ac533dbacf9b641dc4c9",
+      "lines": 13
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-3.sh",
+      "kind": "file",
+      "bytes": 850,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "de4ef7549ea4d48056887bf63d09a73f4827e26e508967865a096ef1106bf12c",
+      "lines": 19
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-4.sh",
+      "kind": "file",
+      "bytes": 1006,
+      "modified": "2026-10-03T12:11:13.000Z",
+      "status": "inventoried",
+      "sha256": "7867bb848eb76632764e2baba88fbc38d80eff80f24c75d3130add0f1edc285c",
+      "lines": 14
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-5.sh",
+      "kind": "file",
+      "bytes": 911,
+      "modified": "2026-10-03T20:04:04.000Z",
+      "status": "inventoried",
+      "sha256": "f3946f04fb72be83eebc6cd5a2e8ccbfa792a8e5167eb8e3eb3bec1007001f96",
+      "lines": 17
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-6.sh",
+      "kind": "file",
+      "bytes": 939,
+      "modified": "2026-10-03T12:11:13.000Z",
+      "status": "inventoried",
+      "sha256": "350b94b5847d7e3648c353579338b92fffe4841a53e775db8113b52a15ae513f",
+      "lines": 15
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-7.sh",
+      "kind": "file",
+      "bytes": 1001,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "9b2fb88c7f453455adf8db226164ee3bb20982ddb6d4e18b992a4b8656717351",
+      "lines": 12
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-8.sh",
+      "kind": "file",
+      "bytes": 676,
+      "modified": "2026-10-03T12:11:13.000Z",
+      "status": "inventoried",
+      "sha256": "2138b0d01ce97eae2583eb45ba069cd93adbaede38d80431d392320d4de52f98",
+      "lines": 11
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-9.sh",
+      "kind": "file",
+      "bytes": 973,
+      "modified": "2026-10-03T12:11:13.000Z",
+      "status": "inventoried",
+      "sha256": "1583676f49d6fb7fdd59be24bea856f16468fc18d9e223d44faba20b37a6c125",
+      "lines": 15
+    },
+    {
+      "path": "kit-kantor-ai/cek/cek-pasang.sh",
+      "kind": "file",
+      "bytes": 4189,
+      "modified": "2026-10-04T03:17:01.000Z",
+      "status": "inventoried",
+      "sha256": "0d959df13db4837f6f3c3931d48700addaf7e68eaf03df8d1a8d875aa5f0379a",
+      "lines": 37
+    },
+    {
+      "path": "kit-kantor-ai/cek/_alat.sh",
+      "kind": "file",
+      "bytes": 557,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "dd2de542723b53c2f202d1141c818fb056fae97360e1aaec42214687866e1acd",
+      "lines": 9
+    },
+    {
+      "path": "kit-kantor-ai/checklist-vps.md",
+      "kind": "file",
+      "bytes": 3907,
+      "modified": "2026-10-06T04:40:16.000Z",
+      "status": "inventoried",
+      "sha256": "ac3d316caf00ec0fe4d42acd771608d5be8f6cde4602dda0c3168df446c8f730",
+      "lines": 65
+    },
+    {
+      "path": "kit-kantor-ai/contoh-data",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-03T16:36:08.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/contoh-data/pesanan-2026-10-05.csv",
+      "kind": "file",
+      "bytes": 1436,
+      "modified": "2026-10-03T16:36:08.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/contoh-data/README.md",
+      "kind": "file",
+      "bytes": 623,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "ad6a51e54fabb701a1741b6b1e002c6e1b4fc1962d839e8836c33712f3601ee8",
+      "lines": 13
+    },
+    {
+      "path": "kit-kantor-ai/dashboard",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/app.js",
+      "kind": "file",
+      "bytes": 12976,
+      "modified": "2026-10-05T06:53:36.000Z",
+      "status": "inventoried",
+      "sha256": "a5baa129df58d41d4f05012b5e0d9a3a88d7abd164bb974d306a0080c16d7f59",
+      "lines": 279
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/gaya.css",
+      "kind": "file",
+      "bytes": 55291,
+      "modified": "2026-10-05T08:05:33.000Z",
+      "status": "inventoried",
+      "sha256": "4b383e3a5c4de2a8d183bfc075c06fa0b8c9b86c06e1acdac5d8b087ca31bc86",
+      "lines": 667
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/jakarta.woff2",
+      "kind": "file",
+      "bytes": 27348,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/kantor.js",
+      "kind": "file",
+      "bytes": 22557,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "e1afb943fa1c2bf9907cae3a31192f936e7912a27aa9fe099d5e1afb6bffd07f",
+      "lines": 348
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/LISENSI-font-OFL.txt",
+      "kind": "file",
+      "bytes": 4402,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried",
+      "sha256": "995c7199cab65954f545996326755daee7b63cc6b42b06c13da1f9502ab08a99",
+      "lines": 94
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/LISENSI-karakter-MIT.txt",
+      "kind": "file",
+      "bytes": 1389,
+      "modified": "2026-10-04T02:02:22.000Z",
+      "status": "inventoried",
+      "sha256": "b48808d4b3370b8805879e5dded2047691bd04b483099150f90acfd8c0419726",
+      "lines": 27
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/claude-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 11726,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/claude-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 11882,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/claude-1-front-left.webp",
+      "kind": "file",
+      "bytes": 6062,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/claude-1-front-right.webp",
+      "kind": "file",
+      "bytes": 6022,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/claude-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 5280,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/claude-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 5390,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 12034,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12386,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-1-front-left.webp",
+      "kind": "file",
+      "bytes": 5480,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-1-front-right.webp",
+      "kind": "file",
+      "bytes": 5462,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 4286,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 4294,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 12246,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12354,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-2-front-left.webp",
+      "kind": "file",
+      "bytes": 5730,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-2-front-right.webp",
+      "kind": "file",
+      "bytes": 5682,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 5254,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/dev-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 5230,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 11626,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 11504,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-1-front-left.webp",
+      "kind": "file",
+      "bytes": 4900,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-1-front-right.webp",
+      "kind": "file",
+      "bytes": 4918,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 4494,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 4598,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 11994,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12478,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-2-front-left.webp",
+      "kind": "file",
+      "bytes": 5508,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-2-front-right.webp",
+      "kind": "file",
+      "bytes": 5518,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 4612,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 4594,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-3-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 9340,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-3-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 9514,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-3-front-left.webp",
+      "kind": "file",
+      "bytes": 5270,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-3-front-right.webp",
+      "kind": "file",
+      "bytes": 5266,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-3-rear-left.webp",
+      "kind": "file",
+      "bytes": 4134,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/employee-3-rear-right.webp",
+      "kind": "file",
+      "bytes": 4162,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/explore-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 12330,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/explore-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12198,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/explore-1-front-left.webp",
+      "kind": "file",
+      "bytes": 5704,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/explore-1-front-right.webp",
+      "kind": "file",
+      "bytes": 5782,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/explore-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 5408,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/explore-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 5332,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/frontend-dev-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 12314,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/frontend-dev-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12392,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/frontend-dev-1-front-left.webp",
+      "kind": "file",
+      "bytes": 6136,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/frontend-dev-1-front-right.webp",
+      "kind": "file",
+      "bytes": 6166,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/frontend-dev-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 5236,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/frontend-dev-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 5168,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-hijab-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17552,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-hijab-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17350,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-hijab-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15204,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-hijab-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15304,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-hijab-front-left.webp",
+      "kind": "file",
+      "bytes": 12118,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-hijab-front-right.webp",
+      "kind": "file",
+      "bytes": 12112,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-hijab-rear-left.webp",
+      "kind": "file",
+      "bytes": 9584,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-hijab-rear-right.webp",
+      "kind": "file",
+      "bytes": 9892,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-peci-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 18756,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-peci-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 19210,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-peci-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15982,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-peci-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15686,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-peci-front-left.webp",
+      "kind": "file",
+      "bytes": 14832,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-peci-front-right.webp",
+      "kind": "file",
+      "bytes": 15352,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-peci-rear-left.webp",
+      "kind": "file",
+      "bytes": 13194,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-peci-rear-right.webp",
+      "kind": "file",
+      "bytes": 13106,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-pria-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 18924,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-pria-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 19022,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-pria-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16492,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-pria-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16334,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-pria-front-left.webp",
+      "kind": "file",
+      "bytes": 13836,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-pria-front-right.webp",
+      "kind": "file",
+      "bytes": 14242,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-pria-rear-left.webp",
+      "kind": "file",
+      "bytes": 11406,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-pria-rear-right.webp",
+      "kind": "file",
+      "bytes": 11722,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-wanita-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17484,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-wanita-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17400,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-wanita-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15256,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-wanita-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15208,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-wanita-front-left.webp",
+      "kind": "file",
+      "bytes": 13038,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-wanita-front-right.webp",
+      "kind": "file",
+      "bytes": 12792,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-wanita-rear-left.webp",
+      "kind": "file",
+      "bytes": 10238,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/owner-wanita-rear-right.webp",
+      "kind": "file",
+      "bytes": 9368,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/security-audit-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 9614,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/security-audit-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 9620,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/security-audit-1-front-left.webp",
+      "kind": "file",
+      "bytes": 4456,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/security-audit-1-front-right.webp",
+      "kind": "file",
+      "bytes": 4448,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/security-audit-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 3464,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang/security-audit-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 3516,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/claude-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16856,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/claude-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16410,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/claude-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 14658,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/claude-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 14816,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/claude-1-front-left.webp",
+      "kind": "file",
+      "bytes": 13448,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/claude-1-front-right.webp",
+      "kind": "file",
+      "bytes": 13522,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/claude-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 11316,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/claude-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 11498,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/dev-2-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16560,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/dev-2-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16138,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/dev-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16392,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/dev-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16342,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/dev-2-front-left.webp",
+      "kind": "file",
+      "bytes": 12790,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/dev-2-front-right.webp",
+      "kind": "file",
+      "bytes": 12790,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/dev-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 11884,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/dev-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 11816,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 15880,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 15410,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15348,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15296,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-1-front-left.webp",
+      "kind": "file",
+      "bytes": 12712,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-1-front-right.webp",
+      "kind": "file",
+      "bytes": 12870,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 10812,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 11026,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-2-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16930,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-2-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17156,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15596,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15814,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-2-front-left.webp",
+      "kind": "file",
+      "bytes": 13520,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-2-front-right.webp",
+      "kind": "file",
+      "bytes": 13728,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 11542,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 11456,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-3-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16774,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-3-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16342,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-3-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15132,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-3-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15436,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-3-front-left.webp",
+      "kind": "file",
+      "bytes": 13058,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-3-front-right.webp",
+      "kind": "file",
+      "bytes": 13110,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-3-rear-left.webp",
+      "kind": "file",
+      "bytes": 11026,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/employee-3-rear-right.webp",
+      "kind": "file",
+      "bytes": 11224,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/explore-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 18814,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/explore-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 18902,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/explore-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16570,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/explore-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16876,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/explore-1-front-left.webp",
+      "kind": "file",
+      "bytes": 15414,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/explore-1-front-right.webp",
+      "kind": "file",
+      "bytes": 15422,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/explore-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 13818,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/explore-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 13792,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/frontend-dev-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16834,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/frontend-dev-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16628,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/frontend-dev-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 14714,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/frontend-dev-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 14578,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/frontend-dev-1-front-left.webp",
+      "kind": "file",
+      "bytes": 13640,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/frontend-dev-1-front-right.webp",
+      "kind": "file",
+      "bytes": 13950,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/frontend-dev-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 11830,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/frontend-dev-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 11670,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-hijab-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 14704,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-hijab-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 14502,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-hijab-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 12364,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-hijab-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 12294,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-hijab-front-left.webp",
+      "kind": "file",
+      "bytes": 10714,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-hijab-front-right.webp",
+      "kind": "file",
+      "bytes": 10718,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-hijab-rear-left.webp",
+      "kind": "file",
+      "bytes": 9278,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-hijab-rear-right.webp",
+      "kind": "file",
+      "bytes": 9382,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-peci-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17378,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-peci-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17054,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-peci-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16050,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-peci-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16122,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-peci-front-left.webp",
+      "kind": "file",
+      "bytes": 15870,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-peci-front-right.webp",
+      "kind": "file",
+      "bytes": 15808,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-peci-rear-left.webp",
+      "kind": "file",
+      "bytes": 14600,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-peci-rear-right.webp",
+      "kind": "file",
+      "bytes": 14548,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-pria-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16850,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-pria-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16550,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-pria-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15474,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-pria-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15282,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-pria-front-left.webp",
+      "kind": "file",
+      "bytes": 12878,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-pria-front-right.webp",
+      "kind": "file",
+      "bytes": 13050,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-pria-rear-left.webp",
+      "kind": "file",
+      "bytes": 11302,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-pria-rear-right.webp",
+      "kind": "file",
+      "bytes": 11134,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-wanita-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16916,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-wanita-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16716,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-wanita-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15002,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-wanita-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 14714,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-wanita-front-left.webp",
+      "kind": "file",
+      "bytes": 12344,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-wanita-front-right.webp",
+      "kind": "file",
+      "bytes": 12234,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-wanita-rear-left.webp",
+      "kind": "file",
+      "bytes": 10304,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-cozy/owner-wanita-rear-right.webp",
+      "kind": "file",
+      "bytes": 10410,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/claude-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 18008,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/claude-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17446,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/claude-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15790,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/claude-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15954,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/claude-1-front-left.webp",
+      "kind": "file",
+      "bytes": 12468,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/claude-1-front-right.webp",
+      "kind": "file",
+      "bytes": 12890,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/claude-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 10780,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/claude-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 10660,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/dev-2-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17784,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/dev-2-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17636,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/dev-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 17266,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/dev-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 17154,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/dev-2-front-left.webp",
+      "kind": "file",
+      "bytes": 11992,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/dev-2-front-right.webp",
+      "kind": "file",
+      "bytes": 11934,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/dev-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 10938,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/dev-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 11096,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16906,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16756,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16318,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16192,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-1-front-left.webp",
+      "kind": "file",
+      "bytes": 12146,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-1-front-right.webp",
+      "kind": "file",
+      "bytes": 12200,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 10440,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 10550,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-2-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 18764,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-2-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 18614,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-2-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16960,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-2-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 17244,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-2-front-left.webp",
+      "kind": "file",
+      "bytes": 13758,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-2-front-right.webp",
+      "kind": "file",
+      "bytes": 13780,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-2-rear-left.webp",
+      "kind": "file",
+      "bytes": 10934,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-2-rear-right.webp",
+      "kind": "file",
+      "bytes": 11110,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-3-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17614,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-3-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16986,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-3-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16580,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-3-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16646,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-3-front-left.webp",
+      "kind": "file",
+      "bytes": 13950,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-3-front-right.webp",
+      "kind": "file",
+      "bytes": 13946,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-3-rear-left.webp",
+      "kind": "file",
+      "bytes": 11022,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/employee-3-rear-right.webp",
+      "kind": "file",
+      "bytes": 11016,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/explore-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 19248,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/explore-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 18920,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/explore-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 18222,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/explore-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 18186,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/explore-1-front-left.webp",
+      "kind": "file",
+      "bytes": 14200,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/explore-1-front-right.webp",
+      "kind": "file",
+      "bytes": 14248,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/explore-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 13484,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/explore-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 13520,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/frontend-dev-1-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 17578,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/frontend-dev-1-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 17100,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/frontend-dev-1-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16168,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/frontend-dev-1-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16284,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/frontend-dev-1-front-left.webp",
+      "kind": "file",
+      "bytes": 14426,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/frontend-dev-1-front-right.webp",
+      "kind": "file",
+      "bytes": 14120,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/frontend-dev-1-rear-left.webp",
+      "kind": "file",
+      "bytes": 11088,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/frontend-dev-1-rear-right.webp",
+      "kind": "file",
+      "bytes": 11070,
+      "modified": "2026-10-04T02:02:20.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-hijab-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16566,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-hijab-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16306,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-hijab-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 15674,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-hijab-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 15754,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-hijab-front-left.webp",
+      "kind": "file",
+      "bytes": 9800,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-hijab-front-right.webp",
+      "kind": "file",
+      "bytes": 10002,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-hijab-rear-left.webp",
+      "kind": "file",
+      "bytes": 8918,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-hijab-rear-right.webp",
+      "kind": "file",
+      "bytes": 9078,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-peci-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 19276,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-peci-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 19124,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-peci-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 18456,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-peci-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 18494,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-peci-front-left.webp",
+      "kind": "file",
+      "bytes": 15856,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-peci-front-right.webp",
+      "kind": "file",
+      "bytes": 15864,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-peci-rear-left.webp",
+      "kind": "file",
+      "bytes": 15272,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-peci-rear-right.webp",
+      "kind": "file",
+      "bytes": 15174,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-pria-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16848,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-pria-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16668,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-pria-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16324,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-pria-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16210,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-pria-front-left.webp",
+      "kind": "file",
+      "bytes": 12476,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-pria-front-right.webp",
+      "kind": "file",
+      "bytes": 12462,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-pria-rear-left.webp",
+      "kind": "file",
+      "bytes": 11012,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-pria-rear-right.webp",
+      "kind": "file",
+      "bytes": 10902,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-wanita-duduk-front-left.webp",
+      "kind": "file",
+      "bytes": 16770,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-wanita-duduk-front-right.webp",
+      "kind": "file",
+      "bytes": 16318,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-wanita-duduk-rear-left.webp",
+      "kind": "file",
+      "bytes": 16318,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-wanita-duduk-rear-right.webp",
+      "kind": "file",
+      "bytes": 16138,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-wanita-front-left.webp",
+      "kind": "file",
+      "bytes": 11866,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-wanita-front-right.webp",
+      "kind": "file",
+      "bytes": 11630,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-wanita-rear-left.webp",
+      "kind": "file",
+      "bytes": 9876,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/orang-modern/owner-wanita-rear-right.webp",
+      "kind": "file",
+      "bytes": 10126,
+      "modified": "2026-10-04T02:55:27.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/ruang-cozy.webp",
+      "kind": "file",
+      "bytes": 125644,
+      "modified": "2026-10-04T02:02:21.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/ruang-kantor.webp",
+      "kind": "file",
+      "bytes": 470530,
+      "modified": "2026-10-03T19:58:03.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/ruang-modern.webp",
+      "kind": "file",
+      "bytes": 150058,
+      "modified": "2026-10-04T02:02:22.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/ruang-studio.webp",
+      "kind": "file",
+      "bytes": 519436,
+      "modified": "2026-10-03T19:58:04.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/tampilan-cozy.webp",
+      "kind": "file",
+      "bytes": 32528,
+      "modified": "2026-10-04T02:14:50.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/tampilan-kantor.webp",
+      "kind": "file",
+      "bytes": 62776,
+      "modified": "2026-10-04T02:14:50.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/aset/tampilan-modern.webp",
+      "kind": "file",
+      "bytes": 38542,
+      "modified": "2026-10-04T02:14:50.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/server.mjs",
+      "kind": "file",
+      "bytes": 106595,
+      "modified": "2026-10-05T09:43:01.000Z",
+      "status": "inventoried",
+      "sha256": "b0e08b2e4ae4989d1a45ddb1f9eae4f49db0da8a4e88dea956e31d9a251f5e36",
+      "lines": 1155
+    },
+    {
+      "path": "kit-kantor-ai/dashboard/situs.mjs",
+      "kind": "file",
+      "bytes": 6411,
+      "modified": "2026-10-04T08:13:30.000Z",
+      "status": "inventoried",
+      "sha256": "eea4bce88965f6166c35d4826c9e3b819848cc4d54b949e1cd65ff776b3ffe8e",
+      "lines": 94
+    },
+    {
+      "path": "kit-kantor-ai/DETAK-PROMPT.md",
+      "kind": "file",
+      "bytes": 2458,
+      "modified": "2026-10-04T09:36:51.000Z",
+      "status": "inventoried",
+      "sha256": "ed535aee46a1b5f7192873189621a7b6ec8c83df2f85c69c9aac09e64bcbcd49",
+      "lines": 30
+    },
+    {
+      "path": "kit-kantor-ai/DETAK.md",
+      "kind": "file",
+      "bytes": 5367,
+      "modified": "2026-10-04T09:46:48.000Z",
+      "status": "inventoried",
+      "sha256": "8985435a6ebb3b5bd6ec3656b3349625de7e5b8431e5ed68a187ab14c271ef93",
+      "lines": 72
+    },
+    {
+      "path": "kit-kantor-ai/detak.sh",
+      "kind": "file",
+      "bytes": 8768,
+      "modified": "2026-10-05T09:53:23.000Z",
+      "status": "inventoried",
+      "sha256": "0123cff18ca24e9a39342d6f93ac4eb03739eed8baf1c212b9bc76a262c22a13",
+      "lines": 138
+    },
+    {
+      "path": "kit-kantor-ai/diagnosa.sh",
+      "kind": "file",
+      "bytes": 11097,
+      "modified": "2026-10-05T09:52:04.000Z",
+      "status": "inventoried",
+      "sha256": "38892405a747a9b9d2033de4807c4fcd12a5fa90171b9d8b608e3b9212908369",
+      "lines": 214
+    },
+    {
+      "path": "kit-kantor-ai/installer",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-05T12:56:00.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/installer/alamat.sh",
+      "kind": "file",
+      "bytes": 11060,
+      "modified": "2026-10-05T13:07:12.000Z",
+      "status": "inventoried",
+      "sha256": "3b532f4f1c7d9a05f890a192d5040611ca2426bd00f892e3c57a2e949b32095f",
+      "lines": 170
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/avatar-owner-hijab.webp",
+      "kind": "file",
+      "bytes": 4390,
+      "modified": "2026-10-04T02:57:15.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/avatar-owner-peci.webp",
+      "kind": "file",
+      "bytes": 5588,
+      "modified": "2026-10-04T02:57:15.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/avatar-owner-pria.webp",
+      "kind": "file",
+      "bytes": 5308,
+      "modified": "2026-10-04T02:57:15.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/avatar-owner-wanita.webp",
+      "kind": "file",
+      "bytes": 5086,
+      "modified": "2026-10-04T02:57:15.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/builder.webp",
+      "kind": "file",
+      "bytes": 6022,
+      "modified": "2026-10-03T19:36:28.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/jakarta.woff2",
+      "kind": "file",
+      "bytes": 27348,
+      "modified": "2026-10-03T19:36:28.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/LISENSI-font-OFL.txt",
+      "kind": "file",
+      "bytes": 4402,
+      "modified": "2026-10-03T19:36:28.000Z",
+      "status": "inventoried",
+      "sha256": "995c7199cab65954f545996326755daee7b63cc6b42b06c13da1f9502ab08a99",
+      "lines": 94
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/LISENSI-karakter-MIT.txt",
+      "kind": "file",
+      "bytes": 1215,
+      "modified": "2026-10-03T19:53:52.000Z",
+      "status": "inventoried",
+      "sha256": "fb1b28d25e602ef131e99aa9c2fbe377a5b3522cd07229b40ece633308666292",
+      "lines": 25
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/tampilan-cozy.webp",
+      "kind": "file",
+      "bytes": 32528,
+      "modified": "2026-10-04T02:14:17.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/tampilan-kantor.webp",
+      "kind": "file",
+      "bytes": 62776,
+      "modified": "2026-10-04T02:14:17.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/tampilan-modern.webp",
+      "kind": "file",
+      "bytes": 38542,
+      "modified": "2026-10-04T02:14:17.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/wizard.css",
+      "kind": "file",
+      "bytes": 12908,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "de0362d8e546db595e3eb9defec91656de3354d4fa963d27b06a5e67775f0335",
+      "lines": 178
+    },
+    {
+      "path": "kit-kantor-ai/installer/aset/wizard.js",
+      "kind": "file",
+      "bytes": 1906,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "8a71bb49a843765bbdb798f8702d32c599a8067dfb6e6b82b60589275be13432",
+      "lines": 48
+    },
+    {
+      "path": "kit-kantor-ai/installer/pasang-awal.sh",
+      "kind": "file",
+      "bytes": 5125,
+      "modified": "2026-10-05T04:17:17.000Z",
+      "status": "inventoried",
+      "sha256": "413ff2961f708253196517088940e5196b5e8d059f4ce9c49a159cb647b5187f",
+      "lines": 70
+    },
+    {
+      "path": "kit-kantor-ai/installer/pasang.mjs",
+      "kind": "file",
+      "bytes": 37801,
+      "modified": "2026-10-05T09:43:01.000Z",
+      "status": "inventoried",
+      "sha256": "365c95cc8de02476af5c9a563bdcf7d864515cbedf84ac45734a777b51f11a69",
+      "lines": 443
+    },
+    {
+      "path": "kit-kantor-ai/installer/perbarui.mjs",
+      "kind": "file",
+      "bytes": 8637,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "5686280e98fffa68de9ac5b232294db1d5cbc811f8a71435ff090caa6b548bdd",
+      "lines": 108
+    },
+    {
+      "path": "kit-kantor-ai/installer/wizard.mjs",
+      "kind": "file",
+      "bytes": 24100,
+      "modified": "2026-10-06T04:05:37.000Z",
+      "status": "inventoried",
+      "sha256": "f3ef6af9285c3eb679be2b8449ee40cde8d181d97c5e59b53577c25395ccce77",
+      "lines": 298
+    },
+    {
+      "path": "kit-kantor-ai/kotak-masuk",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-03T12:06:53.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/kotak-masuk/README.md",
+      "kind": "file",
+      "bytes": 1152,
+      "modified": "2026-10-04T03:23:40.000Z",
+      "status": "inventoried",
+      "sha256": "d80cb94cc526454657cf8eee916fa41676b7377208caeca2e50eb1ddad79501c",
+      "lines": 30
+    },
+    {
+      "path": "kit-kantor-ai/LAPORAN-template.md",
+      "kind": "file",
+      "bytes": 902,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "1805d651bdf1965d2c7bc372dd78d6fbd96431ec194f7c9656103189d3141712",
+      "lines": 30
+    },
+    {
+      "path": "kit-kantor-ai/MULAI-DI-SINI.md",
+      "kind": "file",
+      "bytes": 7167,
+      "modified": "2026-10-06T04:40:16.000Z",
+      "status": "inventoried",
+      "sha256": "e39a10386c18444a056670226b4f547b8d50ef05d86ca8c7b9fbb088e350b4f3",
+      "lines": 86
+    },
+    {
+      "path": "kit-kantor-ai/mulai.sh",
+      "kind": "file",
+      "bytes": 12763,
+      "modified": "2026-10-06T04:40:16.000Z",
+      "status": "inventoried",
+      "sha256": "62574b67d7585c1e03a94d24723e87c15119c8274961c9bf8056589a60bcba32",
+      "lines": 195
+    },
+    {
+      "path": "kit-kantor-ai/notif.sh",
+      "kind": "file",
+      "bytes": 1716,
+      "modified": "2026-10-04T09:37:31.000Z",
+      "status": "inventoried",
+      "sha256": "d4c97da30a6d4c401f14d12afd0967b3ec7c0b05ef871f16438ecb64f1df94f5",
+      "lines": 35
+    },
+    {
+      "path": "kit-kantor-ai/ORGANISASI.md",
+      "kind": "file",
+      "bytes": 1020,
+      "modified": "2026-10-03T20:03:27.000Z",
+      "status": "inventoried",
+      "sha256": "76082bc9c607801bee3cc6a453527acf67aac78efc1625b906c2f6b36f7f77ba",
+      "lines": 18
+    },
+    {
+      "path": "kit-kantor-ai/pagar",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-03T16:23:49.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/pagar/settings.json",
+      "kind": "file",
+      "bytes": 4631,
+      "modified": "2026-10-06T04:39:54.000Z",
+      "status": "inventoried",
+      "sha256": "c085c2ad8434f9efd95828cf6d53d8ecafcdf93964310c83ea3cfd6595433464",
+      "lines": 155
+    },
+    {
+      "path": "kit-kantor-ai/PAGAR.md",
+      "kind": "file",
+      "bytes": 4536,
+      "modified": "2026-10-04T08:15:49.000Z",
+      "status": "inventoried",
+      "sha256": "fa59df3a4b76014bc1dec87b49a9814c6d019e4be8a5b9f4f6227bac6b099d4b",
+      "lines": 62
+    },
+    {
+      "path": "kit-kantor-ai/panduan-hp.md",
+      "kind": "file",
+      "bytes": 4274,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "b4fdcca71715538e73df2e1b25a55b1114468276cddb22edb801d0e851c51e74",
+      "lines": 67
+    },
+    {
+      "path": "kit-kantor-ai/pasang.sh",
+      "kind": "file",
+      "bytes": 2616,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "b4c963f8032a1e3b15867c0cd11dabc872c24c3487e1ecca630ef68ce5e0fb8c",
+      "lines": 51
+    },
+    {
+      "path": "kit-kantor-ai/peran",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-05T13:24:12.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/peran/PERAN-builder.md",
+      "kind": "file",
+      "bytes": 13064,
+      "modified": "2026-10-06T04:39:54.000Z",
+      "status": "inventoried",
+      "sha256": "34df656682dd644d5782d6a3b16bc844a90911011b44cfa2ea42ff9837fca766",
+      "lines": 131
+    },
+    {
+      "path": "kit-kantor-ai/peran/PERAN-contoh-admin.md",
+      "kind": "file",
+      "bytes": 1122,
+      "modified": "2026-10-04T03:16:13.000Z",
+      "status": "inventoried",
+      "sha256": "311a30959f457c46a13ec3feac827ef916202b9af10a3ec17606d7ac122d87f7",
+      "lines": 25
+    },
+    {
+      "path": "kit-kantor-ai/peran/PERAN-contoh-jualan.md",
+      "kind": "file",
+      "bytes": 1269,
+      "modified": "2026-10-04T03:16:13.000Z",
+      "status": "inventoried",
+      "sha256": "d6b28d6d573b10c0ae07dec320b70c20cde2a78095093b98538dfa672a915bcc",
+      "lines": 27
+    },
+    {
+      "path": "kit-kantor-ai/peran/PERAN-contoh-katalog.md",
+      "kind": "file",
+      "bytes": 1297,
+      "modified": "2026-10-04T05:43:31.000Z",
+      "status": "inventoried",
+      "sha256": "bf05440d54ddc074e6cb587d03bf3683012b0c69af0aa1b6041c9290ce400a49",
+      "lines": 27
+    },
+    {
+      "path": "kit-kantor-ai/peran/PERAN-contoh-keuangan.md",
+      "kind": "file",
+      "bytes": 1413,
+      "modified": "2026-10-04T05:43:31.000Z",
+      "status": "inventoried",
+      "sha256": "8f45e648bc5115541581b7221e54eb313a48bc1e35ad0275b36766878a514117",
+      "lines": 28
+    },
+    {
+      "path": "kit-kantor-ai/peran/PERAN-contoh-marketing.md",
+      "kind": "file",
+      "bytes": 1320,
+      "modified": "2026-10-04T03:16:13.000Z",
+      "status": "inventoried",
+      "sha256": "f7f0cecbb776f6d4b0a2df078aa819213f0799b41c25d11e147e6cf46c413083",
+      "lines": 26
+    },
+    {
+      "path": "kit-kantor-ai/peran/PERAN-contoh-sosmed.md",
+      "kind": "file",
+      "bytes": 1623,
+      "modified": "2026-10-05T08:07:09.000Z",
+      "status": "inventoried",
+      "sha256": "ac3eec1d120b848c046f5db0bdfcb8f4b1d94fb52ba6b8cf41ec38cec33298f2",
+      "lines": 28
+    },
+    {
+      "path": "kit-kantor-ai/peran/PERAN-contoh-tagihan.md",
+      "kind": "file",
+      "bytes": 1404,
+      "modified": "2026-10-04T05:43:31.000Z",
+      "status": "inventoried",
+      "sha256": "9523aa748cd7777b8732210c36165b4234bb3075427c7dfdac533a6669467635",
+      "lines": 26
+    },
+    {
+      "path": "kit-kantor-ai/peran/PERAN-contoh-web.md",
+      "kind": "file",
+      "bytes": 2088,
+      "modified": "2026-10-04T08:24:17.000Z",
+      "status": "inventoried",
+      "sha256": "80c986d752d032b97f3a7d5024a1bd89841387ab98ba37ea17a68f40e1e06b29",
+      "lines": 34
+    },
+    {
+      "path": "kit-kantor-ai/peran/PERAN-kosong.md",
+      "kind": "file",
+      "bytes": 618,
+      "modified": "2026-10-03T12:06:30.000Z",
+      "status": "inventoried",
+      "sha256": "a23a76047d6977598969e8f4e45d4a2b01352224aed21c74dcf8a042cde76a05",
+      "lines": 18
+    },
+    {
+      "path": "kit-kantor-ai/skill",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-05T08:06:36.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/skill/anti-slop-indo.md",
+      "kind": "file",
+      "bytes": 3207,
+      "modified": "2026-10-03T12:10:18.000Z",
+      "status": "inventoried",
+      "sha256": "8180a48f47608b3ef5fb77636bcc467e80050a4ce592818901cb7f8eb526cce7",
+      "lines": 59
+    },
+    {
+      "path": "kit-kantor-ai/skill/balas-pelanggan.md",
+      "kind": "file",
+      "bytes": 2179,
+      "modified": "2026-10-04T03:14:58.000Z",
+      "status": "inventoried",
+      "sha256": "7090c295fc3b2ecebcdacb9d5e2eccadca60443f6b4f04d801b9286791b1b14b",
+      "lines": 43
+    },
+    {
+      "path": "kit-kantor-ai/skill/carousel.md",
+      "kind": "file",
+      "bytes": 1705,
+      "modified": "2026-10-04T03:15:31.000Z",
+      "status": "inventoried",
+      "sha256": "288267a7c651d3558bc4d20301e76e58028cd48d7fc01a8af8ca2724cffb883a",
+      "lines": 36
+    },
+    {
+      "path": "kit-kantor-ai/skill/cek-tampilan.md",
+      "kind": "file",
+      "bytes": 2016,
+      "modified": "2026-10-04T08:24:17.000Z",
+      "status": "inventoried",
+      "sha256": "0528ca33ab99ce24b8d46b72e96ddde1155dc850ae76b802b43f0d3bbcfcfc77",
+      "lines": 27
+    },
+    {
+      "path": "kit-kantor-ai/skill/google-drive.md",
+      "kind": "file",
+      "bytes": 2598,
+      "modified": "2026-10-04T04:55:41.000Z",
+      "status": "inventoried",
+      "sha256": "0a3635d679f26dffc1653c37c59d76868d528c60a80e57f67f686ac965a0edac",
+      "lines": 44
+    },
+    {
+      "path": "kit-kantor-ai/skill/jaga-web.md",
+      "kind": "file",
+      "bytes": 1925,
+      "modified": "2026-10-04T08:52:27.000Z",
+      "status": "inventoried",
+      "sha256": "97648512f282455b3bbf2631cba4e1b11c0c844b23549fe2af8074d1ce23739c",
+      "lines": 33
+    },
+    {
+      "path": "kit-kantor-ai/skill/laporan-iklan.md",
+      "kind": "file",
+      "bytes": 2672,
+      "modified": "2026-10-04T03:15:23.000Z",
+      "status": "inventoried",
+      "sha256": "f98fc4be630e97159082fb4c139617ae0d9d4f24f2d00fe55a14d5ddf58bf555",
+      "lines": 45
+    },
+    {
+      "path": "kit-kantor-ai/skill/listing-marketplace.md",
+      "kind": "file",
+      "bytes": 1997,
+      "modified": "2026-10-04T05:44:50.000Z",
+      "status": "inventoried",
+      "sha256": "3682104e7b2ae32909e1ef9fbff809752446c3e9574c3a0e4d477ff8c81f58cf",
+      "lines": 48
+    },
+    {
+      "path": "kit-kantor-ai/skill/pembukuan.md",
+      "kind": "file",
+      "bytes": 2415,
+      "modified": "2026-10-04T05:44:50.000Z",
+      "status": "inventoried",
+      "sha256": "4012fb5e5e12976edb49a6c80fdab9c705708f7e5d3e438401e62ecbb8172fd2",
+      "lines": 42
+    },
+    {
+      "path": "kit-kantor-ai/skill/penawaran-tagihan.md",
+      "kind": "file",
+      "bytes": 2447,
+      "modified": "2026-10-04T05:44:50.000Z",
+      "status": "inventoried",
+      "sha256": "8ebd7542d0d81c8a94939ff910baa48d4d945d61254143d5b33586600a2530d3",
+      "lines": 46
+    },
+    {
+      "path": "kit-kantor-ai/skill/posting-repliz.md",
+      "kind": "file",
+      "bytes": 3455,
+      "modified": "2026-10-05T08:06:36.000Z",
+      "status": "inventoried",
+      "sha256": "46ce650c9c9bfebcbf7108b4c654c90979286a6ccddd7148c99a0155e06ea739",
+      "lines": 55
+    },
+    {
+      "path": "kit-kantor-ai/skill/rekap-angka.md",
+      "kind": "file",
+      "bytes": 2647,
+      "modified": "2026-10-04T04:42:29.000Z",
+      "status": "inventoried",
+      "sha256": "59e4ad3880101c4b9c75ab9540ee444adf5d59271ea038e703be66deba6d3356",
+      "lines": 51
+    },
+    {
+      "path": "kit-kantor-ai/skill/web-bisnis.md",
+      "kind": "file",
+      "bytes": 5294,
+      "modified": "2026-10-04T08:24:17.000Z",
+      "status": "inventoried",
+      "sha256": "97793cebd475533979acb3f630f8fdac7dd4efde221b4383edf6a906189cad14",
+      "lines": 71
+    },
+    {
+      "path": "kit-kantor-ai/SKILL-REKOMENDASI.md",
+      "kind": "file",
+      "bytes": 6210,
+      "modified": "2026-10-04T08:15:49.000Z",
+      "status": "inventoried",
+      "sha256": "cc4bd23aaca12190a5efc2fec6e3a31feac398caa36e40f898f1529fd3e86c2f",
+      "lines": 86
+    },
+    {
+      "path": "kit-kantor-ai/sop",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-05T08:06:37.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/sop/catat-kas.md",
+      "kind": "file",
+      "bytes": 1920,
+      "modified": "2026-10-04T05:44:12.000Z",
+      "status": "inventoried",
+      "sha256": "4163f9d0c72748abb066cc26d7e450556a1b0683207a799c0bf5a9cd10c802d1",
+      "lines": 32
+    },
+    {
+      "path": "kit-kantor-ai/sop/draf-balesan.md",
+      "kind": "file",
+      "bytes": 1255,
+      "modified": "2026-10-03T17:06:25.000Z",
+      "status": "inventoried",
+      "sha256": "0c39216db3d8d6221bffb27bcc9214c9e0eb2466a1d28eb8ffb1c8ccf26073ba",
+      "lines": 26
+    },
+    {
+      "path": "kit-kantor-ai/sop/ide-konten.md",
+      "kind": "file",
+      "bytes": 1255,
+      "modified": "2026-10-05T08:07:09.000Z",
+      "status": "inventoried",
+      "sha256": "2133e1586a48f3a24612b75908813e10a5dcd1bd60d5c1f9d61d883ae31ae4b5",
+      "lines": 28
+    },
+    {
+      "path": "kit-kantor-ai/sop/jaga-web.md",
+      "kind": "file",
+      "bytes": 991,
+      "modified": "2026-10-04T08:13:30.000Z",
+      "status": "inventoried",
+      "sha256": "62e0b13cd8cd9cad2b7c8cc42342fddae1041451d3e23ae17f97b648fdd96da1",
+      "lines": 22
+    },
+    {
+      "path": "kit-kantor-ai/sop/laba-rugi.md",
+      "kind": "file",
+      "bytes": 1294,
+      "modified": "2026-10-04T05:44:12.000Z",
+      "status": "inventoried",
+      "sha256": "72ddd7342f872b807a4b18ca3d3dd7fc8c25936c72206aaa18bb269803401176",
+      "lines": 25
+    },
+    {
+      "path": "kit-kantor-ai/sop/landing-page.md",
+      "kind": "file",
+      "bytes": 1588,
+      "modified": "2026-10-04T08:13:30.000Z",
+      "status": "inventoried",
+      "sha256": "31d8eebb71495c7c48453efa60387b2d6b53de4452027f7c5c4b767af969c1f7",
+      "lines": 29
+    },
+    {
+      "path": "kit-kantor-ai/sop/laporan-iklan.md",
+      "kind": "file",
+      "bytes": 1138,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "fc0a6c0db02165a21e97f8eb561060f0e6911d255e72cada9cc6714391d87a46",
+      "lines": 25
+    },
+    {
+      "path": "kit-kantor-ai/sop/listing-produk.md",
+      "kind": "file",
+      "bytes": 1373,
+      "modified": "2026-10-04T05:44:12.000Z",
+      "status": "inventoried",
+      "sha256": "1fb01f7fedcdfbbc7625121b83fbb03a9e2ab605688472b696ad658f8dd8321b",
+      "lines": 26
+    },
+    {
+      "path": "kit-kantor-ai/sop/penawaran.md",
+      "kind": "file",
+      "bytes": 1229,
+      "modified": "2026-10-04T05:44:12.000Z",
+      "status": "inventoried",
+      "sha256": "8fd03dea4ad9b057043adcb64aa21f2a03be1c8e685c8f47236fea224d3a12bd",
+      "lines": 23
+    },
+    {
+      "path": "kit-kantor-ai/sop/posting-sosmed.md",
+      "kind": "file",
+      "bytes": 1792,
+      "modified": "2026-10-05T08:06:37.000Z",
+      "status": "inventoried",
+      "sha256": "d1ba99c8781e94bec1d038b3ba95663fd4f3b35781de5c03df1910efafdd54e0",
+      "lines": 32
+    },
+    {
+      "path": "kit-kantor-ai/sop/rekap-pesanan.md",
+      "kind": "file",
+      "bytes": 1360,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "86f70fdd097a0d74f886350561caf2a89994bfc48de46fb4bcb5abdf29a9a95f",
+      "lines": 29
+    },
+    {
+      "path": "kit-kantor-ai/sop/rekap-stok.md",
+      "kind": "file",
+      "bytes": 1102,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "c7e747bf3d71ab28b44e167d53ea21c75c33a0efb1df90fb373e0c28a18ec181",
+      "lines": 26
+    },
+    {
+      "path": "kit-kantor-ai/sop/tagihan.md",
+      "kind": "file",
+      "bytes": 1527,
+      "modified": "2026-10-04T05:44:12.000Z",
+      "status": "inventoried",
+      "sha256": "70778c58bb229e516f5a17705e48ecfb26aa1e0e7efe25847b0474b443a8405a",
+      "lines": 27
+    },
+    {
+      "path": "kit-kantor-ai/SOP-template.md",
+      "kind": "file",
+      "bytes": 1308,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "0185f4b73fc333b7e917f2fb6c5732c66eb37cda99ed4c9404a17cb96403c6c2",
+      "lines": 39
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T08:10:05.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/sosmed",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-03T16:25:36.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/sosmed/brief-contoh.md",
+      "kind": "file",
+      "bytes": 1007,
+      "modified": "2026-10-03T16:36:22.000Z",
+      "status": "inventoried",
+      "sha256": "0ab335925ac04c18591faf840b92f3eef5af6b03534ead8d2fb7cf3acfb23349",
+      "lines": 28
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/sosmed/carousel",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/sosmed/carousel/naskah-contoh.json",
+      "kind": "file",
+      "bytes": 277,
+      "modified": "2026-10-03T12:13:07.000Z",
+      "status": "inventoried",
+      "sha256": "4609936c4948887d16e4892eeb48ff9b1bfad995366377a613a221e20f041717",
+      "lines": 2
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/sosmed/carousel/pasang-carousel.sh",
+      "kind": "file",
+      "bytes": 1564,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "240c55dbab2c846218f7e134011a17a745657ff72bbfcca155531307f7179a8f",
+      "lines": 34
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/sosmed/carousel/render.mjs",
+      "kind": "file",
+      "bytes": 1677,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "6842ab309cb5fb7476a056fd884adef543044c4a780e0d1b3fba229efcdb5a78",
+      "lines": 32
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/sosmed/carousel/template.html",
+      "kind": "file",
+      "bytes": 1555,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "18765fdeb8c5365fab9d3256efdcefb8a9c5f65f5f14491bfde378e7718369f8",
+      "lines": 29
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/sosmed/PERAN-pemeriksa.md",
+      "kind": "file",
+      "bytes": 1081,
+      "modified": "2026-10-03T16:26:16.000Z",
+      "status": "inventoried",
+      "sha256": "145fcf70fa24cdb4bff5bcb6cb6752e344467d3ac31b41c6b41ba6860a51627d",
+      "lines": 26
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/sosmed/PERAN-penulis.md",
+      "kind": "file",
+      "bytes": 1054,
+      "modified": "2026-10-03T16:26:16.000Z",
+      "status": "inventoried",
+      "sha256": "8f23291a5f066c92f8cda446ed1d9ec610e9a34032e726c9e63947999fe5e382",
+      "lines": 28
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/sosmed/README.md",
+      "kind": "file",
+      "bytes": 3125,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "b0babea59f3ab6cf33bd76787631fd9a5d5ded7d5c29c50a8146b69c55933d21",
+      "lines": 61
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/tagihan",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/tagihan/render.mjs",
+      "kind": "file",
+      "bytes": 10560,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "0cf18370a2abda515c5596a0ed99aa3d8054df825e4a054662b9cecea44b7652",
+      "lines": 130
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/tagihan/template.html",
+      "kind": "file",
+      "bytes": 3577,
+      "modified": "2026-10-04T05:40:03.000Z",
+      "status": "inventoried",
+      "sha256": "ef6dda1ad79fda3cd995bbe36c64645671b17b7ef60f04a293cd157a63755dee",
+      "lines": 56
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/web",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/studi-kasus/web/foto.mjs",
+      "kind": "file",
+      "bytes": 6456,
+      "modified": "2026-10-04T09:00:21.000Z",
+      "status": "inventoried",
+      "sha256": "75f11c223b87404cf2d4c3ab069c815f083177480e174d4dbdb006ef73feabb8",
+      "lines": 83
+    },
+    {
+      "path": "kit-kantor-ai/task",
+      "kind": "directory",
+      "bytes": 0,
+      "modified": "2026-10-03T16:23:16.000Z",
+      "status": "inventoried"
+    },
+    {
+      "path": "kit-kantor-ai/task/README.md",
+      "kind": "file",
+      "bytes": 2615,
+      "modified": "2026-10-04T04:00:51.000Z",
+      "status": "inventoried",
+      "sha256": "eef95bf775a08e95cd7bb9339bc4513599d7a02de9a88eab95f011ab7f3a4824",
+      "lines": 57
+    },
+    {
+      "path": "kit-kantor-ai/task/T-01-contoh-ide-konten.md",
+      "kind": "file",
+      "bytes": 896,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "3efba87ae05aa5575b9e0176e847e54b9b327463bca8ae51bb607cc02f215c7c",
+      "lines": 28
+    },
+    {
+      "path": "kit-kantor-ai/task/T-02-contoh-rekap-pesanan.md",
+      "kind": "file",
+      "bytes": 665,
+      "modified": "2026-10-03T20:03:28.000Z",
+      "status": "inventoried",
+      "sha256": "0953e2a9e28e58411339d0b44c241ae64ff34735e78ce95a3890faa831e1b91d",
+      "lines": 22
+    },
+    {
+      "path": "kit-kantor-ai/update.sh",
+      "kind": "file",
+      "bytes": 7183,
+      "modified": "2026-10-05T09:43:01.000Z",
+      "status": "inventoried",
+      "sha256": "00aa70a963346ee1cedbce32091ee53e3429e1a5e960afce63818cc39eda583c",
+      "lines": 101
+    },
+    {
+      "path": "kit-kantor-ai/VERSI",
+      "kind": "file",
+      "bytes": 7,
+      "modified": "2026-10-06T04:40:16.000Z",
+      "status": "inventoried",
+      "sha256": "6e70bba3c46b7472eba79c76dd55ac51c2315fc607b23810767ee870fc582a9c",
+      "lines": 2
+    }
+  ],
+  "excluded": [
+    {
+      "path": ".bashrc",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".bash_history",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".bash_logout",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".cache",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".claude",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".claude.json",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".config",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".kantor-alamat",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".kantor-alamat-lembur",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".kantor-kode",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".kantor-wizard-selesai",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".kantor-wizard.json",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".kantor-wizard.log",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".local",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".npm",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".profile",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": ".ssh",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": "cadangan-kantor",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": "kantor/.claude",
+      "reason": "active business/session data: metadata only; template counterpart reviewed"
+    },
+    {
+      "path": "kantor/.rahasia",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": "kantor/brand",
+      "reason": "active business/session data: metadata only; template counterpart reviewed"
+    },
+    {
+      "path": "kantor/carousel/node_modules",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    },
+    {
+      "path": "kantor/catatan",
+      "reason": "active business/session data: metadata only; template counterpart reviewed"
+    },
+    {
+      "path": "kantor/hasil",
+      "reason": "active business/session data: metadata only; template counterpart reviewed"
+    },
+    {
+      "path": "kantor/kotak-masuk",
+      "reason": "active business/session data: metadata only; template counterpart reviewed"
+    },
+    {
+      "path": "kantor/masuk",
+      "reason": "active business/session data: metadata only; template counterpart reviewed"
+    },
+    {
+      "path": "kantor/task",
+      "reason": "active business/session data: metadata only; template counterpart reviewed"
+    },
+    {
+      "path": "kit-kantor-ai/.kit-id",
+      "reason": "credentials, environment, dependencies, caches or historical archive: metadata only"
+    }
+  ],
+  "manifests": [
+    {
+      "path": "kantor/carousel/package.json",
+      "name": "carousel",
+      "type": "module",
+      "dependencies": {
+        "playwright": "^1.64.0"
+      }
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+# KAEL AI VIRTUAL OFFICE
+## Design Direction, Office Layout & Character Reference
+
+### 1. Konsep Desain Keseluruhan
+
+Saya ingin seluruh tampilan project **Kael AI Virtual Office** menggunakan gaya desain **Modern Minimalist Premium**, mencakup tampilan website, aset visual, lingkungan kantor, interior ruangan, hingga karakter AI Agent.
+
+Pastikan seluruh elemen memiliki identitas visual yang konsisten, modern, minimalis, elegan, dan profesional.
+
+Hasil desain harus terlihat premium, nyaman dipandang, tidak terlalu ramai, serta memiliki komposisi visual yang rapi dan terstruktur.
+
+### 2. Sistem Create Division
+
+Saya ingin memastikan bagaimana sistem **Create Division** bekerja.
+
+Ketika pengguna membuat divisi baru, apakah sistem akan secara otomatis membuatkan ruangan khusus beserta meja kerja untuk setiap AI Agent yang tergabung dalam divisi tersebut?
+
+Selain itu, apakah sistem juga dapat secara otomatis menyesuaikan posisi ruangan dalam tata letak kantor, termasuk furnitur, isi ruangan, dan seluruh aset visual sesuai kebutuhan masing-masing divisi?
+
+Saya ingin setiap divisi memiliki ruang kerja yang tertata dengan baik dan terintegrasi dengan keseluruhan layout kantor.
+
+### 3. Tata Letak Kantor
+
+Gunakan konsep **Open Space Office** dengan gaya Modern Minimalist Premium.
+
+Saya menginginkan lingkungan kantor yang luas, terbuka, nyaman, dan tidak terasa sempit atau penuh.
+
+Meskipun menggunakan konsep open space, setiap divisi tetap harus memiliki ruangan atau area kerja masing-masing.
+
+Untuk tata letaknya, saya membayangkan setiap ruangan divisi menghadap langsung ke jalan atau koridor utama. Di seberang koridor tersebut terdapat ruangan divisi lainnya, sehingga terbentuk susunan ruangan yang rapi dan terorganisasi.
+
+Susun seluruh tata letak kantor sebaik mungkin dengan mempertimbangkan kerapian, kenyamanan visual, kemudahan akses, dan keterhubungan antararea.
+
+### 4. Ruangan Utama yang Wajib Tersedia
+
+Untuk tahap awal, buat terlebih dahulu beberapa ruangan utama berikut:
+
+1. **Main Meeting Room** — Ruang meeting utama.
+2. **Alternative Meeting Room** — Ruang meeting alternatif.
+3. **Founder Office** — Ruang kerja khusus Founder.
+4. **AI Lounge** — Area bersantai yang dapat digunakan oleh AI Agent.
+
+Seluruh ruangan tersebut harus mengikuti gaya desain Modern Minimalist Premium dan ditempatkan secara teratur dalam layout kantor.
+
+### 5. Area Taman dan Olahraga
+
+Tambahkan **area taman** untuk menciptakan suasana kantor yang lebih terbuka, segar, nyaman, dan tidak terasa sumpek.
+
+Selain itu, sediakan **area olahraga** dengan berbagai macam lapangan yang dapat digunakan oleh AI Agent.
+
+Ketika AI Agent sedang tidak bekerja, mereka dapat mengunjungi area olahraga untuk bermain atau menuju tempat istirahat yang telah tersedia.
+
+Pastikan seluruh fasilitas tersebut memiliki penempatan yang sesuai dan tidak mengganggu tata letak utama kantor.
+
+### 6. Sistem Jalur dan Navigasi
+
+Seluruh jalan, koridor, dan akses antarruangan harus ditata secara rapi dan terstruktur.
+
+AI Agent harus dapat berpindah dari satu ruangan ke ruangan lainnya, termasuk menuju taman, area olahraga, dan tempat istirahat, melalui jalur yang jelas dan nyaman.
+
+Pastikan sistem navigasi selaras dengan tata letak kantor secara keseluruhan.
+
+### 7. Referensi Visual AI Virtual Office
+
+Saya ingin mengembangkan AI Virtual Office yang terinspirasi dari video referensi yang sebelumnya telah saya kirimkan serta website berikut:
+
+https://jillywosy.com/office/
+
+Gabungkan kedua referensi tersebut menjadi satu konsep project yang memiliki kualitas visual tinggi dan tetap menggunakan gaya **Modern Minimalist Premium**.
+
+Pastikan tampilan website, karakter AI, aset visual, interior, ruangan, tata letak kantor, dan jalur navigasi memiliki desain yang konsisten.
+
+Saya ingin hasil akhirnya benar-benar terlihat profesional, modern, premium, nyaman dipandang, tidak berlebihan, serta tertata dengan baik.
+
+### 8. Referensi Style Karakter AI
+
+Untuk tahap ini, saya ingin seluruh karakter AI menggunakan **gaya visual yang sama seperti gambar referensi karakter yang telah saya lampirkan**.
+
+Gunakan gambar tersebut sebagai acuan utama dalam menentukan style karakter AI yang nantinya akan digunakan pada Kael AI Virtual Office.
+
+Saya juga ingin karakter tersebut diperiksa dan divisualisasikan dari berbagai sisi agar tersedia referensi yang lebih lengkap.
+
+Buat referensi karakter dari sudut pandang berikut:
+
+- Front View (tampak depan).
+- 3/4 Front View (tampak tiga perempat depan).
+- Side View (tampak samping).
+- Back View (tampak belakang).
+- 3/4 Back View (tampak tiga perempat belakang).
+
+Pertahankan gaya ilustrasi, proporsi tubuh, detail wajah, rambut, pakaian, warna, serta karakteristik visual agar konsisten pada seluruh sudut pandang.
+
+Hasil referensi berbagai sudut pandang ini akan digunakan sebagai **Character Reference Sheet** untuk mempermudah proses generate karakter AI pada tahap pengembangan berikutnya.
+
+**File referensi karakter:**
+
+- Gambar karakter asli yang telah saya lampirkan.
+- `chibi_boy_character_turnaround_sheet.png` — Referensi karakter dari berbagai sudut pandang.
+
+Pastikan file referensi tersebut digunakan sebagai acuan visual pada proses pengembangan dan generasi aset karakter berikutnya.
+
+### 9. Hasil yang Diharapkan
+
+Saya ingin Kael AI Virtual Office memiliki kualitas desain yang profesional, modern, minimalis, premium, dan terstruktur.
+
+Seluruh aspek project, mulai dari website, aset, karakter AI, interior, ruangan, tata letak kantor, hingga sistem navigasi, harus memiliki gaya visual yang konsisten.
+
+**Untuk tahap saat ini, fokus utama adalah menetapkan style karakter AI berdasarkan gambar referensi yang telah dilampirkan dan menyiapkan Character Reference Sheet dari berbagai sudut pandang.**
+
+Gunakan seluruh referensi tersebut sebagai dasar untuk mempermudah proses pembuatan aset dan pengembangan Kael AI Virtual Office selanjutnya.

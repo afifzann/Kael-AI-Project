@@ -1,0 +1,708 @@
+[
+  {
+    "path": "kit-kantor-ai/detak.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/notif.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/DETAK.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/DETAK-PROMPT.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/ATURAN.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/PAGAR.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/BIAYA.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/ORGANISASI.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/pagar/settings.json",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/SOP-template.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/LAPORAN-template.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/BANK-IDE.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/cek-listing.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/drive-folder.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/font.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/gaya.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/hitung-csv.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/kas.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/password-dashboard.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/repliz-inti.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/repliz.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/satpam-drive.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/selesai-titipan.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/tagihan.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/web.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/alat/xlsx-ke-csv.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/anti-slop-indo.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/balas-pelanggan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/carousel.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/cek-tampilan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/google-drive.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/jaga-web.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/laporan-iklan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/listing-marketplace.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/pembukuan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/penawaran-tagihan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/posting-repliz.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/rekap-angka.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/skill/web-bisnis.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/catat-kas.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/draf-balesan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/ide-konten.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/jaga-web.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/laba-rugi.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/landing-page.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/laporan-iklan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/listing-produk.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/penawaran.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/posting-sosmed.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/rekap-pesanan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/rekap-stok.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/sop/tagihan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/peran/PERAN-builder.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/peran/PERAN-contoh-admin.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/peran/PERAN-contoh-jualan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/peran/PERAN-contoh-katalog.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/peran/PERAN-contoh-keuangan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/peran/PERAN-contoh-marketing.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/peran/PERAN-contoh-sosmed.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/peran/PERAN-contoh-tagihan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/peran/PERAN-contoh-web.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/peran/PERAN-kosong.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/_alat.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-1.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-2.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-3.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-4.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-5.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-6.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-7.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-8.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-9.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-10.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-11.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-12.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/cek/cek-pasang.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/bonus/prompt-dashboard-visual.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/bonus/jalur-hemat/README.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/bonus/jalur-hemat/detak-opencode.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/bonus/jalur-hemat/opencode.json",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/bonus/jalur-hemat/prompt-bot-telegram.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/brand/brief-template.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/brand/fakta-template.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/contoh-data/README.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/contoh-data/pesanan-2026-10-05.csv",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/task/README.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/task/T-01-contoh-ide-konten.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/task/T-02-contoh-rekap-pesanan.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/kotak-masuk/README.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/studi-kasus/sosmed/README.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/studi-kasus/sosmed/PERAN-penulis.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/studi-kasus/sosmed/PERAN-pemeriksa.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/studi-kasus/sosmed/brief-contoh.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/studi-kasus/sosmed/carousel/template.html",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/studi-kasus/sosmed/carousel/render.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/studi-kasus/sosmed/carousel/pasang-carousel.sh",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/studi-kasus/sosmed/carousel/naskah-contoh.json",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/studi-kasus/tagihan/render.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/studi-kasus/tagihan/template.html",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kit-kantor-ai/studi-kasus/web/foto.mjs",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kantor/CLAUDE.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kantor/peran/PERAN-sari.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kantor/peran/PERAN-bima.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kantor/peran/PERAN-builder.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kantor/carousel/package.json",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kantor/carousel/package-lock.json",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kantor/.claude/agents/penulis.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kantor/.claude/agents/pemeriksa.md",
+    "status": "read-static",
+    "note": "Isi source/template dibaca penuh, tanpa eksekusi; output terpotong dibaca ulang pada batch terpisah."
+  },
+  {
+    "path": "kantor/detak.sh",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/notif.sh",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/cek-listing.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/drive-folder.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/font.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/gaya.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/hitung-csv.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/kas.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/password-dashboard.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/repliz-inti.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/repliz.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/satpam-drive.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/selesai-titipan.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/tagihan.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/web.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/alat/xlsx-ke-csv.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/sop/draf-balesan.md",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/sop/ide-konten.md",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/sop/posting-sosmed.md",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/sop/rekap-pesanan.md",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/carousel/render.mjs",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/carousel/template.html",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/carousel/naskah-contoh.json",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/.claude/skills/anti-slop-indo/SKILL.md",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/.claude/skills/balas-pelanggan/SKILL.md",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/.claude/skills/carousel/SKILL.md",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/.claude/skills/google-drive/SKILL.md",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/.claude/skills/posting-repliz/SKILL.md",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/.claude/skills/rekap-angka/SKILL.md",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/.claude/settings.json",
+    "status": "reviewed-regex-only",
+    "note": "Metadata dan SHA-256 dibandingkan; byte-identik dengan padanan kit yang dibaca penuh. Tidak membaca ulang isi salinan aktif."
+  },
+  {
+    "path": "kantor/task/T-01-data-bisnis.md",
+    "status": "not-read",
+    "note": "Hanya nama dan ukuran pada inventaris; payload kerja aktif sengaja dikecualikan."
+  },
+  {
+    "path": "kantor/task/T-02-ide-konten.md",
+    "status": "not-read",
+    "note": "Hanya nama dan ukuran pada inventaris; payload kerja aktif sengaja dikecualikan."
+  },
+  {
+    "path": "kantor/task/T-03-rekap-pesanan.md",
+    "status": "not-read",
+    "note": "Hanya nama dan ukuran pada inventaris; payload kerja aktif sengaja dikecualikan."
+  }
+]
+

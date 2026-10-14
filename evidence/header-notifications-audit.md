@@ -1,0 +1,11 @@
+# Notifikasi header — 14 Oktober 2026
+
+Sumber pemberitahuan adalah state workspace, bukan data contoh: insiden aktif, produksi review/blocked, keputusan pending, tugas blocked dan koneksi workflow hilang/kedaluwarsa/sebagian. Satu episode dengan keputusan result pending tidak digandakan. Jumlah menunjukkan hal yang masih perlu tindakan; membaca item tidak menyelesaikan kondisi sumber. Tidak menambah penyimpanan atau layanan push.
+
+Klik insiden membuka ruang medis dan form alasan/pemulihan agent terkait. Produksi membuka episode/preview; keputusan manual membuka keputusan yang tepat; koneksi membuka workflow dalam scope divisinya; tugas manual membuka detailnya. Gate approval dan pemulihan tetap eksplisit. Panel memakai details/summary, tombol tutup, Escape, klik luar dan keluar fokus; fokus item dipertahankan saat daftar diperbarui. Announcer status menyebut konteks jumlah, bukan angka saja.
+
+Preview Founder dibatasi 180–280 px. Koreksi setelah screenshot pemilik: render memakai ukuran bingkai aktual (maksimal lebar 1600 px), kamera ortografik mengikuti rasionya dan mempertahankan seluruh bounds ruang Founder. Cache dibatalkan saat dimensi berubah; resize memakai debounce 150 ms. Gambar mengisi bingkai tanpa letterbox dari object-fit contain. Tes proyeksi mencakup rasio 1,2–4,5 dan capture 1400×350, termasuk pemulihan ukuran renderer setelah capture. Chevron dropdown memiliki inset kanan 14 px dan ruang teks 40 px; native select tetap dipertahankan sebagai kontrol dan dikembalikan pada forced-colors.
+
+Verifikasi: 93/93 tes dan build lulus. Dua tes baru memeriksa target agent/divisi/episode/keputusan/workflow, prioritas, deduplikasi, kondisi pulih/selesai, serta koneksi sehat/kedaluwarsa/parsial/hilang tanpa mutasi state. API nyata menghasilkan satu pemberitahuan Mails perlu pemulihan dengan target agent yang benar, revision tetap 9. Web HTTP 200. Peringatan ukuran bundle >500 kB tetap ada.
+
+Batas: tampilan, klik/fokus DOM dan viewport fisik belum diperiksa langsung di browser pada perubahan ini. Polling mengikuti aplikasi yang sudah ada (±5 detik setelah pembaruan; ditunda saat tab tersembunyi, form aktif atau dialog terbuka). Belum ada inbox historis, status dibaca lintas perangkat, suara atau notifikasi sistem operasi.

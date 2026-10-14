@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-10-14T02:54:15.905Z",
+  "method": "audit-output validation and source checksum comparison only; no product code executed",
+  "reports": [
+    {
+      "file": "00-EXECUTIVE-SUMMARY.md"
+    },
+    {
+      "file": "01-CODEBASE-INVENTORY.md"
+    },
+    {
+      "file": "02-ARCHITECTURE.md"
+    },
+    {
+      "file": "03-INSTALLATION-DEEP-DIVE.md"
+    },
+    {
+      "file": "04-LICENSING-AND-DISTRIBUTION.md"
+    },
+    {
+      "file": "05-PRODUCT-FEATURE-MAP.md"
+    },
+    {
+      "file": "06-SECURITY-AUDIT.md"
+    },
+    {
+      "file": "07-KAEL-ARCHITECTURE-BLUEPRINT.md"
+    },
+    {
+      "file": "08-SELL-AND-SELF-HOST-STRATEGY.md"
+    },
+    {
+      "file": "09-IMPLEMENTATION-ROADMAP.md"
+    },
+    {
+      "file": "10-QUESTIONS-AND-UNKNOWNS.md"
+    },
+    {
+      "file": "11-FILE-REFERENCE-INDEX.md"
+    }
+  ],
+  "count": 12,
+  "referenceChecks": 95,
+  "localLinks": 16,
+  "sourceChecksums": 171,
+  "coverage": {
+    "hash-identical": 27,
+    "read-static": 142,
+    "metadata-only": 2
+  },
+  "failures": [],
+  "warnings": []
+}

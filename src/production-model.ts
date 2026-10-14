@@ -1,0 +1,4 @@
+export type ProductionMessage = { id: string; at: string; author: string; agentId: string; kind: 'system' | 'agent' | 'founder'; text: string };
+export type ProductionVersion = { version: number; resultVersion: number; mode: 'silent-preview' | 'with-voice'; summary: string; qc: string; ready: boolean; files: string[] };
+export type Production = { id: string; revision: number; divisionId: string; taskId: string; title: string; status: 'queued' | 'running' | 'blocked' | 'review' | 'approved' | 'rejected' | 'deleted'; stage: string; activeAgentId: string; version: number; createdAt: string; updatedAt: string; notes: string; messages: ProductionMessage[]; versions: ProductionVersion[]; sourceFiles: string[]; error: string };
+export type ProductionData = { revision: number; episodes: Production[]; runtime: { available: boolean; label: string; reason: string } };

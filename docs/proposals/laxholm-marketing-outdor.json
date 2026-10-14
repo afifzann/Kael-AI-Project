@@ -1,0 +1,12 @@
+{
+  "revision": 2,
+  "command": {
+    "type": "workflow-agent",
+    "company": "Laxholm Furniture",
+    "name": "Marketing Outdor",
+    "agent": "Bu Yuli",
+    "role": "Katalog produk, AI Search, Product List & Telegram",
+    "workflowId": "ziQliHotOWJWBDjx",
+    "workflowName": "LAXHOLM Product Database & AI Search"
+  }
+}

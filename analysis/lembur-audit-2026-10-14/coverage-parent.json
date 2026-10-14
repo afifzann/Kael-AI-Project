@@ -1,0 +1,13 @@
+[
+  {"path":"kit-kantor-ai/pagar/settings.json","status":"read-static","note":"Seluruh 155 baris policy template ditinjau; tidak menjalankan tool/hook."},
+  {"path":"kit-kantor-ai/panduan-hp.md","status":"read-static","note":"Seluruh panduan 67 baris dibaca; klaim harga/provider/Remote Control diperlakukan sebagai dokumentasi snapshot, tidak diverifikasi sebagai keadaan layanan sekarang."},
+  {"path":"kantor/ORGANISASI.md","status":"read-static","note":"Seluruh 19 baris organisasi dicermati; Sari/Bima adalah personalisasi kantor backup, bukan roster KAEL saat ini."},
+  {"path":"kit-kantor-ai/installer/aset/LISENSI-font-OFL.txt","status":"read-static","note":"Seluruh notice 94 baris dibaca; tidak menyimpulkan izin seluruh kit dari notice font."},
+  {"path":"kit-kantor-ai/installer/aset/LISENSI-karakter-MIT.txt","status":"read-static","note":"Seluruh notice 25 baris dibaca; scope aset Builder dibedakan dari notice seluruh aset dashboard."},
+  {"path":"kantor/dashboard/drive-cek.json","status":"metadata-only","note":"Data operasional/status akun; hanya ukuran/hash inventaris, nilai tidak ditampilkan atau digunakan."},
+  {"path":"kantor/dashboard/tampilan.json","status":"metadata-only","note":"Konfigurasi tampilan personal, tidak diperlukan untuk memahami source; ukuran/hash saja."},
+  {"path":".claude/settings.json","status":"metadata-only","note":"Hanya key konfigurasi umum/plugin diperiksa melalui parser ber-allowlist, bukan nilai akun."},
+  {"path":"kantor/.claude/settings.local.json","status":"metadata-only","note":"Hanya tipe key dan jumlah 32 permission tambahan, tanpa mencetak command/value yang berpotensi privat."},
+  {"path":".local/bin/claude","status":"metadata-only","note":"File hasil ekstrak 0B, bukan link yang dapat dikenali di Windows; tidak dijalankan atau diperbaiki."},
+  {"path":"kantor/carousel/node_modules/.bin/playwright","status":"metadata-only","note":"Wrapper hasil ekstrak 0B; dependensi tidak dijalankan atau diinstal ulang."}
+]

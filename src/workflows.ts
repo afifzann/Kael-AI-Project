@@ -1,0 +1,38 @@
+import type { State } from './domain';
+import type { WorkflowBinding } from './n8n';
+import { workflowActivity, workflowHistory, type WorkflowHistoryFilter } from './n8n';
+import { icon } from './ui-icons';
+import './workflows.css';
+
+const esc = (value: unknown) => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+const stamp = (value: string) => value && Number.isFinite(Date.parse(value)) ? new Intl.DateTimeFormat('id-ID', { dateStyle: 'medium', timeStyle: 'medium', timeZone: 'Asia/Jakarta' }).format(new Date(value)) : 'Belum tersedia';
+const statuses: Record<string, string> = { new: 'Antrean', running: 'Berjalan', waiting: 'Menunggu', success: 'Berhasil', error: 'Gagal', crashed: 'Terhenti', canceled: 'Dibatalkan', unknown: 'Belum dikenali' };
+
+export function workflowCard(state: State, binding: WorkflowBinding, compact = false, filter: WorkflowHistoryFilter = {}) {
+  const snapshot = state.n8n?.find(w => w.workflowId === binding.workflowId), agent = state.agents.find(a => a.id === binding.agentId)!;
+  const division = state.divisions.find(d => d.id === agent.divisionId)!;
+  const activity = workflowActivity(state, agent.id)!;
+  const incident = state.incidents?.find(i => i.agentId === agent.id && !i.resolvedAt);
+  const online = snapshot?.connection === 'online' && Date.now() - Date.parse(snapshot.checkedAt) <= 20000;
+  const history = workflowHistory(snapshot, filter), executions = compact ? history.executions.slice(0, 3) : history.executions;
+  const key = esc(binding.workflowId);
+  return `<article class="workflow-card ${compact ? 'compact' : ''}" data-workflow="${key}"><div class="workflow-heading"><div><span class="workflow-context">${esc(division.company || 'Kael HQ')} · ${esc(division.name)} · ${esc(agent.name)}</span><h${compact ? '3' : '2'}>${esc(snapshot?.workflowName || binding.workflowName)}</h${compact ? '3' : '2'}></div><span class="op-badge">${esc(activity.text)}</span></div>
+    <div class="workflow-metrics"><span><b>${online ? (snapshot!.partial ? '≥ ' : '') + snapshot!.running.length : '—'}</b>Berjalan</span><span><b>${online ? (snapshot!.partial ? '≥ ' : '') + snapshot!.waiting.length : '—'}</b>Menunggu</span><span><b>${incident ? icon('medical') : icon('decisions')}</b>${incident ? 'Perlu ditinjau' : 'Tanpa insiden tercatat'}</span></div>
+    <p class="workflow-sync">${online ? 'Polling ±5 detik' : 'Data terakhir · status belum dapat dipastikan'} · ${stamp(snapshot?.checkedAt || '')}</p>
+    ${snapshot?.error ? `<p class="op-alert" role="status">${esc(snapshot.error)}</p>` : ''}${snapshot?.partial ? '<p class="op-alert">Daftar proses aktif belum lengkap; jumlah yang terlihat merupakan batas minimum.</p>' : ''}
+    ${incident ? `<div class="workflow-incident"><strong>Insiden belum ditutup${incident.executionId ? ' · #' + esc(incident.executionId) : ''}</strong><p>${esc(incident.reason)}</p><button class="profile-link" data-workflow-health="${esc(agent.id)}">Tinjau & catat pemulihan →</button></div>` : ''}
+    ${compact ? '' : `<div class="workflow-history-heading"><h3>Riwayat eksekusi</h3><span>${history.total} dari ${history.available} tersedia</span></div><div class="workflow-filters"><label class="workflow-search">Cari ID, node, atau error<input type="search" data-workflow-key="${key}" data-workflow-filter="query" value="${esc(filter.query || '')}" placeholder="Contoh: Google Sheets" maxlength="200"></label><label>Status<select data-workflow-key="${key}" data-workflow-filter="status">${[['all','Semua status'],['failed','Gagal / terhenti'],['running','Berjalan'],['waiting','Menunggu'],['success','Berhasil'],['canceled','Dibatalkan'],['unknown','Belum dikenali']].map(([value,label]) => `<option value="${value}" ${value === (filter.status || 'all') ? 'selected' : ''}>${label}</option>`).join('')}</select></label><label>Dari tanggal · WIB<input type="date" data-workflow-key="${key}" data-workflow-filter="from" value="${esc(filter.from || '')}"></label><label>Sampai tanggal · WIB<input type="date" data-workflow-key="${key}" data-workflow-filter="to" value="${esc(filter.to || '')}"></label><button class="op-button" data-workflow-reset="${key}">Reset filter</button></div>${filter.from && filter.to && filter.from > filter.to ? '<p class="op-alert" role="status">Tanggal akhir harus sama dengan atau setelah tanggal awal.</p>' : ''}`}
+    <div class="workflow-runs">${executions.length ? executions.map(e => {
+      const duration = e.startedAt && e.stoppedAt ? `${Math.max(0, (Date.parse(e.stoppedAt) - Date.parse(e.startedAt)) / 1000).toFixed(1)} dtk` : '';
+      const safeUrl = /^https:\/\//.test(e.url) ? e.url : '';
+      return `<details class="workflow-run" data-execution="${esc(binding.workflowId + '/' + e.id)}"><summary><span><b>#${esc(e.id)}</b> <span class="execution-status status-${esc(e.status)}">${esc(statuses[e.status] || 'Belum dikenali')}</span><small>${stamp(e.startedAt)}${duration ? ` · ${duration}` : ''}${e.node ? ' · ' + esc(e.node) : ''}</small></span><span aria-hidden="true">⌄</span></summary><p>Divisi: ${esc(division.name)} · Agent: ${esc(agent.name)}</p><p>Workflow: ${esc(snapshot?.workflowName || binding.workflowName)}</p>${e.node ? `<p>Node: <strong>${esc(e.node)}</strong></p>` : ''}${e.error ? `<p class="workflow-error">${esc(e.error)}</p>` : ''}${e.detailUnavailable ? '<small>Detail belum dapat dibaca; coba lagi pada pembaruan berikutnya.</small>' : ''}${safeUrl ? `<a class="profile-link" href="${esc(safeUrl)}" target="_blank" rel="noopener noreferrer">Buka eksekusi di n8n ↗</a>` : ''}</details>`;
+    }).join('') : `<p class="op-muted">${history.available ? 'Tidak ada eksekusi yang cocok. Ubah atau reset filter.' : 'Belum ada riwayat yang tersedia dari n8n.'}</p>`}</div>
+    ${compact ? '' : `<div class="workflow-pagination"><span>Halaman ${history.page} dari ${history.pages}</span><div><button class="op-button" data-workflow-key="${key}" data-workflow-direction="previous" data-workflow-page="${history.page - 1}" ${history.page <= 1 ? 'disabled' : ''}>Sebelumnya</button><button class="op-button" data-workflow-key="${key}" data-workflow-direction="next" data-workflow-page="${history.page + 1}" ${history.page >= history.pages ? 'disabled' : ''}>Berikutnya</button></div></div>`}
+    <small class="workflow-note">${snapshot?.historyPartial ? 'Riwayat n8n dibatasi 100 eksekusi terakhir. ' : ''}${compact ? 'Tampil maksimal 3 eksekusi. ' : 'Filter berlaku pada data yang sudah tersedia, 10 eksekusi per halaman. '}Berhasil berarti eksekusi n8n selesai; validasi hasil bisnis mengikuti workflow. Catatan pemulihan lokal tidak menjalankan ulang n8n.</small>
+    ${compact ? '' : `<button class="op-button" data-workflow-profile="${esc(agent.id)}">Lihat ${esc(agent.name)} di kantor →</button>`}</article>`;
+}
+
+export function workflowDashboard(state: State, filters: Record<string, WorkflowHistoryFilter> = {}, workflowId = '') {
+  const bindings = state.workflowBindings || [], visible = bindings.filter(b => !workflowId || b.workflowId === workflowId);
+  return `${bindings.length ? `<label class="workflow-picker">Workflow<select data-workflow-picker><option value="">Semua workflow divisi</option>${bindings.map(b => `<option value="${esc(b.workflowId)}" ${b.workflowId === workflowId ? 'selected' : ''}>${esc(b.workflowName)} · ${esc(state.agents.find(a => a.id === b.agentId)?.name)}</option>`).join('')}</select></label>` : ''}<div class="workflow-grid">${visible.length ? visible.map(b => workflowCard(state, b, false, filters[b.workflowId])).join('') : '<div class="op-empty"><h2>Workflow belum tersedia.</h2><p>Pilih workflow lain atau konfigurasi koneksinya melalui Builder.</p></div>'}</div>`;
+}

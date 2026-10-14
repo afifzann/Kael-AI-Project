@@ -1,0 +1,32 @@
+node_modules/
+dist/
+*.log
+app-data/
+.env
+.env.*
+!.env.example
+
+# Backup Lembur: berisi kredensial, jangan pernah di-commit
+lembur-backup-lengkap/
+
+# Lampiran sesi coding agent dan cache
+.codex-remote-attachments/
+__pycache__/
+*.pyc
+
+# Rahasia dan kredensial
+*.pem
+*.key
+*.p12
+*.pfx
+.credentials.json
+credentials*.json
+*secret*
+*.sqlite
+backup-ui-*/
+
+# Bukti render/screenshot dan proposal lokal bukan sumber aplikasi
+/evidence/*
+!/evidence/*.md
+/proposals/
+/video-reference.jpg

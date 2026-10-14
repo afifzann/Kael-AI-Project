@@ -1,0 +1,147 @@
+[
+  {
+    "path": "kit-kantor-ai/dashboard/server.mjs",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/dashboard/situs.mjs",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/dashboard/aset/app.js",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/dashboard/aset/kantor.js",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/dashboard/aset/gaya.css",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/alat/password-dashboard.mjs",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/alat/satpam-drive.mjs",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/alat/drive-folder.mjs",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/alat/web.mjs",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/alat/repliz.mjs",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/alat/repliz-inti.mjs",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/pagar/settings.json",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kit-kantor-ai/detak.sh",
+    "status": "read-static",
+    "note": "Dibaca penuh sebagai source; tidak dieksekusi."
+  },
+  {
+    "path": "kantor/dashboard/server.mjs",
+    "status": "read-static",
+    "note": "SHA-256 identik dengan source kit yang dibaca penuh; isi runtime JSON tidak dibaca."
+  },
+  {
+    "path": "kantor/dashboard/situs.mjs",
+    "status": "read-static",
+    "note": "SHA-256 identik dengan source kit yang dibaca penuh; isi runtime JSON tidak dibaca."
+  },
+  {
+    "path": "kantor/dashboard/aset/app.js",
+    "status": "read-static",
+    "note": "SHA-256 identik dengan source kit yang dibaca penuh; isi runtime JSON tidak dibaca."
+  },
+  {
+    "path": "kantor/dashboard/aset/kantor.js",
+    "status": "read-static",
+    "note": "SHA-256 identik dengan source kit yang dibaca penuh; isi runtime JSON tidak dibaca."
+  },
+  {
+    "path": "kantor/dashboard/aset/gaya.css",
+    "status": "read-static",
+    "note": "SHA-256 identik dengan source kit yang dibaca penuh; isi runtime JSON tidak dibaca."
+  },
+  {
+    "path": "kantor/alat/password-dashboard.mjs",
+    "status": "read-static",
+    "note": "SHA-256 identik dengan source kit yang dibaca penuh; isi runtime JSON tidak dibaca."
+  },
+  {
+    "path": "kantor/alat/satpam-drive.mjs",
+    "status": "read-static",
+    "note": "SHA-256 identik dengan source kit yang dibaca penuh; isi runtime JSON tidak dibaca."
+  },
+  {
+    "path": "kantor/alat/drive-folder.mjs",
+    "status": "read-static",
+    "note": "SHA-256 identik dengan source kit yang dibaca penuh; isi runtime JSON tidak dibaca."
+  },
+  {
+    "path": "kantor/alat/web.mjs",
+    "status": "read-static",
+    "note": "SHA-256 identik dengan source kit yang dibaca penuh; isi runtime JSON tidak dibaca."
+  },
+  {
+    "path": "kantor/alat/repliz.mjs",
+    "status": "read-static",
+    "note": "SHA-256 identik dengan source kit yang dibaca penuh; isi runtime JSON tidak dibaca."
+  },
+  {
+    "path": "kantor/alat/repliz-inti.mjs",
+    "status": "read-static",
+    "note": "SHA-256 identik dengan source kit yang dibaca penuh; isi runtime JSON tidak dibaca."
+  },
+  {
+    "path": "kit-kantor-ai/mulai.sh",
+    "status": "not-read",
+    "note": "Agen dashboard hanya membaca potongan konfirmasi silang, bukan seluruh file. Coverage penuh menjadi tanggung jawab audit installer."
+  },
+  {
+    "path": "kit-kantor-ai/installer/pasang.mjs",
+    "status": "not-read",
+    "note": "Agen dashboard hanya membaca potongan konfirmasi silang, bukan seluruh file. Coverage penuh menjadi tanggung jawab audit installer."
+  },
+  {
+    "path": "kit-kantor-ai/installer/pasang-awal.sh",
+    "status": "not-read",
+    "note": "Agen dashboard hanya membaca potongan konfirmasi silang, bukan seluruh file. Coverage penuh menjadi tanggung jawab audit installer."
+  },
+  {
+    "path": "kit-kantor-ai/update.sh",
+    "status": "not-read",
+    "note": "Agen dashboard hanya membaca potongan konfirmasi silang, bukan seluruh file. Coverage penuh menjadi tanggung jawab audit installer."
+  },
+  {
+    "path": "kit-kantor-ai/installer/perbarui.mjs",
+    "status": "not-read",
+    "note": "Agen dashboard hanya membaca potongan konfirmasi silang, bukan seluruh file. Coverage penuh menjadi tanggung jawab audit installer."
+  }
+]

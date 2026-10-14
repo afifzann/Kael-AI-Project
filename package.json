@@ -1,0 +1,29 @@
+{
+  "name": "kael-ai-office",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "server": "node --env-file-if-exists=.env server/index.mjs",
+    "test": "node --test tests/domain.test.mjs tests/server.test.mjs tests/n8n.test.mjs tests/production.test.mjs tests/builder-session.test.mjs tests/ui.test.mjs tests/work.test.mjs tests/results.test.mjs tests/division-setup.test.mjs tests/runtime.test.mjs",
+    "build": "tsc && vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.535",
+    "@remotion/renderer": "4.0.535",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "remotion": "4.0.535",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.180.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.9"
+  }
+}

@@ -20,19 +20,20 @@ export async function createRuntime({ directory, getState, mutate, turn = codexS
   for (const run of getState().runs?.filter(r => r.status === 'running') || []) await mutate({ type: 'run-end', id: run.id, outcome: 'interrupted' });
   let checked = 0, runtime = { available: false, label: 'Codex lokal', reason: 'Memeriksa runtime…' };
   const runtimeStatus = () => { if (Date.now() - checked > 60000) { checked = Date.now(); try { runtime = status(); } catch { runtime = { available: false, label: 'Codex lokal', reason: 'Runtime tidak dapat diperiksa.' }; } } return runtime; };
-  const controllers = new Map(), executing = new Set(); let queue = Promise.resolve();
+  const controllers = new Map(), executing = new Set(); let draining = false, closed = false;
 
   async function execute(runId, taskId) {
     const controller = controllers.get(runId), folder = path.join(base, runId);
-    const end = command => mutate({ type: 'run-end', id: runId, ...command }).catch(() => {});
-    if (getState().runs?.find(r => r.id === runId)?.status !== 'running') { controllers.delete(runId); return; }
-    executing.add(runId);
+    const end = command => mutate({ type: 'run-end', id: runId, ...command });
+    if (getState().runs?.find(r => r.id === runId)?.status !== 'queued') { controllers.delete(runId); return; }
     try {
       if (controller.signal.aborted) throw new Error('aborted');
+      await mutate({ type: 'run-begin', id: runId }); executing.add(runId);
       const state = getState(), run = state.runs.find(r => r.id === runId);
       await mkdir(folder, { recursive: true });
-      const prompt = `${contextFor(state, taskId)}\n\n${instructions}`;
+      const prompt = `${run.context || contextFor(state, taskId)}\n\n${instructions}`;
       const output = await turn({ folder, prompt, schema, signal: controller.signal, model: run.model });
+      controller.signal.throwIfAborted();
       if (output.blocked) return await end({ outcome: 'blocked', reason: String(output.reason || output.summary || 'AI membutuhkan informasi tambahan.').slice(0, 2000), summary: String(output.summary || '').slice(0, 2000) });
       const content = typeof output.data?.content === 'string' ? output.data.content.trim() : '';
       if (!content) throw new Error('Respons AI tidak berisi hasil kerja. Tidak ada hasil palsu disimpan.');
@@ -43,16 +44,30 @@ export async function createRuntime({ directory, getState, mutate, turn = codexS
     } finally { executing.delete(runId); controllers.delete(runId); await rm(folder, { recursive: true, force: true }).catch(() => {}); }
   }
 
+  async function drain() {
+    if (closed || draining || getState().runs?.some(r => r.status === 'running')) return;
+    draining = true;
+    try {
+      while (!closed) {
+        const state = getState(), run = state.runs?.find(r => r.status === 'queued' && !state.tasks.some(t => t.agentId === r.agentId && t.id !== r.taskId && t.status === 'running'));
+        if (!run || !runtimeStatus().available) break;
+        controllers.set(run.id, new AbortController()); await execute(run.id, run.taskId);
+      }
+    } catch { /* A persistence failure must stop the queue, never repeat AI work. */ }
+    finally { draining = false; }
+  }
+  const timer = setInterval(() => void drain(), 2000); timer.unref();
+  void drain();
+
   async function start(taskId) {
     const current = runtimeStatus(); if (!current.available) throw new Error(current.reason || 'Runtime AI belum tersedia.');
     const runId = randomUUID(); await mutate({ type: 'run-start', taskId, runId });
-    controllers.set(runId, new AbortController());
-    queue = queue.then(() => execute(runId, taskId)); return runId;
+    void drain(); return runId;
   }
   async function cancel(taskId) {
     const run = activeRun(getState(), taskId); if (!run) throw new Error('Tidak ada run AI yang berjalan untuk tugas ini.');
     controllers.get(run.id)?.abort();
     if (!executing.has(run.id)) await mutate({ type: 'run-end', id: run.id, outcome: 'cancelled' });
   }
-  return { start, cancel, status: () => ({ ...runtimeStatus(), executing: [...executing] }), close() { for (const c of controllers.values()) c.abort(); } };
+  return { start, cancel, status: () => ({ ...runtimeStatus(), executing: [...executing] }), close() { closed = true; clearInterval(timer); for (const c of controllers.values()) c.abort(); } };
 }

@@ -1,9 +1,19 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.33 — Tahap 5: runtime AI per agent untuk tugas lokal  
+Versi 2.34 — Tahap 6: konteks agent dan antrean persisten
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
 Tanggal: 14 Oktober 2026  
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.34 — tahap 6: konteks dan antrean
+
+Menjalankan AI menyimpan run berstatus antrean, waktu antre, provider/model, serta salinan konteks sebelum bekerja. Konteks berisi SOP versi briefing, profil, hasil terakhir, arahan revisi/keputusan, dan paling banyak tiga hasil tugas sebelumnya milik pelaksana di divisi yang sama (maksimal 3.000 karakter per hasil rujukan). Riwayat adalah data rujukan, bukan instruksi baru atau bukti approval. Catatan awal tugas tetap terbawa saat mencoba ulang run gagal. Sesi Codex tetap baru per run; ini bukan sinkronisasi riwayat chat Codex/Claude.
+
+Antrean disimpan dalam state lokal dan diproses satu per satu. Tugas antrean tidak ditampilkan sebagai sedang mengetik. Sesudah restart, run yang benar-benar sedang bekerja dijeda sebagai terputus dan tidak diulang otomatis; run yang belum mulai tetap mengantre lalu dilanjutkan bila runtime tersedia. Run antrean bisa dihentikan tanpa memanggil AI. Memulai tugas yang sama secara manual/AI atau mengarsipkan pelaksana saat mengantre ditolak. Saat mulai, persetujuan rencana, identitas pelaksana, error dan fasilitas diperiksa kembali. Hasil yang tiba sesudah penghentian tidak disimpan.
+
+Notifikasi membuka pekerjaan tepat untuk hasil siap diperiksa, permintaan informasi, serta run gagal/terputus. Detail pekerjaan dan karakter membedakan antrean, bekerja, dan pemeriksaan; approval tetap tindakan Founder terpisah. Run dan konteks dibatasi pada divisinya di read model.
+
+Uji Codex sungguhan dengan data sintetis berhasil menghasilkan checklist Indonesia tiga butir sebagai v1 berstatus review, tanpa approval. Bukan pengujian pekerjaan pelanggan atau semua model/provider. Bukti lokal: `evidence/agent-runtime-smoke/run-jBTsp8/check.json`.
 
 ## Perbaikan v2.33 — tahap 5: runtime AI per agent
 

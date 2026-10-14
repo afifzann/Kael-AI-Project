@@ -23,9 +23,12 @@ export function workspaceNotifications(state: State | null, connectionError = ''
     notices.push({ id: 'decision-' + decision.id, kind: 'approval', title: decision.type === 'guidance' ? 'Tim membutuhkan arahan' : 'Menunggu approval kamu', detail: `${divisionName(brief?.divisionId || '')} · ${decision.title}`, action: 'decision', targetId: decision.id, divisionId: brief?.divisionId || '' });
   }
   for (const task of state.tasks) {
-    if (task.status !== 'blocked' || productions.some(p => p.taskId === task.id)) continue;
+    if (productions.some(p => p.taskId === task.id) || state.productionTaskIds?.includes(task.id)) continue;
     const divisionId = state.briefs.find(b => b.id === task.briefId)?.divisionId || '';
-    notices.push({ id: 'task-' + task.id, kind: 'error', title: 'Pekerjaan membutuhkan informasi', detail: `${divisionName(divisionId)} · ${task.title}`, action: 'task', targetId: task.id, divisionId });
+    const lastRun = state.runs?.filter(r => r.taskId === task.id).at(-1);
+    if (task.status === 'review' && task.results?.length) notices.push({ id: 'review-' + task.id, kind: 'approval', title: 'Hasil siap diperiksa', detail: `${divisionName(divisionId)} · ${task.title} · v${task.results.length}`, action: 'task', targetId: task.id, divisionId });
+    else if (task.status === 'blocked') notices.push({ id: 'task-' + task.id, kind: 'error', title: 'Pekerjaan membutuhkan informasi', detail: `${divisionName(divisionId)} · ${task.title}`, action: 'task', targetId: task.id, divisionId });
+    else if (task.status === 'paused' && lastRun && ['failed', 'interrupted'].includes(lastRun.status) && !state.incidents?.some(i => i.agentId === task.agentId && !i.resolvedAt)) notices.push({ id: 'run-' + lastRun.id, kind: 'error', title: lastRun.status === 'interrupted' ? 'Run AI terputus' : 'Run AI gagal', detail: `${divisionName(divisionId)} · ${task.title} · ${lastRun.error}`, action: 'task', targetId: task.id, divisionId });
   }
   for (const binding of state.workflowBindings || []) {
     const snapshot = state.n8n?.find(w => w.workflowId === binding.workflowId);

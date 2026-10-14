@@ -25,6 +25,14 @@ SOP per divisi berversi; briefing mencatat versi SOP dan konteks AI menyertakann
 ### Tahap 5 — runtime AI per agent
 Tombol "Jalankan dengan AI" di detail tugas lokal untuk agent dengan provider Codex (`server/runtime.mjs`, `server/codex-stage.mjs`). Memakai login Codex CLI di komputer ini, folder kosong baca-saja, model dari setelan agent. Hasil masuk sebagai versi baru menunggu pemeriksaan. Run bisa dihentikan; butuh info/gagal/restart menjeda tugas tanpa ulang otomatis. Claude/Hermes belum punya runtime.
 
+### Tahap 6 — konteks dan antrean persisten
+
+Run membedakan antrean dan eksekusi. Salinan konteks/provider/model, catatan revisi dan waktu antre disimpan sebelum mulai; retry tetap membawa arahan sebelum gagal. Konteks menyertakan sampai tiga hasil sebelumnya milik agent dalam divisi yang sama. Setelah restart, antrean dilanjutkan tetapi run aktif dijeda sebagai terputus tanpa pengulangan otomatis. Antrean bisa dibatalkan tanpa memanggil AI. Status karakter, pekerjaan dan notifikasi mengikuti run; hasil tetap menunggu pemeriksaan/approval. File utama: `server/runtime.mjs`, `src/domain.ts`, `src/work.ts`, `src/workspace.ts`, `src/notifications.ts`, `src/visuals.ts`, `src/operations.ts`.
+
+Uji Codex sungguhan berhasil melalui `scripts/check-agent-runtime.mjs` dengan fixture terpisah: checklist Indonesia tiga butir, hasil v1 berstatus review dan tanpa approval. Bukti lokal: `evidence/agent-runtime-smoke/run-jBTsp8/check.json`. Data kantor pemilik tidak dipakai untuk prompt uji. Sesi tetap baru per run; memori berupa catatan/hasil terbatas, bukan riwayat chat penuh atau sinkronisasi antarprovider.
+
+Backend terbaru sudah dimuat ulang setelah dipastikan tidak ada pekerjaan aktif. Frontend 5173/backend 5174 HTTP 200; runtime Codex tersedia. Revision pemilik tetap 9 (2 divisi, 7 agent), hash SHA256 tetap `FF4149D5C6B5150C7E3833BA6917D470B6D6A3EF5FCFCDB726F35A868BF979F4`. Tidak ada hasil/keputusan pemilik yang dibuat atau diubah oleh pengujian.
+
 ### Audit Lembur dirapikan (dokumen saja)
 Laporan di `analysis/lembur-audit-2026-10-14/` diberi label kepastian (01, 07–09), kolom padanan Kael di tabel instalasi 03, 11 aspek perbandingan di 07, dan path backup baru. Lembar 8 keputusan owner dengan rekomendasi: `analysis/lembur-audit-2026-10-14/KEPUTUSAN-OWNER.md`. Tidak ada perubahan kode.
 
@@ -43,16 +51,16 @@ Build masih memberi peringatan bundle JavaScript sekitar 749 kB; pemisahan bundl
 
 ## Belum diverifikasi
 
-- Run dengan Codex sungguhan (pengujian memakai runtime tiruan).
+- Semua model/provider dan pekerjaan nyata pemilik; baru satu tugas sintetis diuji dengan Codex sungguhan.
 - Tampilan langsung di komputer pemilik untuk tahap 3–5.
 
 - Keputusan owner nomor 1–3 di `KEPUTUSAN-OWNER.md` (menentukan langkah koding berikutnya).
 
-Status tes terakhir: 115 tes lulus di Node.js 24.21.0, typecheck dan build lulus.
+Status tes terakhir: 118 tes lulus di Node.js 24.21.0, typecheck dan build lulus (bundle sekitar 751 kB). Uji HTTP meliputi antrean yang bertahan setelah restart. QA visual langsung belum dilakukan.
 
 ## Langkah berikutnya (kandidat)
 
-1. Pemilik mencoba satu tugas kecil dengan Codex sungguhan dan memeriksa tampilan tahap 3–5.
+1. Pemilik memeriksa tampilan tahap 3–6 dan mencoba satu tugas miliknya, lalu meninjau/revisi hasil.
 2. Runtime untuk Claude (atau Hermes) setelah cara login/kuotanya dipastikan.
 3. Telegram manager (Bu Yuli) untuk tanya status divisi, baca saja.
 4. Backup/restore dari UI dan migrasi penyimpanan (lihat `analysis/lembur-audit-2026-10-14/09-IMPLEMENTATION-ROADMAP.md`).

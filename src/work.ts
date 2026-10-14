@@ -1,4 +1,4 @@
-import type { State } from './domain';
+import { activeRun, type State } from './domain.ts';
 import type { WorkflowExecution } from './n8n';
 
 export const workSources = { manual: 'Tugas lokal', production: 'Produksi', workflow: 'Workflow eksternal' } as const;
@@ -35,6 +35,7 @@ export function workItems(state: State, now = Date.now()): WorkItem[] {
       : decision ? decision.type === 'guidance' ? 'Founder perlu memberi arahan revisi atau menolak pekerjaan.' : decision.type === 'plan' ? 'Founder perlu meninjau rencana briefing.' : 'Founder perlu meninjau versi hasil yang diajukan.'
       : brief?.status === 'draft' ? 'Lengkapi briefing lalu ajukan rencana untuk disetujui.'
       : brief?.status !== 'approved' ? 'Periksa briefing; rencana belum disetujui.'
+      : activeRun(state, task.id)?.status === 'queued' ? 'Menunggu giliran AI. Antrean tersimpan dan dapat dihentikan.'
       : status === 'running' && state.runs?.some(r => r.taskId === task.id && r.status === 'running') ? 'AI sedang mengerjakan. Hasil akan menunggu pemeriksaan.'
       : status === 'running' ? 'Simpan hasil yang sudah dibuat untuk pemeriksaan.'
       : status === 'review' ? 'Periksa hasil terhadap kriteria briefing sebelum diajukan ke Founder.'
@@ -43,13 +44,13 @@ export function workItems(state: State, now = Date.now()): WorkItem[] {
       : status === 'blocked' ? 'Lengkapi informasi yang diminta, lalu lanjutkan pekerjaan.'
       : status === 'revision' ? 'Ikuti arahan revisi, lalu mulai pekerjaan untuk versi baru.'
       : 'Mulai atau lanjutkan pekerjaan secara manual.';
-    const run = state.runs?.find(r => r.taskId === task.id && r.status === 'running');
+    const run = activeRun(state, task.id);
     const latest = state.events.filter(e => e.targetId === task.id || e.targetId === brief?.id).sort((a, b) => time(b.at) - time(a.at))[0];
     items.push({ key: `manual:${task.id}`, source: 'manual', targetId: task.id, title: task.title, divisionId: division?.id || brief?.divisionId || '', agentId: task.agentId, managerId: division?.managerId || '',
       status, nativeStatus: task.status, goal: brief?.goal || 'Briefing belum tersedia.', criteria: brief?.criteria || 'Kriteria belum tersedia.',
       stage: status === 'approval' ? decision?.type === 'plan' ? 'Persetujuan rencana' : decision?.type === 'guidance' ? 'Arahan Founder' : 'Persetujuan hasil' : workStatuses[status],
       reason: task.reason || '', nextStep, updatedAt: latest?.at || task.results.at(-1)?.createdAt || brief?.createdAt || '', versions: task.results.length, briefId: brief?.id, decisionId: decision?.id,
-      connection: run ? { kind: 'runtime', label: `${run.provider} sedang bekerja`, detail: 'Run AI lokal. Hasil tetap menunggu pemeriksaan dan keputusan Founder.' }
+      connection: run ? { kind: 'runtime', label: `${run.provider} ${run.status === 'queued' ? 'mengantre' : 'sedang bekerja'}`, detail: 'Run AI lokal. Hasil tetap menunggu pemeriksaan dan keputusan Founder.' }
         : { kind: 'local', label: 'Pencatatan lokal', detail: 'Status diperbarui manual atau melalui run AI yang dimulai Founder.' } });
   }
   for (const production of productions) {

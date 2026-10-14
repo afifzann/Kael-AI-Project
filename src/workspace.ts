@@ -34,6 +34,8 @@ export function divisionOverview(state: State) {
   if (activeProductions.length) return { kind: 'running', text: activeProductions[0].stage || 'Produksi berjalan', activeCount, complete };
   if (workflowRunning) return { kind: 'running', text: `${workflowRunning} proses workflow berjalan`, activeCount, complete };
   if (manualTasks.length) return { kind: 'running', text: `${manualTasks.length} tugas sedang dikerjakan`, activeCount, complete };
+  const queued = state.runs?.filter(r => r.status === 'queued').length || 0;
+  if (queued) return { kind: 'queued', text: `${queued} tugas mengantre untuk AI`, activeCount, complete };
   if (bindings.length) return { kind: 'idle', text: workflowActivity(state, bindings[0].agentId)!.text, activeCount, complete };
   return { kind: 'idle', text: 'Belum ada pekerjaan berjalan', activeCount, complete };
 }
@@ -48,6 +50,6 @@ export function divisionState(state: State, divisionId: string): State {
     decisions: state.decisions.filter(d => d.type === 'plan' ? briefIds.has(d.targetId) : taskIds.has(d.targetId)),
     workflowBindings, n8n: state.n8n?.filter(w => workflowBindings?.some(b => b.workflowId === w.workflowId)),
     productions: state.productions?.filter(p => p.divisionId === divisionId), productionTaskIds: state.productionTaskIds?.filter(id => taskIds.has(id)), incidents: state.incidents?.filter(i => agentIds.has(i.agentId)),
-    sops: state.sops?.filter(v => v.divisionId === divisionId), agentSettings: state.agentSettings?.filter(v => agentIds.has(v.agentId)),
+    sops: state.sops?.filter(v => v.divisionId === divisionId), agentSettings: state.agentSettings?.filter(v => agentIds.has(v.agentId)), runs: state.runs?.filter(v => taskIds.has(v.taskId)),
     archivedAgents: state.archivedAgents?.filter(a => a.divisionId === divisionId), divisionNotes: state.divisionNotes?.filter(n => n.divisionId === divisionId) };
 }

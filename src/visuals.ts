@@ -43,6 +43,9 @@ export function agentActivity(state: State, agent: State['agents'][number]) {
   const delegated = new Set(state.productions?.filter(p=>p.status==='running').map(p=>p.taskId)||[]);
   const tasks = (agent.manager ? state.tasks.filter(t => state.agents.some(a => a.id === t.agentId && a.divisionId === agent.divisionId)) : state.tasks.filter(t => t.agentId === agent.id)).filter(t=>!delegated.has(t.id));
   if (agent.manager && tasks.some(t => t.status === 'review')) return { kind: 'review', text: 'Review hasil · Manual', typing: true, canWalk: false };
+  const run = state.runs?.find(r => r.agentId === agent.id && r.status === 'running');
+  if (run) return { kind: 'running', text: `Bekerja · ${run.provider}`, typing: true, canWalk: false };
+  if (!tasks.some(t => t.status === 'running') && state.runs?.some(r => r.agentId === agent.id && r.status === 'queued')) return { kind: 'queued', text: 'Antrean AI', typing: false, canWalk: false };
   for (const [status, text] of [['running', agent.manager ? 'Koordinasi · Manual' : 'Bekerja · Manual'], ['blocked', 'Butuh informasi'], ['review', 'Menunggu review'], ['approval', 'Menunggu Founder'], ['paused', 'Dijeda'], ['queued', 'Dalam antrean']] as const) {
     if (tasks.some(t => t.status === status)) return { kind: status, text, typing: status === 'running' && !agent.manager, canWalk: false };
   }

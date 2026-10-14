@@ -1,6 +1,16 @@
 # Status implementasi lokal — 14 Oktober 2026
 
-Status terbaru: **PRD v2.30 — Tahap 2: struktur pekerjaan dan status lintas sumber**. Arah visual terbaru tercatat di DESIGN.md.
+Status terbaru: **PRD v2.34 — Tahap 6: konteks dan antrean persisten**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+
+## PRD v2.34 — konteks agent dan antrean
+
+`domain.ts` menyimpan salinan konteks, catatan awal, waktu antre dan status queued/running pada run. `run-start` menjadwalkan, `run-begin` menandai eksekusi setelah validasi, dan `run-end` menyimpan hasil/penyebab berhenti. Perintah internal tidak diterima dari API command umum. Data lama tetap valid tanpa reset ID/skema; run lama berstatus running tetap dijeda saat startup.
+
+`runtime.mjs` mengambil antrean tersimpan satu per satu; setelah restart hanya queued yang dilanjutkan, bukan pekerjaan yang terputus. Runtime tidak tersedia membiarkan antrean tersimpan. Tugas lain yang sedang berjalan pada pelaksana sama ditunggu. Catatan revisi diambil sebelum status berubah dan salinan konteks tidak berubah ketika setelan agent diedit. Hasil pembatalan yang terlambat dibuang; kegagalan menyimpan status menghentikan antrean bila masih ada run running, sehingga AI tidak dipanggil ulang untuk run tersebut.
+
+`work.ts`, `workspace.ts`, `visuals.ts`, `notifications.ts` dan panel runtime mengikuti status tersebut. Konteks sebelumnya dibatasi tiga hasil lokal pelaksana dari divisi sama; tidak mengambil chat pribadi, workflow payload atau konteks agent lain. Catatan bukan memori percakapan penuh dan belum memakai retrieval semantik.
+
+Tes mencakup konteks revisi/retry, isolasi divisi/agent, status karakter/notifikasi, antrean dan batal tanpa panggilan AI, serta restart server HTTP yang menjeda run aktif dan meneruskan record antrean yang sama tepat sekali. `scripts/check-agent-runtime.mjs` adalah uji opt-in terpisah memakai login Codex sungguhan dan fixture sintetis; tidak masuk npm test dan tidak mengubah state kantor pemilik. Uji nyata berhasil: hasil Indonesia tiga butir, v1, status review, tanpa approval.
 
 ## PRD v2.30 — tahap 2
 

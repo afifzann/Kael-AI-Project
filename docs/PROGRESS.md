@@ -49,6 +49,12 @@ Repo Git lokal diinisialisasi dan checkpoint dibuat sesuai `AGENTS.md`, tanpa pu
 
 Build masih memberi peringatan bundle JavaScript sekitar 749 kB; pemisahan bundle belum dikerjakan pada langkah ini. Tes listener UI tidak menggantikan pemeriksaan tampilan di browser.
 
+## Revisi master prompt riset — 14 Oktober 2026
+
+Versi lanjutan disimpan di `docs/prompts/LEMBUR-RESEARCH-MASTER.md`. Prompt membaca audit terdahulu dan progres/source Kael terlebih dahulu, membuat matriks kekurangan, mempertahankan cakupan 27 topik, serta memisahkan temuan Lembur, rekomendasi, implementasi Kael dan tingkat pengujian. Kriteria selesai mengukur cakupan/bukti, bukan jumlah laporan. Lampiran asli dan source backup tidak diubah. Ini revisi dokumen instruksi; audit tambahan, folder 27 laporan dan tahap 7 belum dijalankan oleh pekerjaan ini.
+
+Verifikasi revisi dokumen: 27 topik unik berurutan dan acuan/status utama diperiksa dengan assert; 118 tes proyek serta build lulus. Peringatan ukuran bundle sekitar 751 kB tetap ada. Prompt belum dijalankan sebagai audit lanjutan, sehingga belum ada klaim bahwa seluruh kekurangan riset telah ditutup.
+
 ## Belum diverifikasi
 
 - Semua model/provider dan pekerjaan nyata pemilik; baru satu tugas sintetis diuji dengan Codex sungguhan.

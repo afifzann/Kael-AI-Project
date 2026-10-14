@@ -8,10 +8,12 @@ import { createN8nClient } from './n8n.mjs';
 import { createProduction } from './production.mjs';
 import { createBuilderSession } from './builder-session.mjs';
 import { createRuntime } from './runtime.mjs';
+import { createAuth, builderCommands } from './auth.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const directory = process.env.KAEL_DATA_DIR || path.join(root, 'app-data');
 await mkdir(directory, { recursive: true });
+const auth = await createAuth({ directory, secure: process.env.KAEL_HTTPS === '1' });
 const file = path.join(directory, 'state.json');
 let state;
 try { state = JSON.parse(await readFile(file, 'utf8')); if (state.schema !== 1 || !Array.isArray(state.tasks) || !Array.isArray(state.events)) throw new Error('Format data tidak didukung.'); }
@@ -53,6 +55,8 @@ const server = http.createServer(async (req, res) => {
   if (![`127.0.0.1:${port}`, `localhost:${port}`].includes(req.headers.host)) return send(res, 403, { error: 'Host tidak diizinkan.' });
   const origin = req.headers.origin;
   if (origin && !['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:4173', 'http://127.0.0.1:4173'].includes(origin)) return send(res, 403, { error: 'Origin tidak diizinkan.' });
+  if (await auth.handle(req, res, send)) return;
+  const role = auth.authorize(req, res, send); if (!role) return;
   if(await production.handle(req,res,new URL(req.url,`http://127.0.0.1:${port}`),send))return;
   if (req.method === 'GET' && req.url === '/api/state') return send(res, 200, publicState());
   if (req.method === 'GET' && req.url === '/api/builder-status') { await builder.read(); return send(res, 200, builder.presence()); }
@@ -77,6 +81,7 @@ const server = http.createServer(async (req, res) => {
     const operation = queue.then(async () => {
       if (input.revision !== state.revision) return send(res, 409, { error: 'Data telah diperbarui di halaman lain. Data terbaru dimuat; tinjau sebelum mencoba kembali.' });
       const command=input.command;
+      if(role==='builder' && !builderCommands.includes(command?.type)) return send(res,403,{error:'Builder tidak berwenang menjalankan tugas, memulihkan error atau memberi keputusan Founder.'});
       if(['run-start','run-begin','run-end'].includes(command?.type))throw new Error('Run AI hanya dapat dimulai melalui runtime.');
       const target=command?.type==='decide'?state.decisions.find(d=>d.id===command.id)?.targetId:command?.id;
       if(['start','hold','result','review','revise-task','cancel-task','decide'].includes(command?.type)&&production.taskIds().includes(target))throw new Error('Gunakan halaman Produksi untuk hasil, revisi dan keputusan episode ini.');

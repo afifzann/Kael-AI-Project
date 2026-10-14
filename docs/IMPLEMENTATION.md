@@ -1,6 +1,16 @@
 # Status implementasi lokal — 14 Oktober 2026
 
-Status terbaru: **PRD v2.34 — Tahap 6: konteks dan antrean persisten**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+Status terbaru: **PRD v2.35 — Tahap 7 bagian awal: akses pemilik dan pemisahan instalasi**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+
+## PRD v2.35 — akses pemilik
+
+`server/auth.mjs` menangani setup/login/logout/status, password scrypt, sesi in-memory yang disimpan sebagai hash token, idle/absolute expiry, rate limit, CSRF dan scope Builder. Bootstrap tersedia sebagai file privat pada server dan dikonsumsi setelah setup. Pembuatan akun memakai file sementara dan hard link eksklusif sehingga record yang sudah ada tidak tertimpa. Autentikasi berjalan sebelum handler produksi/media maupun seluruh API pekerjaan. Tidak ada mode bypass autentikasi untuk tes.
+
+`src/entry.ts` menunggu akses pemilik melalui `src/access.ts` sebelum mengimpor aplikasi/3D, memasang CSRF hanya untuk API origin sendiri, menangani sesi berakhir, serta menyediakan logout. UI mengikuti tema netral, label/form validasi, error dan fokus keyboard. Vite/preview menolak framing dan memasang header dasar; CSP tersebut bukan audit CSP lengkap. `scripts/owner-access.mjs` hanya untuk pemilik mengambil kode sendiri di terminal; coding agent tidak memilih password pemilik.
+
+`scripts/building.mjs` memakai kunci lokal dengan allowlist pengaturan tim. Tests server/runtime memakai akun dan cookie fixture melalui `tests/helpers/auth-client.mjs`; tes auth terpisah memakai request anonim untuk membuktikan penolakan. Dua instalasi sementara membuktikan state kosong, cookie/kunci berbeda, persistensi akun dan penolakan akses silang. `tests/access.test.mjs` menguji handler frontend, bukan browser sungguhan. Tautan Builder dipasok hanya dari sesi terverifikasi dan tidak diwariskan ke instance buyer terpisah.
+
+Panduan setup dan batasnya: [Akses pemilik](OWNER-ACCESS.md). Data pemilik tidak dimigrasikan/reset. Deployment VPS publik, recovery, RBAC banyak pengguna, hardening sandbox AI dan broker tindakan eksternal tetap pekerjaan berikutnya.
 
 ## PRD v2.34 — konteks agent dan antrean
 

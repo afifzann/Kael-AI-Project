@@ -1,9 +1,19 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.34 — Tahap 6: konteks agent dan antrean persisten
+Versi 2.35 — Tahap 7 bagian awal: akses pemilik dan pemisahan instalasi
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
 Tanggal: 14 Oktober 2026  
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.35 — akses pemilik dan pemisahan instalasi
+
+Instalasi baru memerlukan penyiapan satu akun pemilik melalui kode sekali pakai yang tersedia di terminal server. Kode penyiapan berbeda dari kode pembelian. Akun disimpan terpisah dari state pekerjaan, dengan password hash scrypt dan salt acak. Setup mempertahankan seluruh data/ID kantor lama. Rekaman akun rusak tidak menyebabkan penggantian akun otomatis.
+
+Dashboard membuka setup/login sebelum memuat kantor 3D. Sesi memakai cookie HttpOnly/SameSite=Strict, masa maksimal 12 jam dan 30 menit tanpa request, serta pencabutan saat logout/restart. API state, status Builder, runtime, produksi dan media preview memerlukan autentikasi; mutasi browser memerlukan CSRF di samping guard Host/Origin. Percobaan setup/login dibatasi. Keputusan Founder hanya dapat dikirim melalui sesi pemilik yang sah dan gate versi/rencana yang sudah ada.
+
+Bridge lokal pengaturan tim memiliki kunci tersendiri dengan allowlist perintah; tidak dapat menjalankan runtime atau memberi approval. Setiap direktori instalasi menyimpan state, akun, bootstrap dan kunci sendiri. Direktori baru tidak menyalin roster, hasil, binding atau sesi kantor internal; tautan chat internal tidak otomatis tampil pada buyer.
+
+Ini fondasi lokal, bukan produk VPS siap dijual. Akun operator/reviewer, recovery password, isolasi proses model, broker tindakan eksternal, onboarding template/Builder buyer, checkout/email lisensi, installer, backup dan HTTPS publik belum lengkap. Rincian: [Akses pemilik](OWNER-ACCESS.md).
 
 ## Perbaikan v2.34 — tahap 6: konteks dan antrean
 

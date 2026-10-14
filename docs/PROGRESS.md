@@ -6,7 +6,7 @@ Terakhir diperbarui: 14 Oktober 2026.
 
 ## Tujuan akhir
 
-Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisensi dan pembaruan lewat layanan pusat minimal). Acuan: `analysis/lembur-audit-2026-10-14/`, roadmap P0–P7 di laporan 09. Tahap 1–5 di bawah adalah bagian dari P1 (workspace dan runtime agent). Yang belum: keputusan P0 (laporan 10), P2 login/approval broker, P3 penyimpanan dan backup, P4 installer, P5 pembaruan dan lisensi.
+Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisensi dan pembaruan lewat layanan pusat minimal). Acuan: `analysis/lembur-audit-2026-10-14/`, roadmap P0–P7 di laporan 09. Tahap 1–6 membangun workspace/runtime (P1); tahap 7 bagian awal membangun akses pemilik (sebagian P2). Yang belum: keputusan P0 (laporan 10), kelengkapan P2 izin/broker, P3 penyimpanan dan backup, P4 installer, P5 pembaruan dan lisensi.
 
 ## Selesai
 
@@ -32,6 +32,14 @@ Run membedakan antrean dan eksekusi. Salinan konteks/provider/model, catatan rev
 Uji Codex sungguhan berhasil melalui `scripts/check-agent-runtime.mjs` dengan fixture terpisah: checklist Indonesia tiga butir, hasil v1 berstatus review dan tanpa approval. Bukti lokal: `evidence/agent-runtime-smoke/run-jBTsp8/check.json`. Data kantor pemilik tidak dipakai untuk prompt uji. Sesi tetap baru per run; memori berupa catatan/hasil terbatas, bukan riwayat chat penuh atau sinkronisasi antarprovider.
 
 Backend terbaru sudah dimuat ulang setelah dipastikan tidak ada pekerjaan aktif. Frontend 5173/backend 5174 HTTP 200; runtime Codex tersedia. Revision pemilik tetap 9 (2 divisi, 7 agent), hash SHA256 tetap `FF4149D5C6B5150C7E3833BA6917D470B6D6A3EF5FCFCDB726F35A868BF979F4`. Tidak ada hasil/keputusan pemilik yang dibuat atau diubah oleh pengujian.
+
+### Tahap 7 bagian awal — akses pemilik dan pemisahan instalasi
+
+Setup akun pertama memakai kode privat sekali pakai dari terminal, login/logout, hash scrypt, sesi cookie HttpOnly/SameSite, CSRF, expiry dan pembatasan percobaan. Auth melindungi seluruh API termasuk produksi/media; bridge pengaturan tim tetap tersedia dengan kunci lokal terbatas, tanpa izin run atau keputusan Founder. Frontend menunggu login sebelum memuat kantor. Instalasi baru memakai state/akun/kunci terpisah; tautan chat Builder internal hanya ditampilkan dari sesi terverifikasi.
+
+File utama: `server/auth.mjs`, `server/index.mjs`, `src/access.ts`, `src/access.css`, `src/entry.ts`, `scripts/owner-access.mjs`, `scripts/building.mjs`, serta handler tautan Builder. Panduan: `docs/OWNER-ACCESS.md`. Tes memakai akun fixture sungguhan pada server terpisah, tanpa bypass auth; mencakup akses anonim/CSRF, scope Builder, dua instalasi buyer, restart/logout, rate limit/expiry, corrupt record dan handler UI. Browser/visual serta instalasi VPS publik belum diverifikasi. Akun pemilik sebenarnya perlu dibuat sendiri melalui UI; tidak ada password yang dipilih oleh coding agent.
+
+Verifikasi akhir: 124/124 tes lulus, typecheck/build lulus. Server dimuat ulang setelah dipastikan tidak ada run/produksi aktif. Frontend HTTP 200 memuat entry login dan header anti-frame; status auth menunjukkan perlu setup, sedangkan state/produksi/Builder anonim HTTP 401. Hash data pemilik tetap `FF4149D5C6B5150C7E3833BA6917D470B6D6A3EF5FCFCDB726F35A868BF979F4`. Kode setup dan password pemilik tidak dibaca/dicetak oleh agent; proses server membuat kode untuk diambil sendiri oleh pemilik.
 
 ### Audit Lembur dirapikan (dokumen saja)
 Laporan di `analysis/lembur-audit-2026-10-14/` diberi label kepastian (01, 07–09), kolom padanan Kael di tabel instalasi 03, 11 aspek perbandingan di 07, dan path backup baru. Lembar 8 keputusan owner dengan rekomendasi: `analysis/lembur-audit-2026-10-14/KEPUTUSAN-OWNER.md`. Tidak ada perubahan kode.
@@ -62,11 +70,11 @@ Verifikasi revisi dokumen: 27 topik unik berurutan dan acuan/status utama diperi
 
 - Keputusan owner nomor 1–3 di `KEPUTUSAN-OWNER.md` (menentukan langkah koding berikutnya).
 
-Status tes terakhir: 118 tes lulus di Node.js 24.21.0, typecheck dan build lulus (bundle sekitar 751 kB). Uji HTTP meliputi antrean yang bertahan setelah restart. QA visual langsung belum dilakukan.
+Status tes terakhir: 124 tes lulus, typecheck/build lulus di Node.js 24.21.0. Bundle kantor sekitar 751 kB (peringatan >500 kB tetap ada) dan dimuat setelah login; entry login sekitar 6 kB. QA visual langsung belum dilakukan.
 
 ## Langkah berikutnya (kandidat)
 
-1. Pemilik memeriksa tampilan tahap 3–6 dan mencoba satu tugas miliknya, lalu meninjau/revisi hasil.
+1. Pemilik menyelesaikan setup akun dan memeriksa UI login/tahap 3–7, lalu mencoba satu tugas serta meninjau/revisi hasil. Kelengkapan P2 (recovery, izin tindakan/broker dan isolasi proses) belum selesai.
 2. Runtime untuk Claude (atau Hermes) setelah cara login/kuotanya dipastikan.
 3. Telegram manager (Bu Yuli) untuk tanya status divisi, baca saja.
 4. Backup/restore dari UI dan migrasi penyimpanan (lihat `analysis/lembur-audit-2026-10-14/09-IMPLEMENTATION-ROADMAP.md`).

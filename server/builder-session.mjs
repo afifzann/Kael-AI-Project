@@ -47,10 +47,10 @@ export function createBuilderSession({ file = process.env.KAEL_BUILDER_SESSION_F
       reset(); identity = '';
       snapshot = { connection: 'disconnected', status, checkedAt: new Date().toISOString(), lastEventAt, turnId, partial, error: 'Status sesi Builder belum tersedia atau identitas sesi tidak cocok.' };
     } finally { if (handle) await handle.close().catch(() => {}); }
-    return snapshot;
+    return { ...snapshot, ...(snapshot.connection === 'online' && !process.env.KAEL_DATA_DIR ? { chatUrl: builderSession.url } : {}) };
   }
   return {
     read() { if (!pending) pending = read().finally(() => { pending = null; }); return pending; },
-    presence() { return { ...snapshot }; },
+    presence() { return { ...snapshot, ...(snapshot.connection === 'online' && !process.env.KAEL_DATA_DIR ? { chatUrl: builderSession.url } : {}) }; },
   };
 }

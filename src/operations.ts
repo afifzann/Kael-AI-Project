@@ -287,7 +287,7 @@ export function mountOperations() {
     if (!room) return;
     facilityStrip.classList.toggle('medical-strip', room.kind === 'medical');
     if (room.kind === 'builder') {
-      facilityStrip.innerHTML = `<div><strong>Builder · ${esc(builderActivity(state?.builderChat).text)}</strong><small>Sesi ${builderSession.title} di Codex · Santai saat luang, bekerja saat sesi aktif</small></div><div><button class="op-button" data-facility-action="builder-profile">Profil Builder</button>${builderChatLink}</div>`;
+      facilityStrip.innerHTML = `<div><strong>Builder · ${esc(builderActivity(state?.builderChat).text)}</strong><small>Sesi ${builderSession.title} di Codex · Santai saat luang, bekerja saat sesi aktif</small></div><div><button class="op-button" data-facility-action="builder-profile">Profil Builder</button>${builderChatLink(state?.builderChat)}</div>`;
       return;
     }
     if (room.kind === 'medical') {

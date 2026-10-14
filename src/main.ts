@@ -54,7 +54,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <div class="detail-separator"></div><dl class="profile-facts"><div><dt>Divisi</dt><dd id="profile-division">Founder</dd></div><div><dt>Ruangan</dt><dd id="profile-room">Founder office</dd></div><div><dt>Koneksi agen</dt><dd class="muted" id="profile-connection">Belum terhubung</dd></div></dl>
       <section id="profile-n8n" hidden></section><p id="profile-outfit" class="profile-outfit"></p><section id="profile-tasks" class="profile-tasks" hidden><h3>Pekerjaan anggota</h3><div id="profile-task-list"></div></section><button id="profile-work" class="profile-link" hidden>Buka pekerjaan →</button>
       <button id="profile-health" class="profile-link" hidden>Catat error</button>
-      <div id="profile-builder-chat" class="profile-builder-chat" hidden>${builderChatLink}<small>Karakter mengikuti aktivitas sesi Builder di Codex.</small></div>
+      <div id="profile-builder-chat" class="profile-builder-chat" hidden>${builderChatLink()}<small>Karakter mengikuti aktivitas sesi Builder di Codex.</small></div>
       <div class="status-editor"><label>Status karakter <span>SIMULASI</span></label><div class="segmented" role="group" aria-label="Status simulasi Kael"><button data-status="focus" aria-pressed="true">Fokus</button><button data-status="idle" aria-pressed="false">Santai</button><button data-status="offline" aria-pressed="false">Offline</button></div><p id="status-description" role="status">Kael sedang menyusun ide di meja kerja.</p></div>
       <button id="focus-kael" class="focus-button">${icon('focus')} <span id="profile-focus-text">Fokus ke Kael</span></button>
       <div class="integration-note"><span>○</span><p>Profil karakter kantor.<small>Status kerja berasal dari pencatatan lokal. Gerak karakter merupakan simulasi.</small></p></div>
@@ -216,6 +216,7 @@ try {
   $('[data-room="founder"]').onclick = office.reset;
   window.addEventListener('kael:state', event => {
     const state = (event as CustomEvent<State>).detail; latestState = state; office.syncTeams(state);
+    $('#profile-builder-chat').innerHTML = builderChatLink(state.builderChat) + '<small>Karakter mengikuti sesi Builder yang dihubungkan.</small>';
     document.querySelectorAll<HTMLButtonElement | HTMLSelectElement>('.agent-navigation button,.agent-navigation select').forEach(control => control.disabled = false);
     const agentSelect = $<HTMLSelectElement>('#agent-select');
     const members = roster(), signature = members.map(a => `${a.id}/${a.name}/${a.role}`).join('|');

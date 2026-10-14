@@ -8,7 +8,7 @@ Web hanya mengikuti aktivitas sesi: saat giliran task_started, Builder mengakhir
 
 Backend memeriksa ID sesi dan cwd proyek, lalu membaca event status secara bertahap (maksimal 8MiB per pembacaan). Tidak menyimpan atau mengirim pesan percakapan ke web. Status kerja tanpa event baru lebih dari 120 detik belum dianggap terkonfirmasi, dan status sinkronisasi lebih dari 20 detik tidak dipercaya.
 
-`GET /api/builder-status` memakai guard host/origin localhost. Frontend mengambil status setiap 2 detik, termasuk saat dialog biasa terbuka. Endpoint/komponen riwayat chat dihapus. Presence di `/api/state` tidak dipersistenkan. Bridge masih bergantung format/lokasi catatan Codex lokal. `KAEL_BUILDER_SESSION_FILE` hanya override backend untuk log yang identitas/cwd-nya cocok; instance `KAEL_DATA_DIR` terpisah memakai log dalam direktori itu. Tautan “Lanjut di Codex” tetap menuju sesi Builder yang sama; pembukaan handler desktop belum diuji.
+`GET /api/builder-status` memakai guard host/origin localhost dan sejak tahap 7 memerlukan sesi pemilik. Frontend mengambil status setiap 2 detik, termasuk saat dialog biasa terbuka. Endpoint/komponen riwayat chat dihapus. Presence di `/api/state` tidak dipersistenkan. Bridge masih bergantung format/lokasi catatan Codex lokal. `KAEL_BUILDER_SESSION_FILE` hanya override backend untuk log yang identitas/cwd-nya cocok; instance `KAEL_DATA_DIR` terpisah memakai log dalam direktori itu. Tautan “Lanjut di Codex” hanya tampil untuk sesi terverifikasi di kantor internal; instance buyer tidak mewarisinya. Pembukaan handler desktop belum diuji.
 
 Builder adalah satu penghuni sistem seperti Nate, dengan ID `office-builder`, bukan divisi bisnis berisi manager dan pelaksana. Studio tidak dapat dipakai untuk sesi istirahat/meeting. Layout dan karakter tersedia dari source tanpa menulis state pemilik; bridge dan izin kerja yang sudah ada tetap berlaku.
 
@@ -23,7 +23,9 @@ Sumber skill: `.agents/skills/building/SKILL.md`. Claude memuat entrypoint `.cla
 
 ## Bridge lokal
 
-Jalankan dari root proyek dengan Node.js 24+. Endpoint selalu loopback `127.0.0.1`; port data default 5174 dapat diubah melalui `KAEL_PORT`. Tidak ada API key atau pengiriman ke provider AI oleh bridge.
+Sejak tahap 7, setup akun pemilik harus selesai terlebih dahulu. Bridge membaca kunci `builder-access.key` dari direktori data yang sama dengan server dan mengirimnya ke loopback tanpa mencetak nilainya. Kunci terbatas pada pembacaan kantor serta pengaturan tim, bukan runtime, pemulihan error atau keputusan Founder. API browser memakai sesi pemilik dan CSRF. Tautan sesi internal hanya ditampilkan jika status sesi terverifikasi; instalasi buyer terpisah tidak mewarisi tautan chat internal. Rincian: [Akses pemilik](OWNER-ACCESS.md).
+
+Jalankan dari root proyek dengan Node.js 24+. Endpoint selalu loopback `127.0.0.1`; port data default 5174 dapat diubah melalui `KAEL_PORT`. Kunci akses lokal hanya dikirim ke loopback; bridge tidak mengirim permintaan ke provider AI.
 
 ```sh
 node scripts/building.mjs inspect

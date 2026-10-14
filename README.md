@@ -1,6 +1,6 @@
 # Kael AI — Virtual Office & Meja Founder
 
-Kantor Founder dan divisi 3D dengan workspace operasional lokal. Buat tim, susun brief, setujui rencana, kelola tugas, simpan hasil berversi, periksa hasil dan jawab keputusan. Eksekusi/pemeriksaan masih manual; belum ada model AI terhubung.
+Kantor Founder dan divisi 3D dengan workspace operasional lokal. Buat tim, susun brief, setujui rencana, jalankan tugas manual atau melalui runtime Codex, simpan hasil berversi, periksa hasil dan jawab keputusan. Pemeriksaan dan persetujuan tetap tindakan manusia. Status terbaru: [Progres](docs/PROGRESS.md).
 
 Tema v2.10 memakai navy, charcoal, abu sejuk, ivory dan oak pucat; karakter robot dengan visor LED/ear pods, serta furnitur modern membulat. Header dashboard tetap di atas saat scroll. Referensi terbaru dan pilihan desain: [Navy & robot](docs/references/navy-robot-direction.md).
 
@@ -13,16 +13,18 @@ npm run dev
 
 Buka http://localhost:5173. Memerlukan Node.js 24+. Perintah dev menjalankan Vite pada port 5173 dan server data lokal pada port 5174. Build produksi: `npm run build`. Untuk preview build, jalankan `npm run server` lalu `npm run preview` pada terminal terpisah. Pengujian: `npm test`.
 
+Saat pertama dibuka, siapkan akun pemilik. Ambil kode sekali pakai dengan `node scripts/owner-access.mjs` di terminal server, lalu isi sendiri nama/email dan frasa sandi minimal 15 karakter. Data kantor yang sudah ada tetap dipertahankan. Berikutnya masuk dengan email/kata sandi; tombol Keluar ada di bar atas. API dan preview dilindungi sesi. Panduan lengkap dan batas deployment: [Akses pemilik](docs/OWNER-ACCESS.md).
+
 ## Monitoring n8n
 
-Isi `N8N_BASE_URL` (URL instance, tanpa `/api/v1`) dan `N8N_API_KEY` di `.env` pada root proyek. Template tanpa rahasia tersedia di `.env.example`. `.env` dan variannya dikecualikan dari Git; jangan menaruh key dalam variabel berawalan `VITE_`, profil bisnis atau chat. `npm run dev` dan `npm run server` memuat konfigurasi ini ke proses backend saat mulai; restart setelah mengubahnya. Menu Workflow n8n memantau binding tersimpan dengan polling. Laxholm Furniture / Marketing Outdor memiliki satu agent Bu Yuli untuk LAXHOLM Product Database & AI Search. Status, riwayat dan error dibaca tanpa menjalankan atau mengubah workflow. Error baru membuka insiden medis; pemulihan lokal tidak memperbaiki atau menjalankan ulang n8n. Panduan dan batas: [N8N](docs/N8N.md).
+Isi `N8N_BASE_URL` (URL instance, tanpa `/api/v1`) dan `N8N_API_KEY` di `.env` pada root proyek. Template tanpa rahasia tersedia di `.env.example`. `.env` dan variannya dikecualikan dari Git; jangan menaruh key dalam variabel berawalan `VITE_`, profil bisnis atau chat. `npm run dev` dan `npm run server` memuat konfigurasi ini ke proses backend saat mulai; restart setelah mengubahnya. Menu Workflow n8n memantau binding tersimpan dengan polling. Binding workflow mengikuti agent dan divisi yang dikonfigurasi, dengan satu workflow per agent pelaksana; manager mengawasi divisinya. Status, riwayat dan error dibaca tanpa menjalankan atau mengubah workflow. Error baru membuka insiden medis; pemulihan lokal tidak memperbaiki atau menjalankan ulang n8n. Panduan dan batas: [N8N](docs/N8N.md).
 
 ## Mulai menggunakan
 
 1. Buka Meja Founder dan pilih Builder atau ketik `/builder` di kolom perintah. Panduan lokal meminta nama divisi, manager, lalu nama dan tugas agent satu per satu. Tinjau preview dan pilih Terapkan tim. Untuk input langsung tersedia Tim & divisi → Tambah langsung.
 2. Isi Pengetahuan bisnis jika sudah tersedia, lalu buat briefing tiga langkah.
 3. Buka draft briefing dan ajukan rencana. Tinjau di Keputusan dan setujui.
-4. Buka Pekerjaan, pilih tugas, lalu mulai pekerjaan manual.
+4. Buka Pekerjaan, pilih tugas, lalu mulai pekerjaan manual atau gunakan Jalankan dengan AI jika provider agent sudah diatur ke Codex.
 5. Buka konteks untuk disalin ke AI pilihanmu bila dibutuhkan. Kael tidak mengirimnya.
 6. Masukkan hasil, lakukan pemeriksaan manual, lalu jawab keputusan Founder.
 7. Pilih fasilitas di Kantor virtual untuk membuat sesi briefing, review atau istirahat. Pilih peserta; simpan checkpoint pekerjaan berjalan sebelum meeting. Akhiri sesi dengan catatan hasil yang dapat dibuka kembali melalui Riwayat.

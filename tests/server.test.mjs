@@ -1,3 +1,4 @@
+import { authenticateTestServer } from './helpers/auth-client.mjs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -11,7 +12,8 @@ import { once } from 'node:events';
 async function launch(directory, args = [], env = {}) {
   const processChild = spawn(process.execPath, [...args, 'server/index.mjs'], { env: { ...process.env, KAEL_DATA_DIR: directory, KAEL_PORT: '0', ...env }, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
   const url = await new Promise((resolve, reject) => { const timer = setTimeout(() => { processChild.kill(); reject(new Error('Server startup timed out')); }, 10000); processChild.stdout.on('data', b => { const match = b.toString().match(/http:\/\/127.0.0.1:\d+/); if (match) { clearTimeout(timer); resolve(match[0]); } }); processChild.on('error', reject); processChild.on('exit', code => { clearTimeout(timer); if (code) reject(new Error(`Server exited ${code}`)); }); });
-  return { url, async stop() { const ended = once(processChild, 'exit'); processChild.kill(); await ended; } };
+  const clearAuth = await authenticateTestServer(url, directory);
+  return { url, async stop() { const ended = once(processChild, 'exit'); processChild.kill(); await ended; clearAuth(); } };
 }
 
 test('Builder HTTP exposes only session status, rejects chat history and never persists activity as office work', async () => {
@@ -38,18 +40,18 @@ test('building delegates workflow atomically through HTTP, preserves on restart 
   try {
     let port = new URL(server.url).port;
     await writeFile(config, JSON.stringify({ revision: 0, command: { type: 'workflow-agent', name: 'Marketing Outdor', company: 'Laxholm Furniture', agent: 'Bu Yuli', role: 'Katalog', workflowId: 'wf1', workflowName: 'LAXHOLM' } }));
-    const created = await building(['apply', config], port);
+    const created = await building(['apply', config], port, dir);
     await writeFile(config, JSON.stringify({ revision: created.revision, command: { type: 'workflow-manager', agentId: created.agents[0].id, role: 'Manager' } }));
-    const before = await building(['apply', config], port);
+    const before = await building(['apply', config], port, dir);
     await writeFile(config, JSON.stringify({ revision: before.revision, command: { type: 'workflow-delegate', managerId: before.agents[0].id, workflowId: 'wf1', agent: 'Date', role: 'Katalog', managerRole: 'Manager · Monitoring agent dan laporan Founder' } }));
-    const preview = await building(['preview', config], port); assert.equal(preview.saved, false); assert.equal(preview.agents.length, 2);
-    assert.equal((await building(['inspect'], port)).revision, before.revision);
-    const saved = await building(['apply', config], port);
+    const preview = await building(['preview', config], port, dir); assert.equal(preview.saved, false); assert.equal(preview.agents.length, 2);
+    assert.equal((await building(['inspect'], port, dir)).revision, before.revision);
+    const saved = await building(['apply', config], port, dir);
     assert.equal(saved.agents[0].manager, true); assert.equal(saved.agents[1].name, 'Date');
     assert.deepEqual(saved.workflowBindings, [{ ...before.workflowBindings[0], agentId: saved.agents[1].id }]);
-    await assert.rejects(() => building(['apply', config], port), /Revisi berubah/);
+    await assert.rejects(() => building(['apply', config], port, dir), /Revisi berubah/);
     await server.stop(); server = await launch(dir); port = new URL(server.url).port;
-    const { mode, saved: persisted, ...summary } = saved; assert.deepEqual(await building(['inspect'], port), summary);
+    const { mode, saved: persisted, ...summary } = saved; assert.deepEqual(await building(['inspect'], port, dir), summary);
     const disk = JSON.parse(await readFile(path.join(dir, 'state.json'), 'utf8')); assert.equal(disk.agents.length, 2); assert.deepEqual(disk.workflowBindings, saved.workflowBindings);
   } finally { await server.stop(); }
 });
@@ -110,14 +112,14 @@ test('HTTP persistence, concurrent conflict and origin protection', async () => 
     const denied = await fetch(`${server.url}/api/command`, { ...options, headers: { ...options.headers, Origin: 'https://untrusted.example' } }); assert.equal(denied.status, 403);
     const current = await (await fetch(`${server.url}/api/state`)).json();
     const port = new URL(server.url).port, config = path.join(dir, 'building.json');
-    assert.equal((await building(['inspect'], port)).revision, current.revision);
+    assert.equal((await building(['inspect'], port, dir)).revision, current.revision);
     await writeFile(config, JSON.stringify({ revision: current.revision, command: { type: 'division', name: 'Building test', manager: 'Nate QA', workers: [{ name: 'Sora', role: 'Riset' }] } }));
-    assert.equal((await building(['preview', config], port)).saved, false);
+    assert.equal((await building(['preview', config], port, dir)).saved, false);
     assert.equal((await (await fetch(`${server.url}/api/state`)).json()).revision, current.revision);
-    const built = await building(['apply', config], port); assert.equal(built.saved, true); assert.equal(built.divisions.length, 2);
-    await assert.rejects(() => building(['apply', config], port), /Revisi berubah/);
+    const built = await building(['apply', config], port, dir); assert.equal(built.saved, true); assert.equal(built.divisions.length, 2);
+    await assert.rejects(() => building(['apply', config], port, dir), /Revisi berubah/);
     await writeFile(config, JSON.stringify({ revision: built.revision, command: { type: 'provider', provider: 'Codex' } }));
-    await assert.rejects(() => building(['apply', config], port), /division/);
+    await assert.rejects(() => building(['apply', config], port, dir), /division/);
     const session = await fetch(`${server.url}/api/command`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ revision: built.revision, command: { type: 'facility-start', roomId: 'meeting-main', purpose: 'briefing', title: 'Sesi HTTP', agenda: 'Tinjau progres', participantIds: current.agents.map(a => a.id) } }) });
     assert.equal(session.status, 200);
     const persisted = JSON.parse(await readFile(path.join(dir, 'state.json'), 'utf8')); assert.equal(persisted.divisions.length, 2);
@@ -142,16 +144,16 @@ test('building previews and persists an existing workflow manager with revision 
   const config = path.join(dir, 'manager.json'), port = new URL(server.url).port;
   try {
     await writeFile(config, JSON.stringify({ revision: 0, command: { type: 'workflow-agent', name: 'Marketing Outdor', company: 'Laxholm Furniture', agent: 'Bu Yuli', role: 'Katalog', workflowId: 'wf1', workflowName: 'LAXHOLM' } }));
-    const before = await building(['apply', config], port);
+    const before = await building(['apply', config], port, dir);
     await writeFile(config, JSON.stringify({ revision: before.revision, command: { type: 'workflow-manager', agentId: before.agents[0].id, role: 'Manager Marketing Outdor · Katalog' } }));
-    const preview = await building(['preview', config], port);
+    const preview = await building(['preview', config], port, dir);
     assert.equal(preview.agents[0].manager, true); assert.equal(preview.saved, false);
     const { mode, saved: persisted, ...summary } = before;
-    assert.deepEqual(await building(['inspect'], port), summary);
-    const saved = await building(['apply', config], port);
+    assert.deepEqual(await building(['inspect'], port, dir), summary);
+    const saved = await building(['apply', config], port, dir);
     assert.equal(saved.agents[0].id, before.agents[0].id); assert.equal(saved.divisions[0].managerId, before.agents[0].id);
     assert.deepEqual(saved.workflowBindings, before.workflowBindings);
-    await assert.rejects(() => building(['apply', config], port), /Revisi berubah/);
+    await assert.rejects(() => building(['apply', config], port, dir), /Revisi berubah/);
     const disk = JSON.parse(await readFile(path.join(dir, 'state.json'), 'utf8'));
     assert.equal(disk.agents[0].manager, true); assert.equal(disk.agents.length, 1);
   } finally { await server.stop(); }
@@ -162,17 +164,17 @@ test('building previews and persists added specialists through HTTP without dupl
   const config = path.join(dir, 'team.json');
   try {
     await writeFile(config, JSON.stringify({ revision: 0, command: { type: 'division', name: 'KaelaCH', manager: 'Kaela', worker: 'Zetsu', role: 'Editor' } }));
-    const built = await building(['apply', config], new URL(server.url).port);
+    const built = await building(['apply', config], new URL(server.url).port, dir);
     await writeFile(config, JSON.stringify({ revision: built.revision, command: { type: 'division-edit', id: built.divisions[0].id, name: 'KaelaCH', manager: 'Kaela', workers: [], addWorkers: [{ name: 'Nara', role: 'Naskah' }, { name: 'Echo', role: 'Audio' }] } }));
-    const preview = await building(['preview', config], new URL(server.url).port);
+    const preview = await building(['preview', config], new URL(server.url).port, dir);
     assert.equal(preview.saved, false); assert.equal(preview.agents.length, 4);
-    assert.equal((await building(['inspect'], new URL(server.url).port)).agents.length, 2);
-    const saved = await building(['apply', config], new URL(server.url).port);
+    assert.equal((await building(['inspect'], new URL(server.url).port, dir)).agents.length, 2);
+    const saved = await building(['apply', config], new URL(server.url).port, dir);
     assert.equal(saved.saved, true); assert.equal(saved.agents.length, 4);
     assert.deepEqual(saved.agents.slice(0, 2), built.agents);
-    await assert.rejects(() => building(['apply', config], new URL(server.url).port), /Revisi berubah/);
+    await assert.rejects(() => building(['apply', config], new URL(server.url).port, dir), /Revisi berubah/);
     await server.stop(); server = await launch(dir);
-    const restored = await building(['inspect'], new URL(server.url).port);
+    const restored = await building(['inspect'], new URL(server.url).port, dir);
     assert.deepEqual(restored, { revision: saved.revision, divisions: saved.divisions, agents: saved.agents });
   } finally { await server.stop(); }
 });

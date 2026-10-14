@@ -9,11 +9,16 @@ export const builderSession = {
   url: 'codex://threads/01a1299a-b553-7902-921f-fa99bc978f1e',
 };
 
-export const builderChatLink = `<a class="op-button primary" href="${builderSession.url}">Lanjut di Codex ↗</a>`;
+export function builderChatLink(presence?: BuilderPresence) {
+  return presence?.connection === 'online' && /^codex:\/\/threads\/[a-f0-9-]{36}$/.test(presence.chatUrl || '')
+    ? `<a class="op-button primary" href="${presence!.chatUrl}">Lanjut di Codex ↗</a>`
+    : '<span class="op-muted">Sesi Builder belum dihubungkan pada instalasi ini.</span>';
+}
 
 export type BuilderPresence = {
   connection: 'online' | 'disconnected'; status: 'working' | 'completed' | 'interrupted' | 'unknown';
   checkedAt: string; lastEventAt: string; turnId: string; partial: boolean; error: string;
+  chatUrl?: string;
 };
 export function builderActivity(presence?: BuilderPresence, now = Date.now()) {
   if (!presence || presence.connection !== 'online' || !Number.isFinite(Date.parse(presence.checkedAt)) || now - Date.parse(presence.checkedAt) > 20000) return { kind: 'offline', text: 'Chat belum tersinkron', typing: false, canWalk: false };

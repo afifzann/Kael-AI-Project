@@ -1,3 +1,4 @@
+import { authenticateTestServer } from './helpers/auth-client.mjs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -134,7 +135,8 @@ test('blocked, failed and stopped runs keep old results and leave the task resum
 async function launch(directory) {
   const child = spawn(process.execPath, ['--import', './tests/fixtures/agent-runtime.mjs', 'server/index.mjs'], { env: { ...process.env, KAEL_DATA_DIR: directory, KAEL_PORT: '0' }, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
   const url = await new Promise((resolve, reject) => { const timer = setTimeout(() => { child.kill(); reject(new Error('Server startup timed out')); }, 10000); child.stdout.on('data', b => { const m = b.toString().match(/http:\/\/127.0.0.1:\d+/); if (m) { clearTimeout(timer); resolve(m[0]); } }); child.on('exit', () => reject(new Error('Server exited'))); });
-  return { url, async stop() { const ended = once(child, 'exit'); child.kill(); await ended; } };
+  const clearAuth = await authenticateTestServer(url, directory);
+  return { url, async stop() { const ended = once(child, 'exit'); child.kill(); await ended; clearAuth(); } };
 }
 
 test('HTTP runtime runs a task with the fixture, can be stopped, rejects forged run commands and marks interrupted runs on restart', async () => {

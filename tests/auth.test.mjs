@@ -2,10 +2,10 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { mkdtemp, readFile, writeFile, access } from 'node:fs/promises';
+import { mkdtemp, readFile, writeFile, access, mkdir, rename, rmdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { createAuth } from '../server/auth.mjs';
+import { createAuth, createRecoveryCode } from '../server/auth.mjs';
 import { rawFetch, testOwner } from './helpers/auth-client.mjs';
 import { building } from '../scripts/building.mjs';
 
@@ -93,4 +93,67 @@ test('corrupt owner records fail closed instead of creating a replacement owner'
   const file = path.join(directory, 'owner-auth.json'); await writeFile(file, '{broken');
   await assert.rejects(() => createAuth({ directory }), /berkas dipertahankan/);
   assert.equal(await readFile(file, 'utf8'), '{broken'); await assert.rejects(() => access(path.join(directory, 'owner-setup.key')), { code: 'ENOENT' });
+});
+
+test('local recovery preserves account/work, revokes sessions, persists and cannot be replayed', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'kael-recovery-'));
+  let server = await launch(directory);
+  try {
+    const signed = await account(server, directory), ownerFile = path.join(directory, 'owner-auth.json'), recoveryFile = path.join(directory, 'owner-recovery.json');
+    const original = JSON.parse(await readFile(ownerFile, 'utf8')), stateBefore = await readFile(path.join(directory, 'state.json'), 'utf8');
+    const builder = await readFile(path.join(directory, 'builder-access.key'), 'utf8');
+    assert.equal((await post(server.url + '/api/auth/reset-password', { recoveryCode: builder.trim() })).status, 403, 'Builder key cannot recover the owner');
+    const cli = spawn(process.execPath, ['scripts/owner-access.mjs', '--reset'], { env: { ...process.env, KAEL_DATA_DIR: directory }, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+    let output = ''; cli.stdout.on('data', b => output += b.toString());
+    const [exit] = await once(cli, 'exit'); assert.equal(exit, 0);
+    const recoveryCode = output.match(/\b[a-f0-9]{64}\b/)?.[0]; assert.ok(recoveryCode);
+    const recoveryRecord = await readFile(recoveryFile, 'utf8'); assert.equal(recoveryRecord.includes(recoveryCode), false);
+    const replacement = { recoveryCode, password: 'replacement-password-only-2026', confirm: 'replacement-password-only-2026' };
+    assert.equal((await post(server.url + '/api/auth/reset-password', { ...replacement, confirm: 'mismatch' })).status, 400);
+    // A failed atomic replacement must leave both the old account and the recovery code usable.
+    await rename(ownerFile, ownerFile + '.fixture'); await mkdir(ownerFile);
+    assert.equal((await post(server.url + '/api/auth/reset-password', replacement)).status, 400);
+    await rmdir(ownerFile); await rename(ownerFile + '.fixture', ownerFile);
+    assert.deepEqual(JSON.parse(await readFile(ownerFile, 'utf8')), original);
+    assert.equal((await rawFetch(server.url + '/api/state', { headers: { Cookie: signed.cookie } })).status, 200);
+    const replies = await Promise.all([post(server.url + '/api/auth/reset-password', replacement), post(server.url + '/api/auth/reset-password', replacement)]);
+    assert.equal(replies.filter(r => r.status === 200).length, 1); assert.ok(replies.some(r => [403, 409].includes(r.status)));
+    const result = replies.find(r => r.status === 200); assert.equal((await result.json()).owner.name, original.name);
+    const next = JSON.parse(await readFile(ownerFile, 'utf8')); assert.equal(next.name, original.name); assert.equal(next.email, original.email); assert.notEqual(next.salt, original.salt); assert.notEqual(next.hash, original.hash);
+    assert.equal(JSON.stringify(next).includes(replacement.password), false);
+    assert.equal(await readFile(path.join(directory, 'state.json'), 'utf8'), stateBefore);
+    assert.equal(await readFile(path.join(directory, 'builder-access.key'), 'utf8'), builder);
+    assert.equal((await rawFetch(server.url + '/api/state', { headers: { Cookie: signed.cookie } })).status, 401);
+    await writeFile(recoveryFile, recoveryRecord);
+    assert.equal((await post(server.url + '/api/auth/reset-password', replacement)).status, 403, 'old hash binding rejects replay even if cleanup failed');
+    assert.equal((await post(server.url + '/api/auth/login', testOwner)).status, 401);
+    await server.stop(); server = await launch(directory);
+    assert.equal((await post(server.url + '/api/auth/login', { email: testOwner.email, password: replacement.password })).status, 200);
+    assert.equal((await post(server.url + '/api/auth/reset-password', replacement)).status, 403);
+  } finally { await server.stop(); }
+});
+
+test('recovery codes expire, rotate, fail closed on corruption and have their own rate limit', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'kael-recovery-expiry-')); let clock = 1000;
+  await assert.rejects(createRecoveryCode(directory), { code: 'ENOENT' });
+  const auth = await createAuth({ directory, now: () => clock });
+  async function request(url, data) {
+    const req = { url, method: 'POST', headers: { 'content-type': 'application/json' }, socket: { remoteAddress: '127.0.0.1' }, async *[Symbol.asyncIterator]() { yield Buffer.from(JSON.stringify(data)); } };
+    const result = {}; await auth.handle(req, { setHeader() {} }, (_res, status, body) => Object.assign(result, { status, body })); return result;
+  }
+  const setupKey = (await readFile(path.join(directory, 'owner-setup.key'), 'utf8')).trim();
+  assert.equal((await request('/api/auth/setup', { ...testOwner, setupKey })).status, 200);
+  const code = await createRecoveryCode(directory, () => clock); clock += 15 * 60 * 1000;
+  const input = { recoveryCode: code, password: testOwner.password, confirm: testOwner.password };
+  assert.equal((await request('/api/auth/reset-password', input)).status, 403);
+  input.recoveryCode = await createRecoveryCode(directory, () => clock);
+  const newest = await createRecoveryCode(directory, () => clock);
+  assert.equal((await request('/api/auth/reset-password', input)).status, 403, 'new code invalidates previous code');
+  await writeFile(path.join(directory, 'owner-recovery.json'), '{broken'); input.recoveryCode = newest;
+  assert.equal((await request('/api/auth/reset-password', input)).status, 403);
+  for (let i = 0; i < 5; i++) assert.equal((await request('/api/auth/login', { ...testOwner, password: 'wrong' })).status, 401);
+  input.recoveryCode = await createRecoveryCode(directory, () => clock);
+  assert.equal((await request('/api/auth/reset-password', input)).status, 200, 'login throttling does not block local recovery');
+  for (let i = 0; i < 5; i++) assert.equal((await request('/api/auth/reset-password', input)).status, 403);
+  assert.equal((await request('/api/auth/reset-password', input)).status, 429);
 });

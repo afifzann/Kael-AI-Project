@@ -1,9 +1,13 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.37 — Runtime Claude Code per agent
+Versi 2.38 — Pemulihan akses pemilik
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
 Tanggal: 14 Oktober 2026  
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.38 — lupa kata sandi
+
+Pemilik menerbitkan kode pemulihan melalui terminal server dengan `node scripts/owner-access.mjs --reset`, lalu memilih password baru pada halaman **Lupa kata sandi?**. Kode acak disimpan sebagai hash, berlaku sekali selama 15 menit dan terikat pada password sebelumnya. Reset mempertahankan nama/email, tim, riwayat, hasil dan keputusan; semua sesi lama dicabut. Penulisan atomik mempertahankan akun lama saat gagal. Endpoint tidak dapat membuat kode, kunci Builder tidak menggantikan kode, dan percobaan dibatasi terpisah dari login. Ini pemulihan lokal oleh pengelola server, belum reset melalui email atau MFA. Panduan: [Akses pemilik](OWNER-ACCESS.md).
 
 ## Perbaikan v2.37 — runtime Claude Code
 

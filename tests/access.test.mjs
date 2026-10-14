@@ -47,3 +47,19 @@ test('buyer Builder links require a verified installation session and reject arb
   assert.doesNotMatch(builderChatLink({ connection: 'online', chatUrl: 'https://other.example' }), /href=/);
   assert.match(builderChatLink({ connection: 'online', chatUrl: 'codex://threads/00000000-0000-0000-0000-000000000000' }), /href="codex:/);
 });
+
+test('recovery form validates confirmation, retains errors and opens only after reset succeeds', async () => {
+  const calls = [], error = { textContent: '' }, button = { disabled: false };
+  const password = { value: 'replacement-password-only-2026', focus() {}, addEventListener() {} }, confirm = { value: 'mismatch', valid: '', addEventListener() {}, setCustomValidity(v) { this.valid = v; } };
+  let resetCount = 0, accepted = false;
+  const form = { querySelector(selector) { return selector === 'button' ? button : selector === '.access-error' ? error : selector.includes('confirm') ? confirm : password; }, setAttribute() {}, removeAttribute() {}, reportValidity: () => !confirm.valid, reset() { resetCount++; } };
+  const root = { innerHTML: '', querySelector: () => form };
+  class FixtureFormData extends Map { constructor() { super([['recoveryCode', 'fixture-code'], ['password', password.value], ['confirm', confirm.value]]); } }
+  const access = accessModule({ document: { querySelector: () => root }, location: { href: 'http://localhost:5173/?reset-password=1' }, FormData: FixtureFormData, fetch: async (url, options) => { calls.push({ url, options }); return { ok: calls.length === 1 || accepted, json: async () => calls.length === 1 ? { needsSetup: false, signedIn: false } : accepted ? { signedIn: true, csrf: 'fixture' } : { error: 'Kode kedaluwarsa.' } }; } });
+  const pending = access.requireOwner(); await new Promise(setImmediate);
+  assert.match(root.innerHTML, /name="recoveryCode"/); assert.match(root.innerHTML, /owner-access\.mjs --reset/); assert.doesNotMatch(root.innerHTML, /name="email"|name="setupKey"/);
+  await form.onsubmit({ preventDefault() {} }); assert.equal(calls.length, 1);
+  confirm.value = password.value; await form.onsubmit({ preventDefault() {} });
+  assert.equal(calls[1].url, '/api/auth/reset-password'); assert.equal(error.textContent, 'Kode kedaluwarsa.'); assert.equal(resetCount, 0); assert.equal(button.disabled, false);
+  accepted = true; await form.onsubmit({ preventDefault() {} }); assert.equal((await pending).signedIn, true); assert.equal(resetCount, 1);
+});

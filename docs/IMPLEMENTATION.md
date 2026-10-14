@@ -1,6 +1,12 @@
 # Status implementasi lokal — 14 Oktober 2026
 
-Status terbaru: **PRD v2.37 — Runtime Claude Code per agent**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+Status terbaru: **PRD v2.38 — Pemulihan akses pemilik**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+
+## PRD v2.38 — pemulihan password
+
+`scripts/owner-access.mjs --reset` menerbitkan kode acak lokal melalui `createRecoveryCode` di `server/auth.mjs`. Berkas hanya memuat hash kode, kedaluwarsa 15 menit dan ikatan hash password lama. POST `/api/auth/reset-password` memakai rate limit sendiri, validasi password, lock request bersamaan, penggantian record atomik dan pencabutan seluruh sesi. Login yang sedang menunggu scrypt tidak boleh menghidupkan sesi dari password lama setelah reset. Nama/email dan state pekerjaan tidak berubah. Record rusak gagal tertutup; tidak ada reset lewat Builder atau email.
+
+`src/access.ts` menyediakan tautan/form pemulihan tanpa menyimpan kode/password di URL atau storage, konfirmasi native, error dan fokus keyboard; sukses membuka kantor dengan sesi baru. Script yang sama sudah masuk allowlist paket buyer. Tes fixture mencakup CLI aktual, hash kode, expiry/rotasi/rate limit, konkurensi, kegagalan rename, replay, pencabutan sesi, restart/persistensi dan handler form. QA visual/browser langsung dan deployment VPS belum diuji.
 
 ## PRD v2.37 — Claude Code
 

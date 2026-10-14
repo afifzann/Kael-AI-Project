@@ -1,4 +1,4 @@
-import { readFile, writeFile, link, rm } from 'node:fs/promises';
+import { readFile, writeFile, link, rm, rename } from 'node:fs/promises';
 import { randomBytes, createHash, timingSafeEqual, scrypt as derive } from 'node:crypto';
 import { promisify } from 'node:util';
 import path from 'node:path';
@@ -9,17 +9,34 @@ const same = (a, b) => typeof a === 'string' && typeof b === 'string' && timingS
 const token = () => randomBytes(32).toString('hex');
 export const builderCommands = ['division', 'division-edit', 'workflow-agent', 'workflow-manager', 'workflow-delegate'];
 
+async function readOwner(file) {
+  const owner = JSON.parse(await readFile(file, 'utf8'));
+  if (owner.schema !== 1 || typeof owner.name !== 'string' || typeof owner.email !== 'string' || !/^[a-f0-9]{32}$/.test(owner.salt) || !/^[a-f0-9]{128}$/.test(owner.hash)) throw new Error('Data akun tidak valid.');
+  return owner;
+}
+function validatePassword(data) {
+  if (typeof data.password !== 'string' || data.password.length < 15 || data.password.length > 128 || data.password !== data.confirm) throw new Error('Gunakan kata sandi 15–128 karakter dan konfirmasi yang sama.');
+}
+export async function createRecoveryCode(directory, now = Date.now) {
+  const owner = await readOwner(path.join(directory, 'owner-auth.json'));
+  const code = token(), temporary = path.join(directory, `.recovery-${token()}.tmp`);
+  try {
+    await writeFile(temporary, JSON.stringify({ hash: digest(code), ownerHash: owner.hash, expires: now() + 15 * 60 * 1000 }), { flag: 'wx', mode: 0o600, flush: true });
+    await rename(temporary, path.join(directory, 'owner-recovery.json'));
+  } finally { await rm(temporary, { force: true }).catch(() => {}); }
+  return code;
+}
+
 export async function createAuth({ directory, secure = false, now = Date.now }) {
   const ownerFile = path.join(directory, 'owner-auth.json'), bootstrapFile = path.join(directory, 'owner-setup.key'), builderFile = path.join(directory, 'builder-access.key');
-  let owner = null, setupKey = '', builderKey = '', settingUp = false;
+  let owner = null, setupKey = '', builderKey = '', settingUp = false, resetting = false;
   const sessions = new Map(), attempts = new Map();
   async function readKey(file) {
     try { const key = (await readFile(file, 'utf8')).trim(); if (!/^[a-f0-9]{64}$/.test(key)) throw new Error('Format kunci akses tidak valid.'); return key; }
     catch (e) { if (e.code !== 'ENOENT') throw e; const key = token(); try { await writeFile(file, key, { flag: 'wx', mode: 0o600, flush: true }); return key; } catch (e) { if (e.code !== 'EEXIST') throw e; return readKey(file); } }
   }
   try {
-    owner = JSON.parse(await readFile(ownerFile, 'utf8'));
-    if (owner.schema !== 1 || typeof owner.name !== 'string' || typeof owner.email !== 'string' || !/^[a-f0-9]{32}$/.test(owner.salt) || !/^[a-f0-9]{128}$/.test(owner.hash)) throw new Error('Data akun tidak dapat dibuka; berkas dipertahankan.');
+    owner = await readOwner(ownerFile);
   } catch (e) { if (e.code !== 'ENOENT') throw new Error('Data akun pemilik tidak dapat dibuka; berkas dipertahankan.'); }
   if (owner) builderKey = await readKey(builderFile); else setupKey = await readKey(bootstrapFile);
 
@@ -46,7 +63,7 @@ export async function createAuth({ directory, secure = false, now = Date.now }) 
     const value = JSON.parse(Buffer.concat(chunks).toString('utf8')); if (!value || Array.isArray(value) || typeof value !== 'object') throw new Error('Formulir tidak valid.'); return value;
   }
   function limited(req, res, send) {
-    const id = req.socket.remoteAddress || 'local';
+    const id = (req.socket.remoteAddress || 'local') + (req.url === '/api/auth/reset-password' ? ':reset' : '');
     for (const [key, value] of attempts) if (now() >= value.until) attempts.delete(key);
     const entry = attempts.get(id) || { count: 0, until: now() + 15 * 60 * 1000 };
     if (entry.count >= 5) { res.setHeader('Retry-After', String(Math.ceil((entry.until - now()) / 1000))); send(res, 429, { error: 'Terlalu banyak percobaan. Coba lagi setelah 15 menit.' }); return true; }
@@ -56,7 +73,7 @@ export async function createAuth({ directory, secure = false, now = Date.now }) 
     if (!req.url.startsWith('/api/auth/')) return false;
     const current = session(req);
     if (req.method === 'GET' && req.url === '/api/auth/status') { send(res, 200, { needsSetup: !owner, signedIn: !!current, ...(current ? { owner: { name: owner.name }, csrf: current.csrf } : {}) }); return true; }
-    if (req.method !== 'POST' || !['/api/auth/setup', '/api/auth/login', '/api/auth/logout'].includes(req.url)) { send(res, 404, { error: 'Endpoint tidak ditemukan.' }); return true; }
+    if (req.method !== 'POST' || !['/api/auth/setup', '/api/auth/login', '/api/auth/logout', '/api/auth/reset-password'].includes(req.url)) { send(res, 404, { error: 'Endpoint tidak ditemukan.' }); return true; }
     if (req.url === '/api/auth/logout') {
       if (!current) { send(res, 401, { error: 'Sesi berakhir. Masuk kembali.' }); return true; }
       if (!same(req.headers['x-kael-csrf'], current.csrf)) { send(res, 403, { error: 'Token keamanan tidak valid.' }); return true; }
@@ -69,7 +86,7 @@ export async function createAuth({ directory, secure = false, now = Date.now }) 
         if (owner || settingUp) { send(res, 409, { error: 'Akun pemilik sudah disiapkan atau sedang diproses. Gunakan halaman masuk.' }); return true; }
         if (!same(data.setupKey, setupKey)) { send(res, 403, { error: 'Kode penyiapan tidak valid. Ambil kode dari terminal server.' }); return true; }
         if (typeof data.name !== 'string' || !data.name.trim() || data.name.length > 80 || typeof data.email !== 'string' || data.email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) throw new Error('Isi nama dan email yang valid.');
-        if (typeof data.password !== 'string' || data.password.length < 15 || data.password.length > 128 || data.password !== data.confirm) throw new Error('Gunakan kata sandi 15–128 karakter dan konfirmasi yang sama.');
+        validatePassword(data);
         settingUp = true;
         const temporary = path.join(directory, `.owner-${token()}.tmp`);
         try {
@@ -79,12 +96,30 @@ export async function createAuth({ directory, secure = false, now = Date.now }) 
           await link(temporary, ownerFile); owner = next;
           builderKey = await readKey(builderFile); setupKey = ''; await rm(bootstrapFile, { force: true });
         } finally { settingUp = false; await rm(temporary, { force: true }).catch(() => {}); }
+      } else if (req.url === '/api/auth/reset-password') {
+        if (!owner || resetting) { send(res, 409, { error: 'Pemulihan belum tersedia atau sedang diproses.' }); return true; }
+        resetting = true;
+        const temporary = path.join(directory, `.owner-${token()}.tmp`);
+        try {
+          let recovery;
+          try { recovery = JSON.parse(await readFile(path.join(directory, 'owner-recovery.json'), 'utf8')); } catch {}
+          if (typeof data.recoveryCode !== 'string' || !/^[a-f0-9]{64}$/.test(data.recoveryCode) || !recovery || !Number.isSafeInteger(recovery.expires) || now() >= recovery.expires || !same(recovery.ownerHash, owner.hash) || !same(recovery.hash, digest(data.recoveryCode))) {
+            send(res, 403, { error: 'Kode pemulihan tidak valid atau kedaluwarsa. Buat kode baru di terminal server.' }); return true;
+          }
+          validatePassword(data);
+          const salt = randomBytes(16).toString('hex'), hash = (await scrypt(data.password, salt, 64, parameters)).toString('hex');
+          const next = { ...owner, salt, hash };
+          await writeFile(temporary, JSON.stringify(next), { flag: 'wx', mode: 0o600, flush: true });
+          await rename(temporary, ownerFile); owner = next; sessions.clear();
+          // Binding to the previous password hash prevents reuse even if cleanup fails.
+          await rm(path.join(directory, 'owner-recovery.json'), { force: true }).catch(() => {});
+        } finally { resetting = false; await rm(temporary, { force: true }).catch(() => {}); }
       } else {
         if (!owner || typeof data.email !== 'string' || typeof data.password !== 'string' || data.password.length > 128) { send(res, 401, { error: 'Email atau kata sandi tidak cocok.' }); return true; }
-        const hash = (await scrypt(data.password, owner.salt, 64, parameters)).toString('hex');
-        if (!same(hash, owner.hash) || data.email.trim().toLowerCase() !== owner.email) { send(res, 401, { error: 'Email atau kata sandi tidak cocok.' }); return true; }
+        const account = owner, hash = (await scrypt(data.password, account.salt, 64, parameters)).toString('hex');
+        if (resetting || owner !== account || !same(hash, account.hash) || data.email.trim().toLowerCase() !== account.email) { send(res, 401, { error: 'Email atau kata sandi tidak cocok.' }); return true; }
       }
-      attempts.delete(req.socket.remoteAddress || 'local'); send(res, 200, signIn(req, res));
+      attempts.delete((req.socket.remoteAddress || 'local') + (req.url === '/api/auth/reset-password' ? ':reset' : '')); send(res, 200, signIn(req, res));
     } catch (e) { send(res, 400, { error: ['Gunakan JSON.', 'Permintaan terlalu besar.', 'Formulir tidak valid.', 'Isi nama dan email yang valid.', 'Gunakan kata sandi 15–128 karakter dan konfirmasi yang sama.'].includes(e.message) ? e.message : 'Akun tidak dapat diproses. Data tersimpan dipertahankan; periksa konfigurasi server.' }); }
     return true;
   }

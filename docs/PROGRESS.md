@@ -10,6 +10,15 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Pemulihan password dashboard — PRD v2.38
+
+Permintaan pemilik lupa password ditangani dengan kode pemulihan lokal, tanpa memilih password atau mengubah akun pemilik. Jalankan sendiri `node scripts/owner-access.mjs --reset`, lalu pilih Lupa kata sandi? di web dan isi kode/password baru. Kode hanya tampil di terminal pemilik, hash disimpan 15 menit dan terikat pada hash password sebelumnya; sekali pakai/rotasi, rate limit terpisah, validasi konfirmasi dan pencabutan semua sesi tersedia. Akun rusak tidak ditimpa. Data/tim/riwayat/hasil/keputusan dan kunci Builder tidak diubah oleh reset. Tidak ada layanan email atau dependensi baru.
+
+File utama: `server/auth.mjs`, `scripts/owner-access.mjs`, `src/access.ts`, `src/access.css`. Panduan pemilik/buyer, README, PRD dan implementasi diperbarui. Script pemulihan memakai script akses lama yang sudah didistribusikan dalam paket buyer. Tes fixture: CLI aktual, kode kedaluwarsa/dirotasi/salah/rusak, rate limit, replay termasuk sisa berkas, reset bersamaan, kegagalan rename mempertahankan akun, sesi lama ditolak, login baru bertahan sesudah restart, state/kunci/identitas tetap, serta konfirmasi/error/sukses form. Tidak menjalankan reset atau membaca kredensial kantor pemilik.
+
+Verifikasi: seluruh 141 tes dan build lulus; warning bundle kantor sekitar 752 kB tetap ada. QA browser langsung dan reset pada akun pemilik belum dijalankan; pemilik menentukan password sendiri. Backend/frontend telah dimuat ulang tersembunyi (PID dev 12120). Frontend HTTP 200, akun tetap needsSetup false, state anonim 401. Tidak ada run/produksi antre atau aktif sebelum restart. Hash state pemilik sebelum/sesudah tetap `FF4149D5C6B5150C7E3833BA6917D470B6D6A3EF5FCFCDB726F35A868BF979F4` (revision 9 sebelum restart). Pemilik tetap perlu menjalankan perintah kode dan menentukan password baru sendiri.
+
+
 ### Runtime Claude Code per agent — PRD v2.37
 
 Pemilik menyelesaikan login CLI sendiri. Status terverifikasi: Claude Code 2.1.291, login claude.ai dengan paket Pro; identitas/token/password tidak dicetak/disimpan oleh adapter. Skill ECC Agent Harness Construction dipakai untuk keluaran terstruktur, batas tindakan, penghentian dan error yang dapat ditindaklanjuti.
@@ -98,7 +107,7 @@ Verifikasi revisi dokumen: 27 topik unik berurutan dan acuan/status utama diperi
 
 - Keputusan owner nomor 1–3 di `KEPUTUSAN-OWNER.md` (menentukan langkah koding berikutnya).
 
-Status tes terakhir: 138 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis; belum pengujian semua model/provider. Bundle kantor sekitar 752 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual langsung belum dilakukan.
+Status tes terakhir: 141 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis; belum pengujian semua model/provider. Bundle kantor sekitar 752 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual langsung belum dilakukan.
 
 ## Langkah berikutnya (kandidat)
 
@@ -108,7 +117,7 @@ Verifikasi setelah tambahan analisis: 131/131 tes lulus dan build lulus; peringa
 
 Tambahan pemilik tentang alur penjual kit sudah dipetakan pada bagian akhir `docs/BUYER-OPERATIONS-ROADMAP.md`: promosi/penawaran, pembayaran/email deterministik, aktivasi VPS, keaslian paket, installer, kelengkapan bisnis dan update/support. Status implementasi dipertahankan jujur; harga/slot/waktu pasang/penanda per pembeli pada referensi tidak dijadikan janji Kael. Model Kael tetap jual lepas, VPS/akun AI buyer sendiri; ketentuan update/support/slot belum ditetapkan. Tidak ada pembayaran, email, aktivasi atau perubahan VPS yang dijalankan dari tambahan ini.
 
-1. Pemilik sudah membuat akun. Periksa UI login/tahap 3–7 dan onboarding pada instance buyer terpisah, lalu coba satu tugas serta tinjau/revisi hasil. Kelengkapan P2 (recovery, izin tindakan/broker dan isolasi proses) belum selesai.
+1. Pemilik sudah membuat akun. Periksa UI login/tahap 3–7 dan onboarding pada instance buyer terpisah, lalu coba satu tugas serta tinjau/revisi hasil. Kelengkapan P2 (recovery email, izin tindakan/broker dan isolasi proses) belum selesai.
 2. Runtime Claude tugas teks sudah tersedia. Berikutnya Builder adaptif; Hermes tetap belum tersedia. Kuota dan semua model provider belum diuji.
 3. Telegram manager (Bu Yuli) untuk tanya status divisi, baca saja.
 4. Backup/restore dari UI dan migrasi penyimpanan (lihat `analysis/lembur-audit-2026-10-14/09-IMPLEMENTATION-ROADMAP.md`).

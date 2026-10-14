@@ -16,17 +16,29 @@ Satu instalasi Kael memiliki satu akun pemilik. Akun dashboard berbeda dari kode
 
 Jika instalasi memakai `KAEL_DATA_DIR`, jalankan perintah kode dengan variabel direktori yang sama. Kode penyiapan tidak tersedia melalui API dan tidak dicetak oleh server ke log. Pada pemasangan pelanggan nanti, installer perlu menyediakan langkah ini secara aman; jangan menjanjikan wizard installer sudah dibuat.
 
+## Lupa kata sandi
+
+Pemilik yang mengendalikan terminal server dapat menjalankan dari folder Kael:
+
+```sh
+node scripts/owner-access.mjs --reset
+```
+
+Di halaman masuk pilih **Lupa kata sandi?**, masukkan kode yang tampil, lalu tentukan dan konfirmasi frasa sandi baru minimal 15 karakter. Kode hanya berlaku sekali selama 15 menit; membuat kode baru membatalkan kode sebelumnya. Jangan kirim kode/password ke AI atau support. Pada VPS, jalankan perintah di VPS dengan user/direktori data yang sama dengan aplikasi. Server tidak perlu dihentikan untuk membuat kode.
+
+Perintah hanya menerbitkan kode, belum mengubah password. Setelah reset berhasil, nama/email akun dan semua data pekerjaan tetap sama; seluruh sesi lama dicabut dan browser pemulihan masuk dengan sesi baru. Password lama ditolak. Hash kode terikat pada hash password sebelumnya sehingga tidak dapat dipakai ulang setelah reset, termasuk jika pembersihan berkas kode gagal. Password baru disimpan dengan penggantian berkas atomik; kegagalan penulisan tidak membuang akun lama. File akun rusak tidak dapat dipulihkan dengan membuat akun pengganti otomatis. Belum ada reset melalui email.
+
 ## Login dan sesi
 
 Email/kata sandi disimpan sebagai akun lokal dengan hash scrypt dan salt acak. Parameter `N=32768,r=8,p=3` mengikuti salah satu pilihan dasar [OWASP Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html); implementasi memakai `node:crypto` tanpa dependency tambahan.
 
 Sesi memakai token acak dalam cookie HttpOnly, SameSite=Strict, tanpa token login di localStorage. Token sesi di server disimpan sebagai hash. Masa maksimal 12 jam, kedaluwarsa setelah 30 menit tanpa request; polling ikut dihitung sebagai aktivitas request. Login mengganti sesi yang diberikan oleh browser tersebut; logout mencabut sesi. Restart server membatalkan semua sesi dan pengguna masuk kembali. Maksimal 10 sesi tersimpan dalam proses.
 
-Percobaan setup/login dibatasi 5 dalam 15 menit per alamat koneksi. Status 429 mencantumkan waktu tunggu. Server mengembalikan kesalahan login generik. Endpoint akun tidak mengembalikan salt, hash, kata sandi atau kunci penyiapan.
+Percobaan setup/login dan pemulihan masing-masing dibatasi 5 dalam 15 menit per alamat koneksi. Status 429 mencantumkan waktu tunggu. Server mengembalikan kesalahan login generik. Endpoint akun tidak mengembalikan salt, hash, kata sandi atau kunci penyiapan.
 
 ## API dan kewenangan
 
-Semua API pekerjaan, Builder status, runtime, produksi dan media preview memerlukan sesi. Mutasi memakai token CSRF dari sesi, di samping guard Host/Origin yang sudah ada. API publik hanya status autentikasi dan formulir setup/login. Logout membutuhkan sesi dan CSRF.
+Semua API pekerjaan, Builder status, runtime, produksi dan media preview memerlukan sesi. Mutasi memakai token CSRF dari sesi, di samping guard Host/Origin yang sudah ada. API publik hanya status autentikasi dan formulir setup/login/pemulihan. Kode pemulihan tidak bisa diterbitkan melalui API. Logout membutuhkan sesi dan CSRF.
 
 Pemilik yang masuk dapat mengelola kantor dan memberi keputusan melalui gate rencana/versi hasil yang sudah ada. Belum ada akun operator/reviewer terpisah atau izin per divisi. Ini tidak menambah izin model AI untuk tindakan eksternal.
 
@@ -46,4 +58,4 @@ Berkas akun/kunci berada di direktori data yang dikecualikan dari Git. Pembuatan
 
 Pengujian memakai dua server sementara dan akun sintetis: setup, hash/password tidak bocor, API anonim ditolak, CSRF, logout, restart, rate limit, expiry, scope Builder, pemisahan buyer dan record rusak. Tes frontend memakai handler dengan DOM tiruan; belum membuktikan tampilan, password manager atau pengalaman browser nyata.
 
-Server tetap loopback dan guard Origin masih khusus localhost. `KAEL_HTTPS=1` mengaktifkan atribut Secure pada cookie untuk konfigurasi HTTPS yang benar; flag ini tidak memasang TLS atau membuka akses domain. Reverse proxy/domain/HTTPS publik, login provider, recovery kata sandi, MFA, isolasi proses AI, izin tindakan eksternal, backup/restore dan paket installer belum lengkap. Jangan membuka port dev langsung ke internet berdasarkan fitur login ini saja.
+Server tetap loopback dan guard Origin masih khusus localhost. `KAEL_HTTPS=1` mengaktifkan atribut Secure pada cookie untuk konfigurasi HTTPS yang benar; flag ini tidak memasang TLS atau membuka akses domain. Reverse proxy/domain/HTTPS publik, konfigurasi provider untuk deployment, recovery melalui email, MFA, isolasi proses AI, izin tindakan eksternal, backup/restore dan paket installer belum lengkap. Jangan membuka port dev langsung ke internet berdasarkan fitur login ini saja.

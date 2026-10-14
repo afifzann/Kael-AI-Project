@@ -15,7 +15,7 @@ npm run dev
 
 Buka http://localhost:5173. Memerlukan Node.js 24+. Perintah dev menjalankan Vite pada port 5173 dan server data lokal pada port 5174. Build produksi: `npm run build`. Untuk preview build, jalankan `npm run server` lalu `npm run preview` pada terminal terpisah. Pengujian: `npm test`.
 
-Saat pertama dibuka, siapkan akun pemilik. Ambil kode sekali pakai dengan `node scripts/owner-access.mjs` di terminal server, lalu isi sendiri nama/email dan frasa sandi minimal 15 karakter. Data kantor yang sudah ada tetap dipertahankan. Berikutnya masuk dengan email/kata sandi; tombol Keluar ada di bar atas. API dan preview dilindungi sesi. Panduan lengkap dan batas deployment: [Akses pemilik](docs/OWNER-ACCESS.md).
+Saat pertama dibuka, siapkan akun pemilik. Ambil kode sekali pakai dengan `node scripts/owner-access.mjs` di terminal server, lalu isi sendiri nama/email dan frasa sandi minimal 15 karakter. Data kantor yang sudah ada tetap dipertahankan. Berikutnya masuk dengan email/kata sandi; tombol Keluar ada di bar atas. API dan preview dilindungi sesi. Lupa password: jalankan `node scripts/owner-access.mjs --reset` sendiri di terminal server, lalu gunakan **Lupa kata sandi?** di web; kode berlaku sekali selama 15 menit. Panduan lengkap dan batas deployment: [Akses pemilik](docs/OWNER-ACCESS.md).
 
 ## Monitoring n8n
 

@@ -27,7 +27,7 @@ Di terminal kedua pada folder paket (VPS jika aplikasi berjalan di VPS):
 node scripts/owner-access.mjs
 ```
 
-Masukkan kode penyiapan yang tampil pada halaman setup, isi nama pemilik, email dan frasa sandi minimal 15 karakter. Kode penyiapan bukan kode pembelian dan berlaku sekali. Jangan mengirim kode/password ke chat AI. Login berikutnya cukup email dan password. Belum ada fitur lupa password; simpan akses dengan aman.
+Masukkan kode penyiapan yang tampil pada halaman setup, isi nama pemilik, email dan frasa sandi minimal 15 karakter. Kode penyiapan bukan kode pembelian dan berlaku sekali. Jangan mengirim kode/password ke chat AI. Login berikutnya cukup email dan password. Jika lupa password, jalankan `node scripts/owner-access.mjs --reset` di terminal server dari folder paket. Pilih **Lupa kata sandi?** di web, masukkan kode sekali pakai (15 menit), lalu tentukan password baru. Semua sesi lama keluar; akun dan data kantor dipertahankan. Jangan bagikan kode pemulihan. Reset lewat email belum tersedia.
 
 ## 3. Ikuti penyiapan kantor
 

@@ -22,7 +22,7 @@ async function surface(ready = true, offline = false) {
     if (selector === '#builder-discussion') return picker;
     if (selector === '#builder-chat-message') return input;
     if (selector === '.builder-chat-error') return { focus() {} };
-    if (!buttons.has(selector)) buttons.set(selector, { disabled: false, addEventListener: (_event, fn) => callbacks[selector] = fn });
+    if (!buttons.has(selector)) buttons.set(selector, { disabled: false, focus() {}, addEventListener: (_event, fn) => callbacks[selector] = fn });
     return buttons.get(selector);
   }, querySelectorAll: () => [] };
   class FixtureFormData extends Map { constructor() { super(fields); } }
@@ -33,10 +33,11 @@ async function surface(ready = true, offline = false) {
     if (options?.method !== 'POST') { reads++; if (networkDown) throw new Error('Offline fixture'); }
     if (options?.method === 'POST') { const body = JSON.parse(options.body); calls.push(body);
       if (fail) return { ok: false, json: async () => ({ error: 'Konflik fixture. Muat ulang.' }) };
+      if (body.action === 'hide') record = null;
       if (body.action === 'save') record = { ...record, version: record.version + 1, proposal: body.proposal };
       if (body.action === 'message') record = { ...record, version: record.version + 1, status: 'working', messages: [...record.messages, { role: 'user', text: body.text }] };
     }
-    return { ok: true, json: async () => ({ discussions: [structuredClone(record)] }) };
+    return { ok: true, json: async () => ({ discussions: record ? [structuredClone(record)] : [] }) };
   } });
   const ui = exports.createBuilderDialogueUI(() => ({ revision: 0, divisions: [], agents: [] }), () => {});
   let renders = 0; const render = () => { if (++renders > 20) throw Error('Unexpected UI render loop'); html = ui.render(); ui.bind(host, render); };
@@ -80,4 +81,27 @@ test('desktop Builder proposal uses the same editable preview without presenting
   const h = await surface(); h.record({ sourceDesktop: true, version: 4 }); await h.poll();
   assert.match(h.html, /Preview usulan/); assert.match(h.html, /Lanjutkan diskusi di sesi Builder pada aplikasi AI/);
   assert.doesNotMatch(h.html, /id="builder-chat-form"/); assert.match(h.html, /Buat divisi & SOP/);
+});
+
+test('cancelled Builder history removal requires confirmation, retains failures and clears the last preview on success', async () => {
+  const h = await surface(); assert.doesNotMatch(h.html, /data-chat-hide/);
+  h.record({ status: 'cancelled', version: 4 }); await h.poll();
+  assert.match(h.html, /data-chat-hide>/);
+  h.callbacks['[data-chat-hide]'](); assert.equal(h.calls.length, 0); assert.match(h.html, /Catatan internal tetap disimpan/);
+  h.callbacks['[data-chat-hide-cancel]'](); assert.equal(h.calls.length, 0); assert.doesNotMatch(h.html, /data-chat-hide-confirm/);
+  h.callbacks['[data-chat-hide]'](); h.fail(true); h.callbacks['[data-chat-hide-confirm]'](); await new Promise(setImmediate);
+  assert.match(h.html, /Konflik fixture/); assert.match(h.html, /Preview usulan/);
+  h.fail(false); h.callbacks['[data-chat-hide-confirm]'](); await new Promise(setImmediate);
+  assert.equal(h.calls.at(-1).action, 'hide'); assert.equal(h.calls.at(-1).version, 4);
+  assert.doesNotMatch(h.html, /Preview usulan|id="builder-discussion"|data-chat-hide/);
+  assert.match(h.html, /Usulan yang dikirim sesi itu akan muncul di sini/);
+  await h.poll(); assert.doesNotMatch(h.html, /Preview usulan/);
+});
+
+test('Builder selects the remaining proposal when another page removes the selected cancelled history', async () => {
+  const h = await surface(); h.record({ status: 'cancelled', version: 4 }); await h.poll();
+  h.callbacks['[data-chat-hide]']();
+  h.record({ id: 'remaining', status: 'ready', version: 1, proposal: { ...proposal, name: 'Tim tersisa' } }); await h.poll();
+  assert.match(h.html, /value="remaining" selected/); assert.match(h.html, /value="Tim tersisa"/);
+  assert.doesNotMatch(h.html, /data-chat-hide-confirm/);
 });

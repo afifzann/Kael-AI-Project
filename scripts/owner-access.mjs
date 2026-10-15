@@ -2,12 +2,29 @@
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { createRecoveryCode } from '../server/auth.mjs';
+import { createRecoveryCode, checkOwnerLogin } from '../server/auth.mjs';
+import { createInterface } from 'node:readline/promises';
+import { Writable } from 'node:stream';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const directory = process.env.KAEL_DATA_DIR || path.join(root, 'app-data');
 try {
-  if (process.argv.includes('--reset')) {
+  if (process.argv.includes('--check-login')) {
+    if (!process.stdin.isTTY || !process.stdout.isTTY) throw new Error();
+    let hidden = false;
+    const output = new Writable({ write(chunk, _encoding, done) { if (!hidden) process.stdout.write(chunk); done(); } });
+    const terminal = createInterface({ input: process.stdin, output, terminal: true, historySize: 0 });
+    const controller = new AbortController(); terminal.on('SIGINT', () => controller.abort());
+    try {
+      const email = await terminal.question('Email yang kamu pakai masuk: ', { signal: controller.signal });
+      process.stdout.write('Password (input disembunyikan): '); hidden = true;
+      const password = await terminal.question('', { signal: controller.signal }); hidden = false; process.stdout.write('\n');
+      const result = await checkOwnerLogin(directory, email, password);
+      console.log(`Akun yang diperiksa: ${directory}\nPassword: ${result.passwordCorrect ? 'COCOK' : 'TIDAK COCOK'}\nEmail: ${result.emailCorrect ? 'COCOK' : 'TIDAK COCOK'}`);
+      if (result.passwordCorrect) console.log(`Email akun untuk login: ${result.email}`);
+      console.log('Pemeriksaan ini tidak mengubah password, data, sesi, atau jatah percobaan login web.');
+    } finally { hidden = false; terminal.close(); output.end(); }
+  } else if (process.argv.includes('--reset')) {
     const code = await createRecoveryCode(directory);
     console.log('Di halaman masuk, pilih Lupa kata sandi? lalu masukkan kode pemulihan ini (sekali pakai, berlaku 15 menit):\n' + code + '\nTentukan sendiri kata sandi baru di web. Jangan bagikan kode ini.');
   } else {
@@ -15,4 +32,4 @@ try {
     if (!/^[a-f0-9]{64}$/.test(key)) throw new Error();
     console.log('Buka dashboard Kael, lalu masukkan kode penyiapan sekali pakai ini:\n' + key);
   }
-} catch { console.error(process.argv.includes('--reset') ? 'Kode pemulihan tidak dapat dibuat. Pastikan akun sudah ada dan direktori data dapat diakses. Data akun tidak dihapus.' : 'Kode penyiapan tidak tersedia. Jalankan server dahulu; jika akun sudah dibuat, gunakan halaman masuk.'); process.exitCode = 1; }
+} catch { console.error(process.argv.includes('--check-login') ? '\nPemeriksaan dibatalkan atau tidak tersedia. Jalankan langsung di CMD/PowerShell pada komputer server, bukan lewat chat AI atau input pipe. Akun tidak diubah.' : process.argv.includes('--reset') ? 'Kode pemulihan tidak dapat dibuat. Pastikan akun sudah ada dan direktori data dapat diakses. Data akun tidak dihapus.' : 'Kode penyiapan tidak tersedia. Jalankan server dahulu; jika akun sudah dibuat, gunakan halaman masuk.'); process.exitCode = 1; }

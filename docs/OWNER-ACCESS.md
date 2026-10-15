@@ -18,6 +18,8 @@ Jika instalasi memakai `KAEL_DATA_DIR`, jalankan perintah kode dengan variabel d
 
 ## Lupa kata sandi
 
+Jika login terus menolak setelah reset, periksa langsung di CMD/PowerShell komputer server dengan `node "C:\Kael AI\scripts\owner-access.mjs" --check-login` (sesuaikan path bila instalasi berbeda). Perintah menanyakan email dan password secara interaktif; input password tersembunyi dan tidak disimpan pada histori readline, argumen atau log. Hasil membedakan kecocokan email/password terhadap akun tersimpan; email akun ditampilkan hanya jika password cocok. Pemeriksaan tidak mengubah akun/sesi atau memakai jatah percobaan web. Jangan menjalankannya lewat chat AI, pipe atau membagikan password. Jika keduanya cocok tetapi web tetap menolak, periksa alamat/instalasi dan autofill browser; jangan langsung mereset lagi. Password dibandingkan persis, termasuk spasi; email di-trim dan dibandingkan tanpa membedakan huruf besar/kecil. CLI memakai direktori instalasinya sendiri atau KAEL_DATA_DIR jika disetel; gunakan direktori data yang sama dengan server.
+
 Pemilik yang mengendalikan terminal server dapat menjalankan dari folder Kael:
 
 ```sh

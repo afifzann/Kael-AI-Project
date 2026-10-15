@@ -9,10 +9,10 @@ export function createBuilderDialogueUI(getState: () => State | null, notify: (m
   let discussions: BuilderDiscussion[] = [], selected = '', loaded = false, loading = false, error = '', message = '', starting = false;
   let draft: BuilderProposal | null = null, draftId = '', draftVersion = 0, dirty = false, startOpen = false;
   let targetId = '', provider = '', model = '', host: HTMLElement | null = null, repaint = () => {};
-  let messageScroll = 0, nearEnd = true, webMode = false;
+  let messageScroll = 0, nearEnd = true, webMode = false, hideConfirm = false;
   const current = () => discussions.find(d => d.id === selected);
   const refreshView = () => { if (host?.querySelector('#builder-chat')) repaint(); };
-  function select(id: string) { selected = id; draft = null; draftId = ''; dirty = false; message = ''; error = ''; messageScroll = 0; nearEnd = true; }
+  function select(id: string) { hideConfirm = false; selected = id; draft = null; draftId = ''; dirty = false; message = ''; error = ''; messageScroll = 0; nearEnd = true; }
   async function refresh() {
     if (loading) return; loading = true;
     try {
@@ -20,7 +20,7 @@ export function createBuilderDialogueUI(getState: () => State | null, notify: (m
       if (!response.ok) throw new Error('Draft Builder belum dapat dimuat. Coba hubungkan kembali.');
       const data = await response.json(); const changed = JSON.stringify(discussions) !== JSON.stringify(data.discussions);
       discussions = data.discussions; loaded = true; error = '';
-      if (!selected && discussions.length) select(discussions[0].id);
+      if (!current()) select(discussions[0]?.id || '');
       if (changed && !dirty && !host?.querySelector('#builder-chat')?.contains(document.activeElement)) refreshView();
     } catch (e) { error = e instanceof Error ? e.message : 'Server belum terhubung.'; }
     finally { loading = false; }
@@ -32,6 +32,7 @@ export function createBuilderDialogueUI(getState: () => State | null, notify: (m
       const data = await response.json(); if (!response.ok) throw new Error(data.error || 'Perubahan belum tersimpan. Muat ulang sebelum mencoba lagi.');
       discussions = data.discussions; loaded = true;
       if (action === 'start') { select(discussions[0].id); startOpen = false; }
+      if (action === 'hide') { select(discussions[0]?.id || ''); startOpen = false; notify('Usulan dihapus dari daftar riwayat.'); }
       if (action === 'message') message = '';
       if (action === 'save') { dirty = false; draft = null; notify('Perubahan usulan tersimpan. Belum diterapkan.'); }
       if (action === 'apply') { notify('Tim dan SOP diterapkan. Pekerjaan belum dimulai.'); window.dispatchEvent(new CustomEvent('kael:builder-applied')); }
@@ -68,6 +69,7 @@ export function createBuilderDialogueUI(getState: () => State | null, notify: (m
     const start = !d || startOpen;
     return `<section id="builder-chat" class="builder-chat"><div class="builder-chat-toolbar"><div><h2>Usulan Builder</h2><p>Diskusi di sesi Claude/Codex → preview di sini → keputusanmu.</p></div><button class="op-button" data-chat-new ${starting || d?.status === 'working' || dirty ? 'disabled' : ''}>${startOpen && d ? 'Kembali ke usulan' : 'Chat web (opsional)'}</button></div>
       ${discussions.length ? `<label class="builder-discussion-picker" for="builder-discussion">Diskusi tersimpan<select id="builder-discussion" ${starting || dirty ? 'disabled' : ''}>${discussions.map(v => `<option value="${v.id}" ${selected === v.id ? 'selected' : ''}>${esc(v.proposal?.name || v.messages.find(m => m.role === 'user')?.text.slice(0, 50) || 'Diskusi baru')} · ${v.status === 'applied' ? 'Diterapkan' : v.status === 'cancelled' ? 'Dibatalkan' : v.status === 'working' ? 'AI bekerja' : 'Draft'}</option>`).join('')}</select></label>` : ''}
+      ${d?.status === 'cancelled' ? `<div class="builder-history-actions">${hideConfirm ? '<p>Hapus usulan ini dari daftar riwayat? Catatan internal tetap disimpan; tim dan pekerjaan tidak berubah.</p><div class="builder-chat-actions"><button class="op-button" data-chat-hide-confirm>Ya, hapus dari riwayat</button><button class="op-button" data-chat-hide-cancel>Batal</button></div>' : '<button class="op-button" data-chat-hide>Hapus dari riwayat</button>'}</div>` : ''}
       <p class="builder-chat-error" role="alert" tabindex="-1">${esc(error || (!start && d?.error) || '')}</p>
       ${!loaded ? `<p role="status">${error ? 'Draft belum dapat dimuat.' : 'Memuat draft Builder…'}</p><button class="op-button" data-chat-reload>Muat ulang</button>` : start && !webMode ? '<p class="op-muted">Buka sesi Code pada folder kantor, ketik <strong>jadi builder</strong>, lalu diskusikan kebutuhanmu. Usulan yang dikirim sesi itu akan muncul di sini untuk ditinjau. Riwayat percakapan aslinya tetap di aplikasi AI.</p>' : start ? `<form id="builder-chat-start" class="builder-chat-start"><h3>Mulai dari kebutuhanmu</h3><label for="builder-chat-target">Bagian yang ingin dibangun<select id="builder-chat-target"><option value="">Divisi baru</option>${(s?.divisions || []).map(v => { const editable = s && builderCanEdit(s, v.id); return `<option value="${v.id}" ${targetId === v.id ? 'selected' : ''} ${!editable ? 'disabled' : ''}>Edit ${esc(v.name)}${!editable ? ' · konfigurasi khusus' : ''}</option>`; }).join('')}</select></label><label for="builder-chat-provider">AI untuk diskusi<select id="builder-chat-provider">${['Claude', 'Codex'].map(v => `<option ${provider === v ? 'selected' : ''} value="${v}">${v}${runtimeFor(s || {}, v)?.available ? ' · terhubung' : ' · belum terhubung'}</option>`).join('')}</select></label><label for="builder-chat-model">Model diskusi <span>(opsional)</span><input id="builder-chat-model" value="${esc(model)}" maxlength="120" placeholder="Default CLI, atau model yang tersedia di akunmu"></label><p>Diskusi memakai akun AI pada server. Setelan ini berlaku untuk Builder; provider tiap agent diatur melalui preview atau Anggota.</p><button class="op-button primary" type="submit" ${starting ? 'disabled' : ''}>Mulai diskusi</button></form>` : d ? `<div class="builder-chat-grid"><section class="builder-chat-conversation"><div class="builder-chat-meta"><strong>Builder · ${esc(d.provider)}${d.model ? ' · ' + esc(d.model) : ''}</strong><span>Diskusi tersimpan di kantor ini</span></div><div class="builder-chat-messages">${d.messages.map(m => `<article class="builder-chat-message ${m.role}"><strong>${m.role === 'user' ? 'Kamu' : 'Builder'}</strong><p>${esc(m.text)}</p></article>`).join('')}</div>
       ${d.status === 'working' ? '<div class="builder-chat-working" role="status">Builder sedang menyusun jawaban…<button class="op-button" data-chat-stop>Hentikan giliran</button></div>' : ''}
@@ -78,6 +80,10 @@ export function createBuilderDialogueUI(getState: () => State | null, notify: (m
     const messages = host.querySelector<HTMLElement>('.builder-chat-messages');
     if (messages) { messages.scrollTop = nearEnd ? messages.scrollHeight : messageScroll; messages.onscroll = () => { messageScroll = messages.scrollTop; nearEnd = messages.scrollHeight - messages.scrollTop - messages.clientHeight < 80; }; }
     const on = (selector: string, fn: () => void) => host?.querySelector(selector)?.addEventListener('click', fn);
+    on('[data-chat-hide]', () => { hideConfirm = true; refreshView(); host?.querySelector<HTMLElement>('[data-chat-hide-confirm]')?.focus(); });
+    on('[data-chat-hide-cancel]', () => { hideConfirm = false; refreshView(); host?.querySelector<HTMLElement>('[data-chat-hide]')?.focus(); });
+    on('[data-chat-hide-confirm]', () => { if (current()?.status === 'cancelled') void request('hide'); });
+    host.querySelectorAll<HTMLButtonElement>('.builder-history-actions button').forEach(b => b.disabled = starting);
     on('[data-chat-new]', () => { webMode = true; startOpen = !startOpen; error = ''; refreshView(); });
     on('[data-chat-reload]', () => { if (dirty) return; loaded = false; error = ''; draft = null; void refresh().then(refreshView); refreshView(); });
     const picker = host.querySelector<HTMLSelectElement>('#builder-discussion'); if (picker) picker.onchange = () => { select(picker.value); startOpen = false; refreshView(); };

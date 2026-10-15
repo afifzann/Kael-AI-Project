@@ -17,6 +17,16 @@ async function readOwner(file) {
 function validatePassword(data) {
   if (typeof data.password !== 'string' || data.password.length < 8 || data.password.length > 128 || data.password !== data.confirm) throw new Error('Gunakan kata sandi 8–128 karakter dan konfirmasi yang sama.');
 }
+async function passwordMatches(owner, password) {
+  if (typeof password !== 'string' || password.length > 128) return false;
+  return same((await scrypt(password, owner.salt, 64, parameters)).toString('hex'), owner.hash);
+}
+// Local terminal diagnosis only; never expose these separate checks through an HTTP endpoint.
+export async function checkOwnerLogin(directory, email, password) {
+  const owner = await readOwner(path.join(directory, 'owner-auth.json'));
+  const passwordCorrect = await passwordMatches(owner, password);
+  return { passwordCorrect, emailCorrect: typeof email === 'string' && email.trim().toLowerCase() === owner.email, ...(passwordCorrect ? { email: owner.email } : {}) };
+}
 export async function createRecoveryCode(directory, now = Date.now) {
   const owner = await readOwner(path.join(directory, 'owner-auth.json'));
   const code = token(), temporary = path.join(directory, `.recovery-${token()}.tmp`);
@@ -116,8 +126,8 @@ export async function createAuth({ directory, secure = false, now = Date.now }) 
         } finally { resetting = false; await rm(temporary, { force: true }).catch(() => {}); }
       } else {
         if (!owner || typeof data.email !== 'string' || typeof data.password !== 'string' || data.password.length > 128) { send(res, 401, { error: 'Email atau kata sandi tidak cocok.' }); return true; }
-        const account = owner, hash = (await scrypt(data.password, account.salt, 64, parameters)).toString('hex');
-        if (resetting || owner !== account || !same(hash, account.hash) || data.email.trim().toLowerCase() !== account.email) { send(res, 401, { error: 'Email atau kata sandi tidak cocok.' }); return true; }
+        const account = owner, passwordCorrect = await passwordMatches(account, data.password);
+        if (resetting || owner !== account || !passwordCorrect || data.email.trim().toLowerCase() !== account.email) { send(res, 401, { error: 'Email atau kata sandi tidak cocok.' }); return true; }
       }
       attempts.delete((req.socket.remoteAddress || 'local') + (req.url === '/api/auth/reset-password' ? ':reset' : '')); send(res, 200, signIn(req, res));
     } catch (e) { send(res, 400, { error: ['Gunakan JSON.', 'Permintaan terlalu besar.', 'Formulir tidak valid.', 'Isi nama dan email yang valid.', 'Gunakan kata sandi 8–128 karakter dan konfirmasi yang sama.'].includes(e.message) ? e.message : 'Akun tidak dapat diproses. Data tersimpan dipertahankan; periksa konfigurasi server.' }); }

@@ -25,7 +25,7 @@ export async function createBuilderDialogue({ directory, getState, mutate, statu
   try {
     const raw = await readFile(file, 'utf8'); if (Buffer.byteLength(raw) > 32 * 1024 * 1024) throw new Error();
     discussions = JSON.parse(raw);
-    if (!Array.isArray(discussions) || discussions.length > 100 || discussions.some(d => !d || typeof d.id !== 'string' || !Number.isSafeInteger(d.version) || d.version < 1 || !Number.isSafeInteger(d.baseRevision) || !['Claude', 'Codex'].includes(d.provider) || !['targetId', 'model', 'error', 'appliedDivisionId', 'updatedAt'].every(k => typeof d[k] === 'string') || !Array.isArray(d.messages) || d.messages.length > 61 || d.messages.some(m => !m || !['user', 'assistant'].includes(m.role) || typeof m.text !== 'string' || m.text.length > 4000) || !['discussing', 'working', 'ready', 'applied', 'cancelled'].includes(d.status) || d.proposal !== null && (!d.proposal || !['name', 'manager', 'steps', 'criteria', 'limits', 'provider', 'model'].every(k => typeof d.proposal[k] === 'string') || !Array.isArray(d.proposal.workers) || d.proposal.workers.some(w => !w || !['id', 'name', 'role'].every(k => typeof w[k] === 'string'))))) throw new Error();
+    if (!Array.isArray(discussions) || discussions.length > 100 || discussions.some(d => !d || d.hiddenAt !== undefined && (d.status !== 'cancelled' || typeof d.hiddenAt !== 'string' || !Number.isFinite(Date.parse(d.hiddenAt))) || typeof d.id !== 'string' || !Number.isSafeInteger(d.version) || d.version < 1 || !Number.isSafeInteger(d.baseRevision) || !['Claude', 'Codex'].includes(d.provider) || !['targetId', 'model', 'error', 'appliedDivisionId', 'updatedAt'].every(k => typeof d[k] === 'string') || !Array.isArray(d.messages) || d.messages.length > 61 || d.messages.some(m => !m || !['user', 'assistant'].includes(m.role) || typeof m.text !== 'string' || m.text.length > 4000) || !['discussing', 'working', 'ready', 'applied', 'cancelled'].includes(d.status) || d.proposal !== null && (!d.proposal || !['name', 'manager', 'steps', 'criteria', 'limits', 'provider', 'model'].every(k => typeof d.proposal[k] === 'string') || !Array.isArray(d.proposal.workers) || d.proposal.workers.some(w => !w || !['id', 'name', 'role'].every(k => typeof w[k] === 'string'))))) throw new Error();
   }
   catch (e) { if (e.code !== 'ENOENT') throw new Error('Draft Builder tidak dapat dibuka. Berkas dipertahankan; periksa cadangan.'); }
   async function change(fn) {
@@ -41,7 +41,7 @@ export async function createBuilderDialogue({ directory, getState, mutate, statu
   } });
   function find(list, input) {
     const d = list.find(d => d.id === input.id);
-    if (!d) throw new Error('Diskusi tidak ditemukan. Muat ulang Builder.');
+    if (!d || d.hiddenAt) throw new Error('Diskusi tidak ditemukan. Muat ulang Builder.');
     if (d.version !== input.version) throw new Error('Diskusi berubah di halaman lain. Muat ulang dan tinjau sebelum mencoba lagi.');
     return d;
   }
@@ -88,6 +88,10 @@ export async function createBuilderDialogue({ directory, getState, mutate, statu
         if (d.status !== 'working') throw new Error('Tidak ada giliran Builder yang berjalan.');
         jobs.get(d.id)?.abort(); jobs.delete(d.id); d.status = 'discussing'; d.error = 'Giliran dihentikan. Pesan tersimpan; lanjutkan dengan koreksi atau Coba lagi.'; touch(d); return;
       }
+      if (input.action === 'hide') {
+        if (d.status !== 'cancelled' || getState().builderApplications?.some(v => v.discussionId === d.id)) throw new Error('Hanya usulan yang dibatalkan yang dapat dihapus dari riwayat.');
+        d.hiddenAt = new Date().toISOString(); touch(d); return;
+      }
       editable(d);
       if (input.action === 'message' || input.action === 'retry') {
         if (jobs.size) throw new Error('Builder sedang menjawab diskusi lain. Tunggu atau hentikan giliran tersebut.');
@@ -112,11 +116,11 @@ export async function createBuilderDialogue({ directory, getState, mutate, statu
     if (launch) void execute(launch.id, launch.controller, launch.snapshot, launch.input);
     return structuredClone(discussions);
   }
-  return { action, list: () => structuredClone(discussions).map(d => {
+  return { action, list: () => structuredClone(discussions).filter(d => !d.hiddenAt).map(d => {
     const applied = getState().builderApplications?.find(v => v.discussionId === d.id);
     return applied ? { ...d, status: 'applied', appliedDivisionId: applied.divisionId, error: '' } : d;
   }), presence() {
-    const d = discussions.find(d => d.status === 'working') || discussions[0];
+    const d = discussions.find(d => d.status === 'working') || discussions.find(d => !d.hiddenAt);
     return d ? { connection: 'online', status: jobs.size ? 'working' : 'completed', source: d.provider, checkedAt: new Date().toISOString(), lastEventAt: jobs.size ? new Date().toISOString() : d.updatedAt, turnId: d.id, partial: false, error: '' } : null;
   }, close() { closed = true; for (const c of jobs.values()) c.abort(); } };
 }

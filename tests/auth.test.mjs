@@ -5,7 +5,7 @@ import { once } from 'node:events';
 import { mkdtemp, readFile, writeFile, access, mkdir, rename, rmdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { createAuth, createRecoveryCode } from '../server/auth.mjs';
+import { createAuth, createRecoveryCode, checkOwnerLogin } from '../server/auth.mjs';
 import { rawFetch, testOwner } from './helpers/auth-client.mjs';
 import { building } from '../scripts/building.mjs';
 
@@ -121,6 +121,28 @@ test('corrupt owner records fail closed instead of creating a replacement owner'
   const file = path.join(directory, 'owner-auth.json'); await writeFile(file, '{broken');
   await assert.rejects(() => createAuth({ directory }), /berkas dipertahankan/);
   assert.equal(await readFile(file, 'utf8'), '{broken'); await assert.rejects(() => access(path.join(directory, 'owner-setup.key')), { code: 'ENOENT' });
+});
+
+test('local diagnosis identifies email/password mismatches without mutation and CLI refuses noninteractive input', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'kael-login-check-')); let server = await launch(directory);
+  try {
+    const signed = await account(server, directory), file = path.join(directory, 'owner-auth.json'), original = await readFile(file, 'utf8');
+    assert.deepEqual(await checkOwnerLogin(directory, 'wrong@example.test', testOwner.password), { passwordCorrect: true, emailCorrect: false, email: testOwner.email });
+    assert.deepEqual(await checkOwnerLogin(directory, testOwner.email, 'wrong-password'), { passwordCorrect: false, emailCorrect: true });
+    assert.deepEqual(await checkOwnerLogin(directory, 'wrong@example.test', 'wrong-password'), { passwordCorrect: false, emailCorrect: false });
+    assert.equal(await readFile(file, 'utf8'), original);
+    assert.equal((await rawFetch(server.url + '/api/auth/status', { headers: { Cookie: signed.cookie } })).status, 200);
+    const recoveryCode = await createRecoveryCode(directory), password = ' 8chars! ';
+    assert.equal((await post(server.url + '/api/auth/reset-password', { recoveryCode, password, confirm: password })).status, 200);
+    const saved = await readFile(file, 'utf8'); await server.stop(); server = await launch(directory);
+    const result = await checkOwnerLogin(directory, ' OWNER@EXAMPLE.TEST ', password); assert.equal(result.passwordCorrect, true); assert.equal(result.emailCorrect, true);
+    assert.equal((await checkOwnerLogin(directory, testOwner.email, password.trim())).passwordCorrect, false, 'password whitespace must not be silently changed');
+    assert.equal((await post(server.url + '/api/auth/login', { email: testOwner.email, password })).status, 200);
+    assert.equal(await readFile(file, 'utf8'), saved);
+    const cli = spawn(process.execPath, ['scripts/owner-access.mjs', '--check-login'], { env: { ...process.env, KAEL_DATA_DIR: directory }, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+    let output = ''; cli.stdout.on('data', chunk => output += chunk); cli.stderr.on('data', chunk => output += chunk);
+    const [code] = await once(cli, 'exit'); assert.equal(code, 1); assert.match(output, /CMD\/PowerShell/); assert.equal(output.includes(password), false); assert.equal(output.includes(testOwner.email), false);
+  } finally { await server.stop(); }
 });
 
 test('local recovery preserves account/work, revokes sessions, persists and cannot be replayed', async () => {

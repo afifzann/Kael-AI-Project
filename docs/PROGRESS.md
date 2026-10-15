@@ -10,6 +10,22 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Usulan Builder batal dapat dihapus dari daftar — 15 Oktober 2026
+
+Tombol Hapus dari riwayat muncul hanya pada usulan berstatus dibatalkan, di dekat pemilih diskusi. Konfirmasi inline menjelaskan penghapusan dari daftar, lalu pilihan beralih ke usulan tersisa atau tampilan kosong. Kesalahan penyimpanan mempertahankan preview dan memungkinkan retry; polling menyesuaikan pilihan jika halaman lain menghapusnya.
+
+Server menyimpan hiddenAt secara atomik tanpa menghapus ID, percakapan, proposal, provenance atau data kerja. GET/POST web serta presence tidak memakai rekaman tersembunyi. Native proposal tetap memakai ID/requestId lama untuk deduplikasi setelah restart, sehingga retry tidak menghidupkan usulan lagi. Versi usang, usulan bekerja/diterapkan, akses anonim dan kunci bridge ditolak. Ini merapikan daftar; batas penyimpanan internal 100 rekaman tetap berlaku, belum ada hapus permanen/pemulihan dari UI.
+
+File utama: server/builder-dialogue.mjs, server/index.mjs, src/builder-dialogue.ts/css; tests/builder-dialogue.test.mjs dan builder-ui.test.mjs. Tidak menambah dependensi atau mengubah kantor 3D. Verifikasi: 207/207 tes penuh dan typecheck/build lulus; mencakup restart/deduplikasi, konfirmasi/batal/gagal, keadaan kosong/pergantian pilihan serta API auth. Tes awal pembandingan state HTTP diperbaiki untuk membandingkan berkas state karena checkedAt presence memang berubah setiap pembacaan. Warning bundle kantor sekitar 787 kB tetap ada.
+
+Backend/frontend dimuat ulang setelah run/inbox/produksi/sesi native diperiksa luang (PID dev 2820). Frontend HTTP 200 menyajikan tombol baru, needsSetup false, Builder anonim 401; revision pemilik tetap 9 dan hash state ff4149d5c6b5150c7e3833ba6917d470b6d6a3ef5fcfcdb726f35a868bf979f4. Tidak menghapus/menyembunyikan usulan asli untuk pengujian. GUI visual dan klik pada akun pemilik belum diverifikasi; restart dapat meminta login kembali. Langkah produk berikutnya tetap tahap 3 SYSTEM-REBUILD, bukan perubahan 3D.
+
+### Pemeriksaan login lokal — 15 Oktober 2026
+
+Ditambahkan perintah owner-access.mjs --check-login untuk membedakan ketidakcocokan email/password secara lokal tanpa mengubah akun, sesi, state atau jatah login web. Password diminta hanya di terminal TTY dengan input tersembunyi, tidak melalui argumen/pipe/chat. Pemeriksaan memakai helper scrypt yang sama dengan login; HTTP tetap memberi pesan generik dan tidak mengekspos hasil diagnosis terpisah. File utama: server/auth.mjs, scripts/owner-access.mjs, tests/auth.test.mjs, docs/OWNER-ACCESS.md.
+
+Tes fixture mencakup reset→restart, whitespace password, pemeriksaan tanpa mutasi dan penolakan input noninteraktif. Uji TTY dilakukan hanya memakai akun sintetis dengan password publik, bukan akun pemilik. Pemilik melaporkan hasil diagnosis Password TIDAK COCOK; tidak menyimpulkan password diubah/rollback dan tidak mengganti kredensialnya. Verifikasi bersama perubahan Builder: 207/207 tes penuh serta npm run build lulus. Login/reset akun asli dan GUI belum diuji; masalah password pemilik belum dinyatakan selesai oleh pemeriksaan ini.
+
 ### Perombakan sistem tahap 2 — bahan dan laporan lokal, PRD v2.45
 
 Melanjutkan tahap 1 atas instruksi pemilik. Inbox kebutuhan/jawaban menerima bahan teks UTF-8 .txt/.md/.csv (5 berkas, 32 KiB per berkas, 64 KiB total). Normalisasi/validasi domain menolak path, biner, UTF-8 rusak, duplikasi nama, ukuran dan CSV tidak valid secara atomik. Bahan request menjadi snapshot briefing saat rencana dibuat, bukan pilihan bahan baru dari AI. Bridge menolak materials dalam manager-plan sesi AI; context hanya metadata, action task membaca sumber penuh/alat dalam scope tugas.

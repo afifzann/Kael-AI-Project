@@ -65,6 +65,7 @@ test('Builder asks a question, resumes persisted discussion, edits proposal, wai
     assert.equal(first(resumed).id, id); assert.equal(first(resumed).messages.length, 5);
     await action(resumed, 'save', { proposal: { ...first(resumed).proposal, manager: 'Maya', provider: 'Codex' } });
     await action(resumed, 'apply'); assert.equal(first(resumed).status, 'applied'); assert.equal(h.state.agents[0].name, 'Maya'); assert.equal(h.state.revision, 1);
+    await assert.rejects(action(resumed, 'hide'), /Hanya usulan yang dibatalkan/);
     await assert.rejects(action(resumed, 'apply'), /ditutup/); assert.equal(h.state.divisions.length, 1);
     resumed.close();
   } finally { h.service.close(); }
@@ -96,6 +97,7 @@ test('Builder stop rejects late output; interrupted restart does not silently ca
   await action(h.service, 'start', { provider: 'Claude', model: '', targetId: '' }); await action(h.service, 'message', { text: 'Pesan tersimpan' });
   while (!finish) await new Promise(r => setTimeout(r, 5));
   assert.equal(h.service.presence().status, 'working');
+  await assert.rejects(action(h.service, 'hide'), /Hanya usulan yang dibatalkan/);
   await action(h.service, 'stop'); finish(result(proposal())); await new Promise(r => setTimeout(r, 20));
   assert.equal(first(h.service).proposal, null); assert.equal(first(h.service).messages.at(-1).text, 'Pesan tersimpan'); h.service.close();
   const file = path.join(h.directory, 'builder-discussions.json'), records = JSON.parse(await readFile(file, 'utf8')); records[0].status = 'working'; await writeFile(file, JSON.stringify(records));
@@ -140,5 +142,39 @@ test('authenticated Builder HTTP protects chat/apply, rejects command bypass and
     const bypass = await fetch(url + '/api/command', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ revision: 0, command: { type: 'builder-apply', discussionId: 'bypass', baseRevision: 0, targetId: '', proposal: proposal() } }) }); assert.equal(bypass.status, 400);
     response = await post({ action: 'apply', id: d.id, version: d.version }); assert.equal(response.status, 200);
     const state = await (await fetch(url + '/api/state')).json(); assert.equal(state.divisions.length, 1); assert.equal(state.sops.length, 1); assert.equal(state.decisions.length, 0);
+    const stored = await readFile(path.join(directory, 'state.json'), 'utf8');
+    response = await post({ action: 'start', provider: 'Codex', model: '', targetId: '' }); d = response.discussions[0];
+    response = await post({ action: 'cancel', id: d.id, version: d.version }); d = response.discussions[0];
+    const hide = { action: 'hide', id: d.id, version: d.version };
+    assert.equal((await rawFetch(url + '/api/builder-discussions', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token }, body: JSON.stringify(hide) })).status, 403);
+    assert.equal((await rawFetch(url + '/api/builder-discussions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(hide) })).status, 401);
+    response = await post(hide); assert.equal(response.status, 200); assert.equal(response.discussions.some(v => v.id === d.id), false);
+    const visible = (await (await fetch(url + '/api/builder-discussions')).json()).discussions;
+    assert.equal(visible.some(v => v.id === d.id), false); assert.equal(visible.length, 1);
+    assert.equal(await readFile(path.join(directory, 'state.json'), 'utf8'), stored);
   } finally { if (child.exitCode === null) { const ended = once(child, 'exit'); child.kill(); await ended; } clearAuth?.(); }
+});
+
+test('cancelled Builder discussions leave the list persistently without destroying records, workspace or native deduplication', async () => {
+  const h = await harness(), before = structuredClone(h.state);
+  let restarted;
+  try {
+    await action(h.service, 'propose', { provider: 'Claude', targetId: '', revision: 0, proposal: proposal(), requestId: 'native-fixture' });
+    const id = first(h.service).id;
+    await assert.rejects(action(h.service, 'hide'), /Hanya usulan yang dibatalkan/);
+    await action(h.service, 'cancel'); const cancelled = structuredClone(first(h.service));
+    await assert.rejects(action(h.service, 'hide', { version: cancelled.version - 1 }), /berubah/);
+    await action(h.service, 'hide'); assert.deepEqual(h.service.list(), []); assert.equal(h.service.presence(), null);
+    const saved = JSON.parse(await readFile(path.join(h.directory, 'builder-discussions.json'), 'utf8'))[0];
+    assert.equal(saved.id, id); assert.equal(saved.status, 'cancelled'); assert.ok(saved.hiddenAt); assert.equal(saved.version, cancelled.version + 1);
+    assert.deepEqual(saved.messages, cancelled.messages); assert.deepEqual(saved.proposal, cancelled.proposal); assert.deepEqual(h.state, before);
+    await assert.rejects(h.service.action({ action: 'apply', id, version: saved.version }), /tidak ditemukan/);
+    h.service.close();
+    restarted = await createBuilderDialogue({ directory: h.directory, getState: () => h.state, mutate: async () => { throw Error('No workspace mutation'); }, status: () => ({ available: true }) });
+    assert.deepEqual(restarted.list(), []);
+    const retry = await restarted.action({ action: 'propose', provider: 'Claude', targetId: '', revision: 0, proposal: proposal(), requestId: 'native-fixture' });
+    assert.equal(retry.length, 1); assert.equal(retry[0].id, id); assert.deepEqual(restarted.list(), []);
+    await action(restarted, 'start', { provider: 'Codex', model: '', targetId: '' });
+    assert.equal(restarted.list().length, 1); assert.notEqual(first(restarted).id, id); assert.deepEqual(h.state, before);
+  } finally { h.service.close(); restarted?.close(); }
 });

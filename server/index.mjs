@@ -83,7 +83,8 @@ const server = http.createServer(async (req, res) => {
       for await (const chunk of req) { bytes += chunk.length; if (bytes > 100000) return send(res, 413, { error: 'Permintaan terlalu besar.' }); chunks.push(chunk); }
       const input = JSON.parse(Buffer.concat(chunks).toString('utf8'));
       if (!input || Array.isArray(input) || typeof input !== 'object') throw new Error('Formulir tidak valid.');
-      return send(res, 200, { discussions: await builderDialogue.action(input) });
+      await builderDialogue.action(input);
+      return send(res, 200, { discussions: builderDialogue.list() });
     } catch (e) { return send(res, 400, { error: e instanceof Error ? e.message : 'Builder belum dapat diproses.' }); }
   }
   if(await production.handle(req,res,new URL(req.url,`http://127.0.0.1:${port}`),send))return;

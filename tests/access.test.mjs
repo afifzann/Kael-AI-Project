@@ -35,7 +35,7 @@ test('first-owner UI asks for a server setup key, validates confirmation and ope
   class FixtureFormData extends Map { constructor() { super([['email', 'owner@example.test'], ['password', password.value], ['confirm', confirm.value], ['setupKey', 'fixture-key']]); } }
   const access = accessModule({ document: { querySelector: () => root }, FormData: FixtureFormData, fetch: async (url, options) => { calls.push({ url, options }); return { ok: true, json: async () => calls.length === 1 ? { needsSetup: true, signedIn: false } : { signedIn: true, csrf: 'fixture' } }; } });
   const pending = access.requireOwner(); await new Promise(setImmediate);
-  assert.match(root.innerHTML, /name="setupKey"/); assert.match(root.innerHTML, /minlength="15"/); assert.match(root.innerHTML, /owner-access\.mjs/);
+  assert.match(root.innerHTML, /name="setupKey"/); assert.match(root.innerHTML, /minlength="8"/); assert.match(root.innerHTML, /owner-access\.mjs/);
   await form.onsubmit({ preventDefault() {} }); assert.equal(calls.length, 1, 'invalid confirmation must not submit');
   confirm.value = password.value; await form.onsubmit({ preventDefault() {} });
   assert.equal(calls[1].url, '/api/auth/setup'); assert.equal((await pending).signedIn, true); assert.equal(button.disabled, false);

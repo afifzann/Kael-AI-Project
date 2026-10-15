@@ -10,6 +10,12 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Batas password lebih singkat — 15 Oktober 2026
+
+Atas permintaan pemilik, minimal password setup dan pemulihan diturunkan dari 15 menjadi 8 karakter (maksimal 128). Validasi server, formulir/konfirmasi dan panduan README/BUYER-SETUP/OWNER-ACCESS diselaraskan. Password lama tetap berlaku; tidak mengganti akun atau password pemilik. Hash, sesi, CSRF dan batas percobaan login tetap menggunakan mekanisme yang sama.
+
+Verifikasi: 182/182 tes penuh dan npm run build lulus. Tes akun tiruan mencakup penolakan 7/129 karakter, penerimaan 8/128, konfirmasi, login dan pemulihan. Backend/frontend dimuat ulang setelah aktivitas diperiksa luang (PID dev 7308); frontend HTTP 200, formulir minimal 8 dan needsSetup false. Hash state pemilik tetap ff4149d5c6b5150c7e3833ba6917d470b6d6a3ef5fcfcdb726f35a868bf979f4. Warning bundle kantor sekitar 772 kB tetap ada. Belum mencoba login/reset akun pemilik atau klik GUI; paket rilis buyer lama tidak dibuat ulang. Langkah berikutnya: pemilik dapat memilih password baru lewat pemulihan lokal; roadmap produk tetap mengikuti catatan otomasi di bawah.
+
 ### Otomasi tugas lokal dan review manager — PRD v2.43
 
 Otomasi opt-in per divisi melalui SOP & integrasi; hanya approval rencana berikutnya disnapshot untuk otomatisasi. Prasyarat SOP/provider manager dan semua pelaksana. Antrean runtime existing menserialkan worker/review (provider/model manager sendiri); task berikutnya menunggu hasil sebelumnya disetujui. Konteks menyertakan sampai tiga handoff hasil disetujui dari brief yang sama. Review valid menggunakan domain review existing dan tetap menunggu Founder; maksimal dua revisi manager lalu guidance. Revisi Founder pada task ID yang sama, hasil lama dipertahankan.

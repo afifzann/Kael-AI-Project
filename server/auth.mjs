@@ -15,7 +15,7 @@ async function readOwner(file) {
   return owner;
 }
 function validatePassword(data) {
-  if (typeof data.password !== 'string' || data.password.length < 15 || data.password.length > 128 || data.password !== data.confirm) throw new Error('Gunakan kata sandi 15–128 karakter dan konfirmasi yang sama.');
+  if (typeof data.password !== 'string' || data.password.length < 8 || data.password.length > 128 || data.password !== data.confirm) throw new Error('Gunakan kata sandi 8–128 karakter dan konfirmasi yang sama.');
 }
 export async function createRecoveryCode(directory, now = Date.now) {
   const owner = await readOwner(path.join(directory, 'owner-auth.json'));
@@ -120,7 +120,7 @@ export async function createAuth({ directory, secure = false, now = Date.now }) 
         if (resetting || owner !== account || !same(hash, account.hash) || data.email.trim().toLowerCase() !== account.email) { send(res, 401, { error: 'Email atau kata sandi tidak cocok.' }); return true; }
       }
       attempts.delete((req.socket.remoteAddress || 'local') + (req.url === '/api/auth/reset-password' ? ':reset' : '')); send(res, 200, signIn(req, res));
-    } catch (e) { send(res, 400, { error: ['Gunakan JSON.', 'Permintaan terlalu besar.', 'Formulir tidak valid.', 'Isi nama dan email yang valid.', 'Gunakan kata sandi 15–128 karakter dan konfirmasi yang sama.'].includes(e.message) ? e.message : 'Akun tidak dapat diproses. Data tersimpan dipertahankan; periksa konfigurasi server.' }); }
+    } catch (e) { send(res, 400, { error: ['Gunakan JSON.', 'Permintaan terlalu besar.', 'Formulir tidak valid.', 'Isi nama dan email yang valid.', 'Gunakan kata sandi 8–128 karakter dan konfirmasi yang sama.'].includes(e.message) ? e.message : 'Akun tidak dapat diproses. Data tersimpan dipertahankan; periksa konfigurasi server.' }); }
     return true;
   }
   function authorize(req, res, send) {

@@ -11,7 +11,7 @@ Satu instalasi Kael memiliki satu akun pemilik. Akun dashboard berbeda dari kode
    node scripts/owner-access.mjs
    ```
 
-3. Masukkan kode penyiapan yang tampil ke halaman penyiapan, isi nama/email, lalu tentukan sendiri frasa sandi 15–128 karakter dan konfirmasinya. Jangan kirim kode atau kata sandi ke chat/support.
+3. Masukkan kode penyiapan yang tampil ke halaman penyiapan, isi nama/email, lalu tentukan sendiri frasa sandi 8–128 karakter dan konfirmasinya. Jangan kirim kode atau kata sandi ke chat/support.
 4. Sesudah akun tersimpan, kode penyiapan dikonsumsi dan kantor terbuka. Penyiapan tidak mengubah divisi, task, hasil, keputusan atau ID yang sudah ada.
 
 Jika instalasi memakai `KAEL_DATA_DIR`, jalankan perintah kode dengan variabel direktori yang sama. Kode penyiapan tidak tersedia melalui API dan tidak dicetak oleh server ke log. Pada pemasangan pelanggan nanti, installer perlu menyediakan langkah ini secara aman; jangan menjanjikan wizard installer sudah dibuat.
@@ -24,7 +24,7 @@ Pemilik yang mengendalikan terminal server dapat menjalankan dari folder Kael:
 node scripts/owner-access.mjs --reset
 ```
 
-Di halaman masuk pilih **Lupa kata sandi?**, masukkan kode yang tampil, lalu tentukan dan konfirmasi frasa sandi baru minimal 15 karakter. Kode hanya berlaku sekali selama 15 menit; membuat kode baru membatalkan kode sebelumnya. Jangan kirim kode/password ke AI atau support. Pada VPS, jalankan perintah di VPS dengan user/direktori data yang sama dengan aplikasi. Server tidak perlu dihentikan untuk membuat kode.
+Di halaman masuk pilih **Lupa kata sandi?**, masukkan kode yang tampil, lalu tentukan dan konfirmasi frasa sandi baru minimal 8 karakter. Kode hanya berlaku sekali selama 15 menit; membuat kode baru membatalkan kode sebelumnya. Jangan kirim kode/password ke AI atau support. Pada VPS, jalankan perintah di VPS dengan user/direktori data yang sama dengan aplikasi. Server tidak perlu dihentikan untuk membuat kode.
 
 Perintah hanya menerbitkan kode, belum mengubah password. Setelah reset berhasil, nama/email akun dan semua data pekerjaan tetap sama; seluruh sesi lama dicabut dan browser pemulihan masuk dengan sesi baru. Password lama ditolak. Hash kode terikat pada hash password sebelumnya sehingga tidak dapat dipakai ulang setelah reset, termasuk jika pembersihan berkas kode gagal. Password baru disimpan dengan penggantian berkas atomik; kegagalan penulisan tidak membuang akun lama. File akun rusak tidak dapat dipulihkan dengan membuat akun pengganti otomatis. Belum ada reset melalui email.
 

@@ -88,6 +88,34 @@ test('session rotation, inactivity expiry, secure cookie and login throttling', 
   for (let i = 1; i <= 25; i++) { clock += 29 * 60 * 1000; assert.equal((await request('/api/auth/status', {}, { cookie: activeCookie }, 'GET')).body.signedIn, i < 25, 'absolute expiry still applies while requests continue'); }
 });
 
+test('setup and recovery accept 8–128 characters and preserve password confirmation', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'kael-password-length-'));
+  const auth = await createAuth({ directory });
+  async function request(url, data) {
+    const req = { url, method: 'POST', headers: { 'content-type': 'application/json' }, socket: { remoteAddress: '127.0.0.1' }, async *[Symbol.asyncIterator]() { yield Buffer.from(JSON.stringify(data)); } };
+    const result = {}; await auth.handle(req, { setHeader() {} }, (_res, status, body) => Object.assign(result, { status, body })); return result;
+  }
+  const setupKey = (await readFile(path.join(directory, 'owner-setup.key'), 'utf8')).trim();
+  for (const password of ['a'.repeat(7), 'a'.repeat(129)]) {
+    const result = await request('/api/auth/setup', { ...testOwner, setupKey, password, confirm: password });
+    assert.equal(result.status, 400); assert.match(result.body.error, /8–128/);
+  }
+  const password = 'Abc!2345';
+  assert.equal((await request('/api/auth/setup', { ...testOwner, setupKey, password, confirm: password + 'x' })).status, 400);
+  assert.equal((await request('/api/auth/setup', { ...testOwner, setupKey, password, confirm: password })).status, 200);
+  assert.equal((await request('/api/auth/login', { email: testOwner.email, password })).status, 200);
+  let recoveryCode = await createRecoveryCode(directory);
+  for (const value of ['a'.repeat(7), 'a'.repeat(129)]) assert.equal((await request('/api/auth/reset-password', { recoveryCode, password: value, confirm: value })).status, 400);
+  const maximum = 'b'.repeat(128);
+  assert.equal((await request('/api/auth/reset-password', { recoveryCode, password: maximum, confirm: 'mismatch' })).status, 400);
+  assert.equal((await request('/api/auth/reset-password', { recoveryCode, password: maximum, confirm: maximum })).status, 200);
+  assert.equal((await request('/api/auth/login', { email: testOwner.email, password: maximum })).status, 200);
+  assert.equal((await request('/api/auth/login', { email: testOwner.email, password })).status, 401);
+  recoveryCode = await createRecoveryCode(directory);
+  assert.equal((await request('/api/auth/reset-password', { recoveryCode, password, confirm: password })).status, 200);
+  assert.equal((await request('/api/auth/login', { email: testOwner.email, password })).status, 200);
+});
+
 test('corrupt owner records fail closed instead of creating a replacement owner', async () => {
   const directory = await mkdtemp(path.join(tmpdir(), 'kael-auth-corrupt-'));
   const file = path.join(directory, 'owner-auth.json'); await writeFile(file, '{broken');

@@ -8,6 +8,7 @@ export function officeRoleCommand(state: State, actorId: string, value: unknown)
   if (!division) throw new Error('Divisi peran tidak ditemukan.');
   if (c.type === 'manager-plan') {
     if (!actor.manager || c.divisionId !== division.id) throw new Error('Hanya manager boleh mengajukan rencana divisinya sendiri.');
+    if (c.materials !== undefined) throw new Error('Bahan unggahan hanya ditentukan pemilik melalui web, bukan oleh sesi AI.');
     return c;
   }
   if (c.type === 'division-note') {

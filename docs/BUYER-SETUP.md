@@ -31,6 +31,8 @@ Masukkan kode penyiapan yang tampil pada halaman setup, isi nama pemilik, email 
 
 ## 3. Ikuti penyiapan kantor
 
+Pada Kirim kebutuhan atau jawaban inbox, kamu dapat melampirkan teks UTF-8 .txt/.md/.csv (5 berkas; 32 KiB per berkas dan 64 KiB total). Bahan disertakan ke provider AI yang dipilih; jangan unggah credential. Manager/pelaksana/pemeriksa memakai snapshot sumber yang sama. Hitungan CSV lokal dapat dilihat di Bahan kerja. Preview hasil menyediakan laporan .md beserta bukti sumber/hitungan dan unduhan .txt; versi lama tetap tersedia dan mengunduh tidak memberi approval. PDF/gambar/Excel belum didukung jalur tugas lokal ini.
+
 Untuk meminta rencana AI setelah tim siap, buka Divisi tugas lokal → Kirim kebutuhan (atau Percakapan → Kotak masuk manager). Lengkapi profil bisnis dan SOP, pilih provider manager di Anggota, lalu kirim tujuan dan bahan. Jika kurang informasi, jawab pada permintaan yang sama. Tinjau rencana pada Keputusan; pelaksanaan otomatis hanya mengikuti pengaturan otomasi yang kamu aktifkan. Setiap percobaan rencana memakai satu jatah harian divisi. Workflow n8n dan produksi KaelaCH memakai alur khususnya.
 
 1. **Bisnis:** isi nama kantor, pelanggan sasaran, fakta dan aturan. Jangan masukkan kredensial.

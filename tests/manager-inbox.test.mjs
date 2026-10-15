@@ -168,7 +168,7 @@ function uiFunction(name, scope) {
 
 test('inbox UI sends one scoped request only on submit and keeps the form on API failure', async () => {
   let form, closed = 0, fail = true; const commands = [];
-  const open = uiFunction('newManagerRequest', { modal: (title, html, submit) => form = { title, html, submit }, field: () => '', save: () => '', command: async c => { if (fail) throw Error('Conflict'); commands.push(c); }, dialog: { close: () => closed++ }, notify() {} });
+  const open = uiFunction('newManagerRequest', { materialInput: '', readWorkFiles: async () => [], modal: (title, html, submit) => form = { title, html, submit }, field: () => '', save: () => '', command: async c => { if (fail) throw Error('Conflict'); commands.push(c); }, dialog: { close: () => closed++ }, notify() {} });
   open('division-fixture'); assert.equal(commands.length, 0); assert.match(form.html, /belum dijalankan/);
   const data = new FormData(); data.set('title', 'Kebutuhan fixture'); data.set('text', 'Bahan fixture');
   await assert.rejects(form.submit(data), /Conflict/); assert.equal(closed, 0);
@@ -178,7 +178,7 @@ test('inbox UI sends one scoped request only on submit and keeps the form on API
 test('inbox detail escapes messages, resumes explicitly and links a plan without approving it', async () => {
   const s = office(), request = s.managerRequests[0]; request.status = 'blocked'; request.reason = 'Apa bahannya?'; request.messages[0].text = '<script>untrusted()</script>';
   let form, closed = 0; const commands = [], opened = [];
-  const scope = { state: s, watchedRequest: '', modal: (title, html, submit, action) => form = { html, submit, action }, field: () => '', save: () => '', esc: x => String(x).replaceAll('<', '&lt;').replaceAll('>', '&gt;'), stamp: () => '', managerRequestStatus: (_s, r) => r.reason, command: async c => commands.push(c), dialog: { close: () => closed++ }, notify() {}, decisionDetail: id => opened.push(id), briefDetail() {} };
+  const scope = { state: s, materialInput: '', workMaterialPanel: () => '', readWorkFiles: async () => [], watchedRequest: '', modal: (title, html, submit, action) => form = { html, submit, action }, field: () => '', save: () => '', esc: x => String(x).replaceAll('<', '&lt;').replaceAll('>', '&gt;'), stamp: () => '', managerRequestStatus: (_s, r) => r.reason, command: async c => commands.push(c), dialog: { close: () => closed++ }, notify() {}, decisionDetail: id => opened.push(id), briefDetail() {} };
   const open = uiFunction('managerRequestDetail', scope); open(request.id);
   assert.doesNotMatch(form.html, /<script>/); assert.match(form.html, /&lt;script&gt;/); assert.equal(commands.length, 0);
   const data = new FormData(); data.set('text', 'Bahan kayu'); await form.submit(data); assert.equal(commands[0].type, 'manager-request-reply'); assert.equal(commands[0].id, request.id); assert.equal(closed, 1);

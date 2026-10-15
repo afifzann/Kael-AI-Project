@@ -10,6 +10,20 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Perombakan sistem tahap 2 — bahan dan laporan lokal, PRD v2.45
+
+Melanjutkan tahap 1 atas instruksi pemilik. Inbox kebutuhan/jawaban menerima bahan teks UTF-8 .txt/.md/.csv (5 berkas, 32 KiB per berkas, 64 KiB total). Normalisasi/validasi domain menolak path, biner, UTF-8 rusak, duplikasi nama, ukuran dan CSV tidak valid secara atomik. Bahan request menjadi snapshot briefing saat rencana dibuat, bukan pilihan bahan baru dari AI. Bridge menolak materials dalam manager-plan sesi AI; context hanya metadata, action task membaca sumber penuh/alat dalam scope tugas.
+
+Alat csv-summary deterministik menghitung baris serta jumlah/minimum/maksimum kolom numerik dengan BigInt berskala enam desimal; delimiter koma/titik koma, kutipan/newline sel, maksimal 1000 baris/32 kolom. Tidak mengeksekusi rumus, shell, URL atau path. Angka lokal/notasi ilmiah/kode nol awal dianggap teks. Observasi alat dan sumber masuk konteks manager, pelaksana dan pemeriksa; task/approval/versi existing dipertahankan. ECC Agent Harness Construction dan Security Review dipakai untuk kontrak alat, validasi unggahan dan endpoint.
+
+Preview bahan/hitungan di inbox, briefing, pekerjaan, hasil dan keputusan; angka ditampilkan dengan label, bukan hanya JSON. Unduhan sumber, laporan .md, hasil .txt dan bukti JSON terautentikasi/no-store/nosniff/attachment/hash SHA-256. Isi unduhan dibuat dari rekaman state, tanpa membuka path filesystem dari pengguna. Laporan lama tetap identik setelah revisi; mengunduh tidak memberi keputusan. Sumber teks tercakup ekspor state JSON. Produksi video/n8n dan kantor 3D tidak dirombak.
+
+File utama: src/work-materials.ts, domain.ts, manager-inbox.ts, office-role.ts, operations.ts; server/work-files.mjs, index.mjs, runtime.mjs, office-bridge.mjs; tests/work-materials.test.mjs dan penyesuaian fixture handler inbox. README, PRD, SYSTEM-REBUILD, OFFICE-ROLES, BUYER-SETUP dan npm test diperbarui. Tidak menambah dependensi.
+
+Verifikasi: 203/203 tes penuh lulus dan npm run build lulus. Delapan tes bahan mencakup presisi desimal/batas/format/UTF-8, sumber lintas tahap, immutable versi, scope, UI/escaping, unggahan API, auth/CSRF, traversal, bukti hash dan larangan approval. Paket releases/kael-buyer-0.2.0-materials berisi 79 sumber, checksum valid, typecheck/build menggunakan dependensi lokal lulus; belum npm ci/VPS bersih. Warning bundle kantor sekitar 786 kB tetap ada.
+
+Server dimuat ulang tersembunyi setelah aktivitas run/inbox/produksi/native diperiksa luang (PID dev 4324). Frontend 200 memuat picker bahan, akun needsSetup false, file API anonim 401. Hash state pemilik tetap ff4149d5c6b5150c7e3833ba6917d470b6d6a3ef5fcfcdb726f35a868bf979f4 (revision 9 sebelum restart). Tidak mengunggah bahan atau memanggil AI nyata pada kantor pemilik. Belum klik GUI/provider nyata/VPS/reboot/restore; belum PDF/gambar/Excel/arsip, alat bebas agent, atau dokumen Office. Langkah berikutnya: tahap 3 titipan antar divisi dengan izin data dan deduplikasi; tahap 4 jadwal/laporan, tahap 5 integrasi, tahap 6 operasional buyer mengikuti SYSTEM-REBUILD.
+
 ### Perombakan sistem tahap 1 — kotak masuk manager, PRD v2.44
 
 Permintaan pemilik menerapkan pola operasional dokumen investigasi VPS pada Kael sendiri, tanpa merombak kantor 3D. Skill ECC Agent Harness Construction dan Codebase Design dipakai. Arah lengkap dan sisa pekerjaan dicatat di docs/SYSTEM-REBUILD.md; bukan menyalin kit atau menganggap temuan instalasi VPS berlaku di repo ini.

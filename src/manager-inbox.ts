@@ -1,12 +1,13 @@
 import type { State } from './domain';
 import { runnableProviders } from './runtime-status.ts';
+import type { WorkMaterial } from './work-materials';
 
 export type ManagerRequest = {
   id: string; divisionId: string; title: string;
   status: 'queued' | 'running' | 'blocked' | 'failed' | 'interrupted' | 'planned' | 'cancelled';
   messages: { author: 'founder' | 'manager'; text: string; at: string }[];
   createdAt: string; updatedAt: string; attempts: number; runId: string; basis: string;
-  briefId: string; reason: string;
+  briefId: string; reason: string; materials?: WorkMaterial[];
 };
 
 export function managerBasis(s: State, divisionId: string) {

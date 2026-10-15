@@ -24,11 +24,23 @@ Tersedia di Divisi tugas lokal → Ringkasan → Kirim kebutuhan, atau Percakapa
 
 State schema 1 ditambah managerRequests opsional. Tidak ada migrasi destruktif, aktivasi otomatis pada tugas lama, atau perubahan akun/data pemilik. Workflow n8n dan produksi KaelaCH tetap memakai alur khusus agar tidak dijalankan ganda.
 
+## Tahap 2 — bahan dan laporan kerja lokal (v2.45)
+
+Kirim kebutuhan dan jawaban inbox dapat melampirkan teks UTF-8 .txt/.md/.csv: maksimal 5 berkas, 32 KiB per berkas dan 64 KiB total. Validasi berjalan sebelum membaca berkas besar di browser dan di domain server; format/path/biner/nama berulang ditolak tanpa membuat permintaan sebagian. PDF, gambar, Excel dan arsip belum didukung pada jalur ini; produksi chapter tetap memakai uploader khususnya.
+
+Bahan tersimpan dalam state privat request dan disalin menjadi snapshot briefing saat rencana dibuat. Sesudah itu sumber briefing tidak berubah. Pelaksana dan pemeriksa menerima sumber briefing yang sama; AI tidak bisa mengganti sumber unggahan melalui payload rencana atau bridge. Context native memakai metadata, action task memberikan bahan lengkap dan observasi alat untuk tugas dalam lingkupnya.
+
+Alat csv-summary dijalankan oleh kode lokal sebelum model, tanpa shell, jaringan atau akses path bebas. Mendukung delimiter koma/titik koma, kutipan dan newline dalam sel, maksimal 1000 baris data/32 kolom. Jumlah, minimum dan maksimum kolom numerik dihitung dengan bilangan bulat berskala enam desimal; nilai berformat lokal, notasi ilmiah atau kode dengan nol awal dianggap teks. Ini jumlah isi kolom, bukan perhitungan omzet/subtotal bisnis otomatis. AI menyusun laporan dan manager tetap memeriksa hasilnya terhadap brief dan bukti alat.
+
+Preview bahan tersedia pada inbox, briefing, pekerjaan, hasil dan keputusan. Hasil tersimpan per versi dapat diunduh sebagai .txt atau laporan .md beserta daftar sumber/hash dan hasil alat. Bukti sumber/hitungan juga dapat diunduh sebagai JSON. Unduhan dibuat dari rekaman state, tidak membuka path filesystem masukan dan tidak mengeksekusi Markdown/HTML/rumus CSV. Route terautentikasi memakai attachment, nosniff, no-store dan hash SHA-256; mengunduh tidak mengubah status, versi atau keputusan. Konten sumber/hasil tercakup ekspor JSON workspace; bukan backup lengkap untuk media/integrasi lain.
+
+Belum menyediakan alat umum untuk agent, operasi tulis bebas, unggahan biner, generator dokumen Office/PDF, publikasi atau integrasi luar. Tahap ini membuktikan satu alur nyata: CSV/teks unggahan → rencana → tugas → alat hitung lokal → laporan → preview/keputusan → unduhan berversi. Provider nyata dan GUI tetap perlu diuji terpisah.
+
 ## Pekerjaan berikutnya
 
 | Tahap | Hasil yang harus dibuktikan | Status |
 | --- | --- | --- |
-| 2. Bahan, artefak dan alat kerja | Satu jenis tugas dari bahan unggahan sampai berkas hasil; akses alat dibatasi per tugas, path aman, tanpa rahasia/shell bebas; preview dan keputusan terikat versi | Belum |
+| 2. Bahan, artefak dan alat kerja | Satu jenis tugas dari bahan unggahan sampai berkas hasil; akses alat dibatasi per tugas, path aman, tanpa rahasia/shell bebas; preview dan keputusan terikat versi | Selesai untuk laporan teks/CSV; alat/format lain belum |
 | 3. Titipan antar divisi | Manager menyerahkan kebutuhan dengan pengirim/penerima, izin data, hasil dan status; tidak membuat duplikat saat retry | Belum |
 | 4. Jadwal dan laporan | Jam kerja, jadwal rutin dan laporan; cek pekerjaan secara lokal sebelum memanggil AI; deduplikasi, jeda dan alasan menunggu | Belum; antrean setelah approval sudah ada |
 | 5. Izin integrasi dan notifikasi luar web | Pengiriman/upload/publikasi memakai tindakan eksplisit dan persetujuan sesuai payload; credential hanya server; notifikasi HP diuji | Belum; lonceng web sudah ada |

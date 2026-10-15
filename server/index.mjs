@@ -11,6 +11,7 @@ import { createRuntime } from './runtime.mjs';
 import { createAuth, builderCommands } from './auth.mjs';
 import { createBuilderDialogue } from './builder-dialogue.mjs';
 import { createOfficeBridge } from './office-bridge.mjs';
+import { workFiles } from './work-files.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const directory = process.env.KAEL_DATA_DIR || path.join(root, 'app-data');
@@ -62,6 +63,7 @@ const server = http.createServer(async (req, res) => {
   if (origin && !['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:4173', 'http://127.0.0.1:4173'].includes(origin)) return send(res, 403, { error: 'Origin tidak diizinkan.' });
   if (await auth.handle(req, res, send)) return;
   const role = auth.authorize(req, res, send); if (!role) return;
+  if (workFiles(req, res, { ...state, productionTaskIds: production.taskIds() }, send)) return;
   if (req.method === 'POST' && req.url === '/api/office-bridge') {
     if (!req.headers['content-type']?.startsWith('application/json')) return send(res, 415, { error: 'Gunakan JSON.' });
     try {

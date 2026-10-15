@@ -1,9 +1,13 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.44 — Kotak masuk dan rencana manager
+Versi 2.45 — Bahan dan laporan kerja lokal
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
 Tanggal: 15 Oktober 2026
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.45 — bahan unggahan dan laporan berversi
+
+Inbox menerima bahan teks UTF-8 .txt/.md/.csv (5 berkas, 32 KiB per berkas, 64 KiB total); sumber tersimpan privat dan menjadi snapshot briefing saat rencana dibuat. Pelaksana/pemeriksa memakai sumber yang sama. CSV diperiksa/dihitung oleh alat lokal terbatas (1000 baris/32 kolom, penjumlahan tepat sampai enam desimal) sebelum model; rumus tidak dijalankan dan angka berformat lokal tidak ditebak. Preview bahan dan hitungan mengikuti inbox, briefing, pekerjaan, hasil dan keputusan. Unduhan .txt/.md dan bukti JSON terautentikasi mengikuti versi tersimpan, memakai hash sumber/konten dan tidak memberi approval. File tidak dibaca dari path masukan; konten teks disimpan bersama state, bukan salinan filesystem bebas. Jalur ini belum mendukung PDF/gambar/Excel atau alat umum agent. Produksi KaelaCH tetap terpisah. Rincian: [Perombakan sistem](SYSTEM-REBUILD.md).
 
 ## Perbaikan v2.44 — kebutuhan pemilik menjadi rencana manager
 

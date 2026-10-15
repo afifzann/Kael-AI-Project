@@ -19,6 +19,8 @@ Saat pertama dibuka, siapkan akun pemilik. Ambil kode sekali pakai dengan `node 
 
 ## Sesi AI dan dashboard
 
+Bahan kerja (v2.45): lampirkan .txt/.md/.csv pada kebutuhan atau jawaban inbox. Sumber tersimpan pada briefing dan ikut dibaca pelaksana/pemeriksa. Hitungan CSV dilakukan kode lokal; preview hasil menyediakan laporan .md, teks .txt dan bukti sumber/hitungan JSON terautentikasi, sesuai versi. Batas: UTF-8, 5 berkas, 32 KiB per berkas dan 64 KiB total; belum PDF/gambar/Excel atau alat umum. Approval tetap melalui Keputusan.
+
 Kotak masuk manager (v2.44): buka Divisi tugas lokal → Kirim kebutuhan, atau Percakapan → Kotak masuk manager. Setelah profil bisnis, SOP dan provider manager siap, AI menyusun rencana dan mengajukannya untuk keputusanmu. Jawaban, kendala dan percobaan tersimpan pada permintaan yang sama; tidak ada approval otomatis. Satu percobaan rencana memakai satu jatah harian divisi. Arah perombakan sistem dan batas tahap ini: [Perombakan sistem](docs/SYSTEM-REBUILD.md).
 
 Otomasi tugas lokal (v2.43): aktifkan per divisi melalui SOP & integrasi setelah provider manager/pelaksana dan SOP siap. Rencana yang disetujui berikutnya masuk antrean, manager mereview hasil, keputusan akhir tetap manusia. Default nonaktif; batas run harian dan checkpoint tersedia. Rincian: [Sesi kantor](docs/OFFICE-ROLES.md).

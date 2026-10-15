@@ -10,6 +10,14 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Konfigurasi manual digabung ke Usulan Builder — 15 Oktober 2026
+
+Atas permintaan pemilik, panel Konfigurasi tim secara manual yang terpisah dihapus. Form dan preview manual existing kini dibuka melalui Susun manual di header Usulan Builder; tombol Kembali ke usulan mengembalikan tampilan usulan AI. Chat web tetap pilihan opsional pada header yang sama. Draft localStorage lama, input berjalan, validasi 1–12 pelaksana dan penerapan manual tetap dipertahankan; berpindah mode tidak memanggil AI, membuat tim, menghapus draft atau menerapkan usulan. Form manual masih memakai penyimpanan browser serta command division existing, bukan riwayat proposal server/SOP baru.
+
+UI Craft dan tema dashboard existing dipakai, toolbar membungkus di mobile dan fokus menuju input manual. CSS disclosure lama dibersihkan. File utama: src/builder.ts, src/builder-dialogue.ts/css, src/dashboard.css, tests/builder-ui.test.mjs; kontrak DESIGN.md diperbarui. Tidak mengubah backend, approval, data pemilik atau kantor 3D; tidak menambah dependensi.
+
+Verifikasi akhir: 208/208 tes penuh dan npm run build lulus, termasuk tes integrasi kedua komponen untuk draft browser lama, escaping, perpindahan manual/AI, preview dan penerapan hanya sesudah klik. Percobaan suite awal mengalami dua kegagalan sesaat di tes antrean otomasi/inbox existing; pengulangan 34 tes terkait dan suite penuh lulus tanpa perubahan runtime. Frontend HTTP 200 menyajikan Susun manual dan tidak lagi menyajikan panel manual terpisah. Tidak restart server atau menjalankan penerapan pada akun pemilik. QA visual browser/tablet/mobile belum diverifikasi; warning bundle kantor sekitar 788 kB tetap ada. Langkah berikutnya pemeriksaan visual setelah refresh; roadmap sistem tetap tahap 3 SYSTEM-REBUILD.
+
 ### Jarak menu sidebar konsisten — 15 Oktober 2026
 
 Koreksi screenshot pemilik memakai UI Craft dan tema monokrom existing. Sidebar desktop menggunakan baris minimum 44 px dan gap vertikal 4 px. Wrapper nav-tools diratakan tanpa box/margin/border tambahan; margin individual menu lipat dan Pengaturan dihapus. Summary memakai padding/line-height konsisten. Aturan dibatasi min-width 701 px sehingga menu Lainnya/popup mobile tetap memakai struktur existing. File utama hanya src/dashboard.css, tanpa perubahan data/handler/3D atau dependensi.

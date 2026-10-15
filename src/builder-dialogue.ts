@@ -9,7 +9,7 @@ export function createBuilderDialogueUI(getState: () => State | null, notify: (m
   let discussions: BuilderDiscussion[] = [], selected = '', loaded = false, loading = false, error = '', message = '', starting = false;
   let draft: BuilderProposal | null = null, draftId = '', draftVersion = 0, dirty = false, startOpen = false;
   let targetId = '', provider = '', model = '', host: HTMLElement | null = null, repaint = () => {};
-  let messageScroll = 0, nearEnd = true, webMode = false, hideConfirm = false;
+  let messageScroll = 0, nearEnd = true, webMode = false, hideConfirm = false, manualOpen = false;
   const current = () => discussions.find(d => d.id === selected);
   const refreshView = () => { if (host?.querySelector('#builder-chat')) repaint(); };
   function select(id: string) { hideConfirm = false; selected = id; draft = null; draftId = ''; dirty = false; message = ''; error = ''; messageScroll = 0; nearEnd = true; }
@@ -63,11 +63,13 @@ export function createBuilderDialogueUI(getState: () => State | null, notify: (m
       </fieldset></form>
       ${!['applied', 'cancelled'].includes(d.status) ? `<div class="builder-apply-area">${stale ? '<p>Kantor berubah setelah usulan ini dibuat. Lanjutkan diskusi untuk meninjau data terbaru sebelum menerapkan.</p>' : ''}<button class="op-button primary" data-chat-apply ${dirty || locked || stale || d.status !== 'ready' ? 'disabled' : ''}>${d.targetId ? 'Terapkan perubahan tim & SOP' : 'Buat divisi & SOP'}</button><small>Klik tombol ini menyetujui konfigurasi saja. Rencana dan hasil pekerjaan tetap membutuhkan keputusanmu.</small></div>` : `<p class="builder-finished">${d.status === 'applied' ? 'Konfigurasi sudah diterapkan. Buka Divisi untuk memeriksa tim dan membuat briefing.' : 'Usulan dibatalkan. Riwayat diskusinya tetap tersimpan.'}</p>`}</aside>`;
   }
-  function render() {
+  function render(manualContent = '') {
     const s = getState(), d = current();
     if (!provider) provider = s && runtimeFor(s, 'Claude')?.available ? 'Claude' : 'Codex';
     const start = !d || startOpen;
-    return `<section id="builder-chat" class="builder-chat"><div class="builder-chat-toolbar"><div><h2>Usulan Builder</h2><p>Diskusi di sesi Claude/Codex → preview di sini → keputusanmu.</p></div><button class="op-button" data-chat-new ${starting || d?.status === 'working' || dirty ? 'disabled' : ''}>${startOpen && d ? 'Kembali ke usulan' : 'Chat web (opsional)'}</button></div>
+    const toolbar = `<div class="builder-chat-toolbar"><div><h2>Usulan Builder</h2><p>Tinjau usulan AI atau susun tim sendiri, lalu terapkan setelah siap.</p></div><div class="builder-chat-toolbar-actions">${manualContent ? `<button class="op-button ${manualOpen ? 'primary' : ''}" data-chat-manual aria-pressed="${manualOpen}" ${starting || d?.status === 'working' || dirty ? 'disabled' : ''}>${manualOpen ? 'Kembali ke usulan' : 'Susun manual'}</button>` : ''}<button class="op-button" data-chat-new ${starting || d?.status === 'working' || dirty ? 'disabled' : ''}>${!manualOpen && startOpen && d ? 'Kembali ke usulan' : 'Chat web (opsional)'}</button></div></div>`;
+    if (manualOpen) return `<section id="builder-chat" class="builder-chat">${toolbar}${manualContent}</section>`;
+    return `<section id="builder-chat" class="builder-chat">${toolbar}
       ${discussions.length ? `<label class="builder-discussion-picker" for="builder-discussion">Diskusi tersimpan<select id="builder-discussion" ${starting || dirty ? 'disabled' : ''}>${discussions.map(v => `<option value="${v.id}" ${selected === v.id ? 'selected' : ''}>${esc(v.proposal?.name || v.messages.find(m => m.role === 'user')?.text.slice(0, 50) || 'Diskusi baru')} · ${v.status === 'applied' ? 'Diterapkan' : v.status === 'cancelled' ? 'Dibatalkan' : v.status === 'working' ? 'AI bekerja' : 'Draft'}</option>`).join('')}</select></label>` : ''}
       ${d?.status === 'cancelled' ? `<div class="builder-history-actions">${hideConfirm ? '<p>Hapus usulan ini dari daftar riwayat? Catatan internal tetap disimpan; tim dan pekerjaan tidak berubah.</p><div class="builder-chat-actions"><button class="op-button" data-chat-hide-confirm>Ya, hapus dari riwayat</button><button class="op-button" data-chat-hide-cancel>Batal</button></div>' : '<button class="op-button" data-chat-hide>Hapus dari riwayat</button>'}</div>` : ''}
       <p class="builder-chat-error" role="alert" tabindex="-1">${esc(error || (!start && d?.error) || '')}</p>
@@ -84,7 +86,8 @@ export function createBuilderDialogueUI(getState: () => State | null, notify: (m
     on('[data-chat-hide-cancel]', () => { hideConfirm = false; refreshView(); host?.querySelector<HTMLElement>('[data-chat-hide]')?.focus(); });
     on('[data-chat-hide-confirm]', () => { if (current()?.status === 'cancelled') void request('hide'); });
     host.querySelectorAll<HTMLButtonElement>('.builder-history-actions button').forEach(b => b.disabled = starting);
-    on('[data-chat-new]', () => { webMode = true; startOpen = !startOpen; error = ''; refreshView(); });
+    on('[data-chat-manual]', () => { if (starting || dirty || current()?.status === 'working') return; manualOpen = !manualOpen; error = ''; refreshView(); host?.querySelector<HTMLElement>(manualOpen ? '#builder-answer, [data-builder-apply]' : '[data-chat-manual]')?.focus(); });
+    on('[data-chat-new]', () => { startOpen = manualOpen || !startOpen; manualOpen = false; webMode = true; error = ''; refreshView(); });
     on('[data-chat-reload]', () => { if (dirty) return; loaded = false; error = ''; draft = null; void refresh().then(refreshView); refreshView(); });
     const picker = host.querySelector<HTMLSelectElement>('#builder-discussion'); if (picker) picker.onchange = () => { select(picker.value); startOpen = false; refreshView(); };
     const startForm = host.querySelector<HTMLFormElement>('#builder-chat-start');

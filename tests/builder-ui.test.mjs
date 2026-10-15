@@ -5,9 +5,9 @@ import { runInNewContext } from 'node:vm';
 import ts from 'typescript';
 
 const proposal = { name: 'Support', manager: 'Maya', workers: [{ id: '', name: '<img src=x onerror=unsafe()>', role: 'Riset jawaban' }], steps: 'Brief → kerja → review', criteria: 'Berdasarkan fakta', limits: 'Founder memberi keputusan', provider: 'manual', model: '' };
-async function surface(ready = true, offline = false) {
+async function surface(ready = true, offline = false, fullBuilder = false, saved = null) {
   let record = { id: 'fixture', version: 3, targetId: '', provider: 'Claude', model: '', status: ready ? 'ready' : 'discussing', messages: [{ role: 'assistant', text: 'Apa kebutuhanmu? <script>unsafe()</script>' }], proposal: ready ? structuredClone(proposal) : null, baseRevision: 0, error: '', appliedDivisionId: '', updatedAt: '' };
-  const calls = [], callbacks = {}, fields = new Map(Object.entries(proposal).filter(([k]) => k !== 'workers'));
+  const calls = [], commands = [], storage = new Map(saved ? [['kael-builder-v1:/', JSON.stringify(saved)]] : []), callbacks = {}, fields = new Map(Object.entries(proposal).filter(([k]) => k !== 'workers'));
   fields.set('worker-0-name', proposal.workers[0].name); fields.set('worker-0-role', proposal.workers[0].role);
   let fail = false, html = '', interval, networkDown = offline, reads = 0;
   const input = { value: '', focus() {} }, save = { disabled: true }, status = { textContent: '' }, picker = { value: 'fixture', disabled: false };
@@ -28,8 +28,8 @@ async function surface(ready = true, offline = false) {
   class FixtureFormData extends Map { constructor() { super(fields); } }
   const source = readFileSync(new URL('../src/builder-dialogue.ts', import.meta.url), 'utf8');
   const code = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
-  const exports = {};
-  runInNewContext(code, { exports, require: name => name.includes('runtime-status') ? { runtimeFor: () => ({ available: true }) } : {}, structuredClone, FormData: FixtureFormData, AbortSignal, setInterval: fn => interval = fn, document: { hidden: false, activeElement: null }, window: { dispatchEvent() {} }, CustomEvent: class {}, fetch: async (_url, options) => {
+  const exports = {}, builderExports = {};
+  const sandbox = { exports, require: name => name.includes('runtime-status') ? { runtimeFor: () => ({ available: true }) } : {}, structuredClone, FormData: FixtureFormData, AbortSignal, setInterval: fn => interval = fn, document: { hidden: false, activeElement: null }, window: { dispatchEvent() {} }, CustomEvent: class {}, location: { pathname: '/' }, localStorage: { getItem: key => storage.get(key), setItem: (key, value) => storage.set(key, value) }, fetch: async (_url, options) => {
     if (options?.method !== 'POST') { reads++; if (networkDown) throw new Error('Offline fixture'); }
     if (options?.method === 'POST') { const body = JSON.parse(options.body); calls.push(body);
       if (fail) return { ok: false, json: async () => ({ error: 'Konflik fixture. Muat ulang.' }) };
@@ -38,11 +38,17 @@ async function surface(ready = true, offline = false) {
       if (body.action === 'message') record = { ...record, version: record.version + 1, status: 'working', messages: [...record.messages, { role: 'user', text: body.text }] };
     }
     return { ok: true, json: async () => ({ discussions: record ? [structuredClone(record)] : [] }) };
-  } });
+  } };
+  runInNewContext(code, sandbox);
   const ui = exports.createBuilderDialogueUI(() => ({ revision: 0, divisions: [], agents: [] }), () => {});
-  let renders = 0; const render = () => { if (++renders > 20) throw Error('Unexpected UI render loop'); html = ui.render(); ui.bind(host, render); };
+  if (fullBuilder) {
+    const builderCode = ts.transpileModule(readFileSync(new URL('../src/builder.ts', import.meta.url), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
+    runInNewContext(builderCode, { ...sandbox, exports: builderExports, require: name => name.includes('builder-dialogue') ? exports : name.includes('visuals') ? { characterLook: () => ({ color: '#202124', description: 'Fixture' }) } : { builderChatLink: () => '' } });
+  }
+  const root = fullBuilder ? builderExports.createBuilder(async command => commands.push(command), () => {}, () => ({ divisions: [] })) : ui;
+  let renders = 0; const render = () => { if (++renders > 20) throw Error('Unexpected UI render loop'); html = root.render(); root.bind(host, render); };
   render(); await new Promise(setImmediate); await new Promise(setImmediate);
-  return { ui, fields, callbacks, composer, draftForm, input, save, calls, render, get reads() { return reads; }, get html() { return html; }, network: value => networkDown = value, fail: value => fail = value, record: value => record = { ...record, ...value }, async poll() { interval(); await new Promise(setImmediate); await new Promise(setImmediate); } };
+  return { ui, commands, storage, buttons, fields, callbacks, composer, draftForm, input, save, calls, render, get reads() { return reads; }, get html() { return html; }, network: value => networkDown = value, fail: value => fail = value, record: value => record = { ...record, ...value }, async poll() { interval(); await new Promise(setImmediate); await new Promise(setImmediate); } };
 }
 
 test('Builder UI escapes AI content and holds local preview edits until save; applying a dirty draft sends nothing', async () => {
@@ -104,4 +110,21 @@ test('Builder selects the remaining proposal when another page removes the selec
   h.record({ id: 'remaining', status: 'ready', version: 1, proposal: { ...proposal, name: 'Tim tersisa' } }); await h.poll();
   assert.match(h.html, /value="remaining" selected/); assert.match(h.html, /value="Tim tersisa"/);
   assert.doesNotMatch(h.html, /data-chat-hide-confirm/);
+});
+
+test('manual team setup shares the Builder proposal surface and keeps local drafts when switching back to AI', async () => {
+  const h = await surface(true, false, true, { answers: ['Tim lama <script>', 'Dina', ''], step: 2 });
+  assert.match(h.html, /Susun manual/); assert.doesNotMatch(h.html, /Konfigurasi tim secara manual|id="builder-form"/);
+  h.callbacks['[data-chat-manual]']();
+  assert.equal(h.html.split('<h2>Usulan Builder</h2>').length - 1, 1);
+  assert.match(h.html, /Langkah 3 dari 3/); assert.match(h.html, /Tim lama &lt;script&gt;/);
+  assert.doesNotMatch(h.html, /id="builder-draft-form"/);
+  h.callbacks['#builder-answer']({ target: { value: 'Raka | Riset produk' } });
+  h.callbacks['[data-chat-manual]'](); assert.match(h.html, /id="builder-draft-form"/); assert.equal(h.calls.length, 0);
+  h.callbacks['[data-chat-manual]'](); assert.ok(h.html.includes('Raka | Riset produk'));
+  h.callbacks['#builder-form']({ preventDefault() {} });
+  assert.match(h.html, /Susunan tim siap ditinjau/); assert.match(h.html, /Terapkan tim/); assert.equal(h.commands.length, 0);
+  await h.buttons.get('[data-builder-apply]').onclick();
+  assert.equal(h.commands.length, 1); assert.equal(h.commands[0].type, 'division'); assert.equal(h.commands[0].workers[0].name, 'Raka');
+  assert.equal(h.calls.length, 0); assert.deepEqual(JSON.parse(h.storage.get('kael-builder-v1:/')), { answers: ['', '', ''], step: 0 });
 });

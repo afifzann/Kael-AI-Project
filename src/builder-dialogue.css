@@ -2,3 +2,6 @@
 @media(max-width:1100px){.builder-chat-grid{grid-template-columns:minmax(0,1fr)}.builder-chat-preview{border-left:0;padding:24px 0 0;border-top:1px solid var(--border,#e1e4e8)}}
 @media(max-width:700px){.builder-chat-toolbar{gap:12px}.builder-chat-toolbar h2{font-size:18px}.builder-chat-toolbar>button{font-size:12px;flex-shrink:0}.builder-chat input,.builder-chat select,.builder-chat textarea{font-size:16px}.builder-chat-messages{max-height:400px}.builder-chat-composer>div{align-items:flex-end}.builder-chat-preview{padding-top:20px}}
 .builder-history-actions{margin:-8px 0 20px;font-size:13px;color:var(--muted,#626970)}.builder-history-actions p{margin:0}.builder-history-actions .builder-chat-actions{margin-top:8px}
+
+.builder-chat-toolbar-actions{display:flex;flex-wrap:wrap;gap:8px}
+@media(max-width:700px){.builder-chat-toolbar{flex-wrap:wrap}.builder-chat-toolbar-actions{width:100%}.builder-chat-toolbar-actions .op-button{font-size:12px}}

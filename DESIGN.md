@@ -1,4 +1,8 @@
 # Kael AI Office — kontrak desain
+## Konfigurasi manual menyatu dengan Usulan Builder — 15 Oktober 2026
+
+Usulan Builder menjadi satu tempat untuk memilih usulan AI, Susun manual, atau chat web opsional. Form manual existing tampil di dalam surface yang sama; panel disclosure manual terpisah dihapus. Tombol kembali mempertahankan pilihan usulan AI dan isian manual tersimpan di browser. Preview manual dan tombol Terapkan tim tetap menunggu klik pemilik; tidak mengubahnya menjadi diskusi AI atau membuat riwayat server baru. Header actions membungkus pada layar kecil, memakai tombol native 44 px dan fokus input saat mode dibuka.
+
 
 ## Otomasi divisi — v2.43 (15 Oktober 2026)
 

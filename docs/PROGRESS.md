@@ -10,6 +10,14 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Repositori diubah menjadi public — 15 Oktober 2026
+
+Atas permintaan eksplisit pemilik, visibility afifzann/Kael-AI-Project diubah dari private ke public melalui API GitHub. Respons metadata mengonfirmasi visibility public dan GET tanpa kredensial HTTP 200. Source, aset, dokumentasi dan riwayat commit yang telah diunggah kini dapat dibaca/di-clone publik; .env, data kantor, kredensial dan backup Lembur tetap tidak ada dalam Git. Catatan unggahan private di bawah adalah riwayat sebelumnya, bukan visibility aktif.
+
+Verifikasi ulang: 211/211 tes penuh dan npm run build lulus. Catatan ini di-commit/push ke main; source aplikasi tetap pada checkpoint sebelumnya. Warning bundle sekitar 788 kB tetap ada.
+
+Tidak mengubah source aplikasi, lisensi proyek, data pemilik atau konfigurasi server. Pemindaian riwayat pada langkah unggah sebelumnya tetap berlaku untuk checkpoint source yang sama; bukan jaminan semua rahasia dalam media biner sudah diperiksa. Tidak menjalankan AI atau restart server. Langkah selanjutnya roadmap sistem tetap mengikuti SYSTEM-REBUILD.
+
 ### Source proyek di GitHub private — 15 Oktober 2026
 
 Atas permintaan eksplisit pemilik, source Kael beserta aset, dokumentasi, tes dan riwayat Git diunggah ke https://github.com/afifzann/Kael-AI-Project. Metadata GitHub mengonfirmasi private, repo awal kosong, dan izin push. Remote origin ditambahkan; branch lokal master dinamai ulang main tanpa mengubah commit lama, lalu push main berhasil dan upstream origin/main disetel. Checkpoint aplikasi pertama yang terunggah: 2487c16. Catatan progres ini ikut commit/push berikutnya; tidak ada force push atau perubahan visibility.

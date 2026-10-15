@@ -37,6 +37,19 @@ test('decision division picker applies, clears and rejects unknown divisions wit
   assert.deepEqual(state, before);
 });
 
+test('automation settings UI submits a scoped boolean and numeric run limit without silently enabling a division', async () => {
+  const source = ts.createSourceFile('operations.ts', readFileSync(new URL('../src/operations.ts', import.meta.url), 'utf8'), ts.ScriptTarget.Latest, true); let method;
+  function visit(node) { if (ts.isFunctionDeclaration(node) && node.name?.text === 'automationSettings') method = node.getText(source); ts.forEachChild(node, visit); }
+  visit(source); assert.ok(method);
+  let content, submit; const commands = [], state = { automations: [] };
+  const scope = { state, save: () => '', modal: (_title, html, callback) => { content = html; submit = callback; }, command: async c => commands.push(c), dialog: { close() {} }, notify() {} };
+  runInNewContext(ts.transpileModule(method, { compilerOptions: { target: ts.ScriptTarget.ES2022 } }).outputText, scope);
+  scope.automationSettings('creative'); assert.equal(commands.length, 0); assert.match(content, /value="off" selected/); assert.match(content, /min="2" max="100"/);
+  await submit(new Map([['enabled', 'on'], ['maxCalls', '4']]));
+  assert.equal(commands[0].type, 'division-automation'); assert.equal(commands[0].divisionId, 'creative'); assert.equal(commands[0].enabled, true); assert.equal(commands[0].maxCalls, 4);
+  assert.deepEqual(state, { automations: [] });
+});
+
 test('result version picker opens the selected version and decision notes follow the selected outcome', () => {
   const code = changeHandler('dialog'), note = { required: false }, previews = [];
   const scope = { busy: false, dialog: { querySelector: () => note }, manualResult: (...args) => previews.push(args) };

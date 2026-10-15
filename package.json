@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "server": "node --env-file-if-exists=.env server/index.mjs",
-    "test": "node --test tests/domain.test.mjs tests/server.test.mjs tests/n8n.test.mjs tests/production.test.mjs tests/builder-session.test.mjs tests/ui.test.mjs tests/work.test.mjs tests/results.test.mjs tests/division-setup.test.mjs tests/runtime.test.mjs tests/auth.test.mjs tests/access.test.mjs tests/onboarding.test.mjs tests/package-buyer.test.mjs tests/claude-stage.test.mjs tests/builder-dialogue.test.mjs tests/builder-ui.test.mjs tests/office-bridge.test.mjs",
+    "test": "node --test tests/domain.test.mjs tests/server.test.mjs tests/n8n.test.mjs tests/production.test.mjs tests/builder-session.test.mjs tests/ui.test.mjs tests/work.test.mjs tests/results.test.mjs tests/division-setup.test.mjs tests/runtime.test.mjs tests/auth.test.mjs tests/access.test.mjs tests/onboarding.test.mjs tests/package-buyer.test.mjs tests/claude-stage.test.mjs tests/builder-dialogue.test.mjs tests/builder-ui.test.mjs tests/office-bridge.test.mjs tests/automation.test.mjs",
     "build": "tsc && vite build",
     "package:buyer": "node scripts/package-buyer.mjs",
     "preview": "vite preview --host 127.0.0.1"

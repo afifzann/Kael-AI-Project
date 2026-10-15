@@ -1,5 +1,9 @@
 # Kael AI Office — kontrak desain
 
+## Otomasi divisi — v2.43 (15 Oktober 2026)
+
+Kontrol ditempatkan pada SOP & integrasi divisi tugas lokal, mengikuti panel/form native yang sudah ada: aktif/nonaktif dan batas run harian. Tidak menambah menu global per agent. Default nonaktif, prasyarat dan efek approval dijelaskan. Penggunaan jatah ditulis sebagai angka, bukan biaya/token atau persentase palsu. Detail tugas membedakan pelaksanaan dan review manager, versi, error, penghentian dan retry eksplisit; notifikasi keputusan tetap memakai daftar existing. Aktivitas robot manager memakai run nyata dan provider; tidak membuat chat desktop otomatis. QA handler/build tidak menggantikan uji visual langsung.
+
 ## Navigasi kembali dan kontrol dashboard — v2.42 (15 Oktober 2026)
 
 Header memiliki satu tombol Kembali untuk seluruh halaman dashboard/kantor. Riwayat hash internal mempertahankan filter dan scroll; halaman yang dibuka langsung memakai parent divisi/direktori/Ringkasan tanpa keluar ke situs sebelumnya. Pada Ringkasan tanpa riwayat tombol tetap terlihat dalam keadaan disabled. Desktop memakai ikon dan label; mobile ikon 44px dengan nama aksesibel. Indikator workspace tekstual disembunyikan pada layar ≤480px untuk memberi tempat, notifikasi tetap tersedia.

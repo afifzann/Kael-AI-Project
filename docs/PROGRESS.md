@@ -10,6 +10,20 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Otomasi tugas lokal dan review manager — PRD v2.43
+
+Otomasi opt-in per divisi melalui SOP & integrasi; hanya approval rencana berikutnya disnapshot untuk otomatisasi. Prasyarat SOP/provider manager dan semua pelaksana. Antrean runtime existing menserialkan worker/review (provider/model manager sendiri); task berikutnya menunggu hasil sebelumnya disetujui. Konteks menyertakan sampai tiga handoff hasil disetujui dari brief yang sama. Review valid menggunakan domain review existing dan tetap menunggu Founder; maksimal dua revisi manager lalu guidance. Revisi Founder pada task ID yang sama, hasil lama dipertahankan.
+
+Budget default 8, rentang 2–100 run otomatis/divisi/hari WIB, reservasi atomik/persist termasuk worker/review; pengaturan tidak mereset usage. Jeda membatalkan run automatic aktif/queued. Running pada restart menjadi interrupted tanpa retry; queued resume sekali. Failed/blocked/malformed/usang tidak berulang. Mode workflow/produksi dan agent tidak tersedia dikecualikan. Owner-only config/review endpoint, command review-start internal, bridge tidak dapat mengubah budget atau memanggil manual run untuk melewati scheduler. Tidak menjanjikan batas uang/token atau membangunkan chat desktop.
+
+File utama: src/domain.ts, server/runtime.mjs/index.mjs/office-bridge.mjs, operations/visuals/work/workspace, tests/automation.test.mjs, fixture runtime dan UI tests; panduan OFFICE-ROLES/BUYER-SETUP, README, PRD, implementasi dan DESIGN diperbarui. Tidak menambah dependensi. Field opsional pada schema 1 mempertahankan state lama dan tidak mengaktifkan task lama.
+
+Verifikasi akhir: 181/181 tes penuh lulus; 13 tes otomasi terarah lulus termasuk endpoint review manual setelah jeda. Typecheck/build aplikasi dan paket buyer lulus; warning bundle kantor 772 kB tetap ada. Paket releases/kael-buyer-0.2.0-automation berisi 76 sumber/checksum valid dengan dependensi lokal (belum npm ci/VPS bersih). Server dev dimuat ulang tersembunyi setelah dipastikan tidak ada task/produksi/chat/sesi peran aktif (PID 6236). Frontend 200, review anonim 401, akun tetap needsSetup false. State pemilik tetap revision 9, automations 0, hash FF4149D5C6B5150C7E3833BA6917D470B6D6A3EF5FCFCDB726F35A868BF979F4.
+
+Tes fixture mencakup approval, review, dua revisi, budget, restart worker/reviewer, queued sekali, pause/abort, provider scope, handoff/sekuensial, error manager late response, mode workflow, owner/bridge/auth/CSRF, notifikasi dan UI opt-in. Belum live-provider review manager, klik GUI/browser, VPS dan batas biaya provider. Tidak mengaktifkan otomasi atau mengubah state kantor pemilik.
+
+## Selesai sebelumnya
+
 ### Tombol kembali dan perapian kontrol dashboard — PRD v2.42
 
 Pemilik meminta tombol back tiap halaman dan menunjukkan filter Divisi Keputusan yang menempel/tanpa gaya. Audit source menemukan approval-scope belum memiliki layout/style kontrol umum; beberapa select hanya memiliki chevron/appearance tanpa base ukuran/padding yang sama. Dashboard/dialog sekarang memakai style select bersama, label Divisi terpisah dengan gap 8px, filter-label/Hasil konsisten, fokus/disabled/forced-colors dan target 44px. Tidak merombak warna/material/layout 3D.
@@ -161,7 +175,7 @@ Verifikasi revisi dokumen: 27 topik unik berurutan dan acuan/status utama diperi
 
 - Keputusan owner nomor 1–3 di `KEPUTUSAN-OWNER.md` (menentukan langkah koding berikutnya).
 
-Status tes terakhir v2.42: 167/167 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Hook Claude native juga diuji sungguhan pada kantor sintetis terpisah. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis pada checkpoint runtime sebelumnya; belum pengujian semua model/provider. Bundle kantor 766 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual/GUI desktop dan VPS bersih belum dilakukan.
+Status tes terakhir v2.43: 181/181 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Hook Claude native juga diuji sungguhan pada kantor sintetis terpisah. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis pada checkpoint runtime sebelumnya; belum pengujian semua model/provider. Bundle kantor 766 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual/GUI desktop dan VPS bersih belum dilakukan.
 
 ## Langkah berikutnya (kandidat)
 
@@ -172,6 +186,6 @@ Verifikasi setelah tambahan analisis: 131/131 tes lulus dan build lulus; peringa
 Tambahan pemilik tentang alur penjual kit sudah dipetakan pada bagian akhir `docs/BUYER-OPERATIONS-ROADMAP.md`: promosi/penawaran, pembayaran/email deterministik, aktivasi VPS, keaslian paket, installer, kelengkapan bisnis dan update/support. Status implementasi dipertahankan jujur; harga/slot/waktu pasang/penanda per pembeli pada referensi tidak dijadikan janji Kael. Model Kael tetap jual lepas, VPS/akun AI buyer sendiri; ketentuan update/support/slot belum ditetapkan. Tidak ada pembayaran, email, aktivasi atau perubahan VPS yang dijalankan dari tambahan ini.
 
 1. Pemilik sudah membuat akun. Periksa UI login/tahap 3–7 dan onboarding pada instance buyer terpisah, lalu coba satu tugas serta tinjau/revisi hasil. Kelengkapan P2 (recovery email, izin tindakan/broker dan isolasi proses) belum selesai.
-2. Peran native dan rencana/pembagian tugas manager tersedia. Pilot lifecycle HTTP dengan runtime fixture sudah lulus. Berikutnya uji klik GUI/pekerjaan nyata lintas aplikasi, lalu penjadwal manager/checkpoint/inbox antar-divisi. Hermes, kuota dan semua model belum diuji.
+2. Peran native dan rencana/pembagian tugas manager tersedia. Pilot lifecycle dan otomasi manager/budget/checkpoint dengan runtime fixture sudah lulus. Berikutnya backup/restore dari UI serta pilot live-provider/GUI; inbox antar-divisi dan jadwal bebas belum tersedia. Hermes, kuota dan semua model belum diuji.
 3. Telegram manager (Bu Yuli) untuk tanya status divisi, baca saja.
 4. Backup/restore dari UI dan migrasi penyimpanan (lihat `analysis/lembur-audit-2026-10-14/09-IMPLEMENTATION-ROADMAP.md`).

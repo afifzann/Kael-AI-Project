@@ -1,6 +1,14 @@
 # Status implementasi lokal — 15 Oktober 2026
 
-Status terbaru: **PRD v2.42 — Navigasi kembali dan kontrol dashboard**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+Status terbaru: **PRD v2.43 — Otomasi tugas dan review manager**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+
+## PRD v2.43 — antrean otomatis dan review berversi
+
+Domain menambah automations per divisi, snapshot Brief.automation pada approval berikutnya, Task.automationReady sekali pakai dan metadata review pada AgentRun. Budget WIB dipesan atomik dalam run-start/review-start melalui queue mutasi existing. review-start internal diblokir dari command umum; endpoint review membutuhkan owner/CSRF. Run manager memakai schema/adapter/antrean CLI restricted yang sama, payload accept/note divalidasi dan diterapkan lewat review existing dengan version/prioritas error. Tidak membuat hasil/approval palsu.
+
+runtime.drain memilih run reserved dahulu, kemudian review versi belum dicoba, kemudian tugas ready berurutan setelah predecessor done. Tidak mengulang failed/blocked/cancelled/interrupted; dua revisi manager lalu guidance. Pause abort hanya run automatic. Worker/review running saat startup ditandai interrupted, queued resume sekali. Provider unavailable/medis/fasilitas dan batas harian menahan antrean. Workflow/produksi dikecualikan juga setelah konfigurasi berubah. Serah terima konteks berisi tiga hasil brief sebelumnya yang disetujui.
+
+UI SOP & integrasi menyetel aktif/jeda/batas; detail tugas mendukung review AI manual/retry, riwayat, notifikasi dan robot manager mengikuti run. Context office mengekspos konfigurasi/run scoped tanpa raw prompt. Bridge AI tidak dapat mengubah budget atau memanggil manual run pada briefing otomatis aktif. tests/automation.test.mjs memakai runtime/akun/server fixture; tidak mengaktifkan otomasi atau memanggil AI pada kantor pemilik.
 
 ## PRD v2.42 — tombol kembali dan kontrol formulir
 

@@ -45,8 +45,9 @@ export function divisionState(state: State, divisionId: string): State {
   const agents = state.agents.filter(a => a.divisionId === divisionId), agentIds = new Set(agents.map(a => a.id));
   const briefs = state.briefs.filter(b => b.divisionId === divisionId), briefIds = new Set(briefs.map(b => b.id));
   const tasks = state.tasks.filter(t => briefIds.has(t.briefId)), taskIds = new Set(tasks.map(t => t.id));
+  const automations = state.automations?.filter(v => v.divisionId === divisionId);
   const workflowBindings = state.workflowBindings?.filter(b => agentIds.has(b.agentId));
-  return { ...state, divisions: state.divisions.filter(d => d.id === divisionId), agents, briefs, tasks,
+  return { ...state, automations, divisions: state.divisions.filter(d => d.id === divisionId), agents, briefs, tasks,
     decisions: state.decisions.filter(d => d.type === 'plan' ? briefIds.has(d.targetId) : taskIds.has(d.targetId)),
     workflowBindings, n8n: state.n8n?.filter(w => workflowBindings?.some(b => b.workflowId === w.workflowId)),
     productions: state.productions?.filter(p => p.divisionId === divisionId), productionTaskIds: state.productionTaskIds?.filter(id => taskIds.has(id)), incidents: state.incidents?.filter(i => agentIds.has(i.agentId)),

@@ -87,14 +87,14 @@ const server = http.createServer(async (req, res) => {
   if(await production.handle(req,res,new URL(req.url,`http://127.0.0.1:${port}`),send))return;
   if (req.method === 'GET' && req.url === '/api/state') return send(res, 200, publicState());
   if (req.method === 'GET' && req.url === '/api/builder-status') { await builder.read(); return send(res, 200, builderPresence()); }
-  if (req.method === 'POST' && ['/api/runtime/start', '/api/runtime/cancel'].includes(req.url)) {
+  if (req.method === 'POST' && ['/api/runtime/start', '/api/runtime/review', '/api/runtime/cancel'].includes(req.url)) {
     if (!req.headers['content-type']?.startsWith('application/json')) return send(res, 415, { error: 'Gunakan JSON.' });
     try {
       let body = ''; for await (const chunk of req) { body += chunk; if (body.length > 10000) return send(res, 413, { error: 'Permintaan terlalu besar.' }); }
       const input = JSON.parse(body);
       if (typeof input.taskId !== 'string') throw new Error('Tugas tidak valid.');
       if (production.taskIds().includes(input.taskId)) throw new Error('Gunakan halaman Produksi untuk episode ini.');
-      if (req.url === '/api/runtime/start') { if (input.revision !== state.revision) return send(res, 409, { error: 'Data telah diperbarui di halaman lain. Data terbaru dimuat; tinjau sebelum mencoba kembali.' }); await runtime.start(input.taskId); }
+      if (req.url === '/api/runtime/start' || req.url === '/api/runtime/review') { if (input.revision !== state.revision) return send(res, 409, { error: 'Data telah diperbarui di halaman lain. Data terbaru dimuat; tinjau sebelum mencoba kembali.' }); if (req.url === '/api/runtime/review') await runtime.review(input.taskId); else await runtime.start(input.taskId); }
       else await runtime.cancel(input.taskId);
       return send(res, 200, publicState());
     } catch (error) { return send(res, 400, { error: error instanceof Error ? error.message : 'Run gagal.' }); }
@@ -110,12 +110,16 @@ const server = http.createServer(async (req, res) => {
       const command=input.command;
       if(role==='builder' && !builderCommands.includes(command?.type)) return send(res,403,{error:'Builder tidak berwenang menjalankan tugas, memulihkan error atau memberi keputusan Founder.'});
       if (command?.type === 'onboarding' && command.step === 'connection' && command.provider !== 'manual' && !runtime.status(command.provider).available) throw new Error('Provider yang dipilih belum tersedia/login di server ini. Hubungkan dahulu atau pilih lanjut manual.');
-      if(['run-start','run-begin','run-end','builder-apply','office-command','manager-plan'].includes(command?.type))throw new Error('Run AI hanya dapat dimulai melalui runtime.');
+      if(['run-start','run-begin','run-end','review-start','builder-apply','office-command','manager-plan'].includes(command?.type))throw new Error('Run AI hanya dapat dimulai melalui runtime.');
+      if(command?.type==='division-automation'){
+        if(production.summary().some(p=>p.divisionId===command.divisionId))throw new Error('Gunakan alur Produksi untuk divisi ini.');
+        if(command.enabled===true)for(const a of state.agents.filter(a=>a.divisionId===command.divisionId)){const provider=state.agentSettings?.find(v=>v.agentId===a.id)?.provider;if(!runtime.status(provider).available)throw new Error(`Runtime ${a.name} belum tersedia/login. Atur provider dahulu.`);}
+      }
       const target=command?.type==='decide'?state.decisions.find(d=>d.id===command.id)?.targetId:command?.id;
       if(['start','hold','result','review','revise-task','cancel-task','decide'].includes(command?.type)&&production.taskIds().includes(target))throw new Error('Gunakan halaman Produksi untuk hasil, revisi dan keputusan episode ini.');
       if(command?.type==='agent-archive'){const division=state.divisions.find(d=>d.id===state.agents.find(a=>a.id===command.id)?.divisionId);if(division&&(/kaelach/i.test(division.name)||production.summary().some(p=>p.divisionId===division.id)))throw new Error('Anggota divisi produksi mengikuti alur produksi yang ada dan belum dapat diarsipkan.');}
       const next = applyCommand(state, input.command);
-      await persist(next); send(res, 200, publicState());
+      await persist(next); send(res, 200, publicState()); void runtime.wake();
     });
     queue = operation.catch(() => {}); await operation;
   } catch (error) { send(res, 400, { error: error instanceof Error ? error.message : 'Perintah gagal.' }); }

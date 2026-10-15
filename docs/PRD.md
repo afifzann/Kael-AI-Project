@@ -1,9 +1,17 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.42 — Navigasi kembali dan kontrol dashboard
+Versi 2.43 — Otomasi tugas dan review manager
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
 Tanggal: 15 Oktober 2026
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.43 — kelanjutan otomatis setelah approval
+
+Otomasi per divisi tugas lokal bersifat opt-in pemilik dan berlaku pada approval rencana berikutnya. Prasyarat SOP/provider manager dan pelaksana. Antrean runtime yang sama menjalankan satu run AI sekaligus, termasuk pemeriksaan manager dengan provider/modelnya sendiri. Tugas satu briefing berurutan dan serah terima setelah hasil sebelumnya disetujui Founder. Accept manager menghasilkan keputusan pending, tidak menyetujui hasil. Dua revisi manager maksimal sebelum meminta arahan, revisi Founder memakai task ID yang sama. Workflow/produksi khusus tidak diubah.
+
+Batas 2–100 run otomatis/divisi/hari WIB (default 8), dihitung saat reservasi antrean, mencakup worker dan review; pengaturan ulang tidak menghapus usage. Bukan pembatas biaya/token provider. Jeda membatalkan run otomatis aktif/antre; run manual terpisah. Queued dapat resume sekali setelah restart, running menjadi interrupted dan tidak diulang otomatis. Kegagalan, kebutuhan informasi dan review invalid/usang memerlukan tindakan manusia. Data/state schema tetap 1 dengan field opsional; identitas/versi/keputusan lama dipertahankan.
+
+Dashboard menampilkan kontrol pada SOP & integrasi, run/riwayat review di detail tugas, notifikasi keputusan serta aktivitas manager dari run nyata. Sesi aplikasi membaca otomasi/run dari konteks, tetapi tidak mengatur budget atau melewati antrean. Otomasi bukan penjadwal bebas atau sinkronisasi seluruh chat desktop.
 
 ## Perbaikan v2.42 — navigasi dan filter yang konsisten
 

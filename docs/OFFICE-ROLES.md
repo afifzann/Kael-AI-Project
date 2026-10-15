@@ -42,11 +42,23 @@ Setelah memilih keputusan di web, kembali ke sesi manager dan ketik `lanjut`. Ma
 
 `recentDecisions` berisi maksimal 20 keputusan yang sudah dijawab dalam lingkup peran, termasuk catatan dan versi. Daftar `decisions` tetap khusus yang menunggu. Setiap tugas lokal memiliki `workStatus`, `stage` dan `nextStep` dari logika halaman Pekerjaan yang sama; raw status dan seluruh hasil lama tetap dipertahankan. Konteks runner memuat tiga arahan terbaru, termasuk catatan persetujuan rencana.
 
-Perpindahan Claude/Codex membaca data kantor dan memori peran yang sama. Persetujuan tidak memicu agent desktop otomatis; manager melanjutkan ketika pengguna mengirim prompt. Chat/transcript tetap dikelola masing-masing client.
+Perpindahan Claude/Codex membaca data kantor dan memori peran yang sama. Persetujuan tidak memicu agent desktop otomatis. Briefing dengan otomasi aktif dilanjutkan oleh runtime server; briefing lainnya dilanjutkan lewat prompt. Chat/transcript tetap dikelola masing-masing client.
 
 `apa aja yang nunggu aku?`, `ada error?`, `laporan` berarti baca context terbaru lalu jelaskan keputusan, kendala, hasil dan status yang benar-benar ada. Manager hanya melihat divisinya; Builder dapat merangkum seluruh kantor. Status n8n yang terputus/parsial tidak boleh disimpulkan sehat. Jangan memperbaiki atau mengirim data ke layanan luar dari pertanyaan status.
 
 Catat ringkasan penting dengan `{"action":"memory","version":0,"text":"Ringkasan fakta dan langkah berikutnya"}`. Memori dibagi per ID peran dan memiliki version guard antarclient. Catatan kerja yang sengaja dibagikan ke divisi memakai command `division-note` dengan `divisionId` dan `text`; server menambahkan identitas penulis. Catatan/hasiI tersimpan menjadi konteks sesi berikutnya. Jangan menyalin chain-of-thought, credential, seluruh transcript atau payload sensitif.
+
+## Otomasi manager pada server
+
+Pada Divisi → SOP & integrasi → Atur otomasi, pemilik dapat mengaktifkan otomasi tugas lokal. SOP harus sudah tersimpan dan provider Codex/Claude manager serta seluruh pelaksana harus tersedia. Default nonaktif. Otomasi berlaku untuk rencana yang disetujui setelah aktivasi; briefing lama tidak diambil alih.
+
+Sesudah approval rencana, antrean server menjalankan satu run AI pada satu waktu. Tugas dalam satu brief dijalankan berurutan; tugas berikutnya menunggu hasil sebelumnya disetujui Founder. Konteks pelaksana memuat sampai tiga hasil disetujui sebelumnya dari brief yang sama. Manager memakai provider/modelnya sendiri dan memeriksa versi penuh sesuai brief/SOP. Accept manager hanya membuat keputusan pending; kamu tetap memberi approval akhir. Penolakan manager memberi maksimal dua revisi otomatis, kemudian meminta arahan Founder. Arahan revisi Founder menggunakan task ID yang sama dan mempertahankan hasil lama.
+
+Batas default 8 run AI otomatis per divisi per hari WIB, dapat diatur 2–100. Pelaksanaan dan review masing-masing memakai satu jatah; jatah dipesan saat antre dan tidak dikembalikan saat gagal/dihentikan. Mengubah batas tidak mereset penggunaan hari itu. Ini bukan batas biaya/token/kuota akun provider. Run manual yang dimulai pemilik berbeda dari jatah otomatis; sesi AI tidak boleh melewati antrean otomatis melalui action run.
+
+Jeda menghentikan run otomatis aktif/antre, tanpa menghentikan run manual. Run yang sudah dimulai dan terputus ditandai interrupted, tidak dicoba ulang otomatis. Run yang masih queued dapat dilanjutkan sekali setelah restart. Respons gagal, malformed, blocked atau review usang menjaga hasil lama dan menunggu tindakan manusia. Gunakan detail Pekerjaan untuk memeriksa alasan, mencoba review manager lagi atau mereview manual. Aktivasi ulang tidak mengulang panggilan yang gagal/dihentikan sendiri.
+
+Sesi Claude/Codex membaca konfigurasi, budget, run, hasil dan keputusan yang sama. Otomasi berjalan di proses server ketika server hidup; tidak membuka chat atau membangunkan sesi desktop. Workflow n8n dan produksi recap tetap memakai alur khusus.
 
 ## Batas dan keamanan
 
@@ -54,6 +66,6 @@ Catat ringkasan penting dengan `{"action":"memory","version":0,"text":"Ringkasan
 - Bridge memakai kunci lokal terbatas milik instalasi, bukan OAuth/password Claude. Helper membaca kunci tanpa mencetaknya; jangan membacanya melalui tool model. Kunci tersebut adalah akses operator lokal yang dipercaya, bukan sandbox OS antara proses AI yang berbagi user/filesystem.
 - Model chat dipilih di aplikasi AI. Setelan provider/model pelaksana di dashboard berlaku untuk runner task, tidak mengubah model sesi desktop secara otomatis.
 - Ikatan peran/memori tersimpan di `office-sessions.json` dalam direktori data; backup secara privat. Aktivitas lebih tua dari dua menit tidak dianggap sedang bekerja. Riwayat chat asli dan pin tetap dikelola aplikasi AI.
-- Belum ada penjadwal manager/heartbeat otonom, bot Telegram, provisioning SSH, installer VPS atau pemindahan seluruh chat web ke histori desktop. Alur ini menghubungkan sesi peran yang benar-benar dibuka pengguna dengan pekerjaan/data Kael.
+- Otomasi tugas lokal berjalan setelah persetujuan, bukan cron untuk pekerjaan bebas. Bot Telegram, provisioning SSH, installer VPS dan pemindahan seluruh chat web ke histori desktop belum tersedia.
 
 Acuan perilaku hook: [Dokumentasi resmi Claude Code](https://code.claude.com/docs/en/hooks). Pola referensi yang diadaptasi secara independen: [Panduan peran Lembur](https://lembur.id/bantuan/kenalan-kantor/) dan audit lokal laporan 05; kode/aset/endpoint produk tersebut tidak disalin.

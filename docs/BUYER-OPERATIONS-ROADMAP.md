@@ -1,5 +1,7 @@
 # Tambahan acuan alur bisnis dan kantor buyer
 
+Pembaruan v2.43: otomasi tugas lokal opt-in, review manager, budget run harian, checkpoint/restart dan kelanjutan revisi tersedia. Hasil tetap menunggu Founder. Belum cron pekerjaan bebas, Telegram, backup/restore penuh, installer/lisensi/penjualan. Tabel lama di bawah adalah baseline historis; lihat PROGRESS.md dan OFFICE-ROLES.md.
+
 Pembaruan v2.40: arah interaksi disesuaikan ke sesi peran pada aplikasi AI (`jadi builder` / `jadi nama`). Native hook Claude, konteks perrole, memori lintasclient, rencana multitugas, hasil/review/keputusan dan proposal desktop→preview tersedia. Uji CLI Claude asli berhasil; GUI/VPS belum diuji. Manager terjadwal, inbox antar-divisi, broker tindakan eksternal dan installer tetap belum tersedia. Lihat [OFFICE-ROLES.md](OFFICE-ROLES.md).
 
 Pembaruan v2.39: Builder percakapan → draft → preview editable → penerapan tim/SOP sudah tersedia; Claude diuji nyata pada kantor sintetis, Codex diuji fixture. Pemulihan password lokal tersedia sejak v2.38. Batas: preset ruangan, divisi lokal, belum manager otonom/integrasi otomatis/installer/penjualan. Tabel historis di bawah harus dibaca bersama [BUILDER-DIALOGUE.md](BUILDER-DIALOGUE.md) dan progres terbaru.

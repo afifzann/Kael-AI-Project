@@ -10,6 +10,14 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Source proyek di GitHub private — 15 Oktober 2026
+
+Atas permintaan eksplisit pemilik, source Kael beserta aset, dokumentasi, tes dan riwayat Git diunggah ke https://github.com/afifzann/Kael-AI-Project. Metadata GitHub mengonfirmasi private, repo awal kosong, dan izin push. Remote origin ditambahkan; branch lokal master dinamai ulang main tanpa mengubah commit lama, lalu push main berhasil dan upstream origin/main disetel. Checkpoint aplikasi pertama yang terunggah: 2487c16. Catatan progres ini ikut commit/push berikutnya; tidak ada force push atau perubahan visibility.
+
+Sebelum upload, 21 commit/391 versi blob teks diperiksa terhadap path terlarang dan pola token/kunci/URL bercredential; pemindaian kode aktivasi juga tidak menemukan kecocokan. .gitignore terverifikasi mengecualikan .env, app-data, backup Lembur, kredensial, node_modules, dist, rilis dan bukti lokal non-source. Berkas media source tetap ikut (terbesar video referensi sekitar 19,6 MB). Pemindaian pola tidak membuktikan semua kemungkinan rahasia pada dokumen/media biner; tidak membaca .env atau isi akun pemilik dan tidak mengunggah backup mentah.
+
+Verifikasi sebelum push: npm test 211/211 lulus dan npm run build lulus; warning bundle kantor sekitar 788 kB tetap ada. Repo ini menyimpan source, bukan backup data kantor/akun maupun deployment VPS/web publik. Tidak mengubah aplikasi, menjalankan AI, mereset akun atau restart server. Pemilik tetap perlu backup data kantor secara terpisah. Langkah produk berikutnya mengikuti SYSTEM-REBUILD tahap 3; perubahan selanjutnya belum otomatis tersinkron tanpa commit/push.
+
 ### Perbaikan login/pemulihan: cache akun dan URL reset — 15 Oktober 2026
 
 Permintaan pemilik: memastikan cakupan sistem referensi serta memperbaiki login yang berulang kali menolak setelah reset. Cakupan tetap bertahap menurut SYSTEM-REBUILD: Builder/peran/konteks/queue/review/approval/inbox/bahan sudah tersedia; handoff antar-divisi, jadwal bebas, backup/restore penuh dan installer/lisensi/penjualan belum selesai. Tidak mengklaim semua sistem Lembur sudah diterapkan.

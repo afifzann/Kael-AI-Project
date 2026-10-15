@@ -10,6 +10,12 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Jarak menu sidebar konsisten — 15 Oktober 2026
+
+Koreksi screenshot pemilik memakai UI Craft dan tema monokrom existing. Sidebar desktop menggunakan baris minimum 44 px dan gap vertikal 4 px. Wrapper nav-tools diratakan tanpa box/margin/border tambahan; margin individual menu lipat dan Pengaturan dihapus. Summary memakai padding/line-height konsisten. Aturan dibatasi min-width 701 px sehingga menu Lainnya/popup mobile tetap memakai struktur existing. File utama hanya src/dashboard.css, tanpa perubahan data/handler/3D atau dependensi.
+
+Verifikasi: 207/207 tes penuh lulus dan npm run build lulus; HTTP 200 menyajikan CSS baru melalui Vite, tanpa restart server/login. Chrome DevTools tidak menemukan executable Google Chrome sehingga visual langsung serta ukuran tablet/mobile belum diverifikasi. Warning bundle kantor sekitar 787 kB tetap ada. Tidak menambah tes yang hanya menyalin deklarasi CSS. Berikutnya pemeriksaan visual setelah refresh; roadmap sistem tetap tahap 3 SYSTEM-REBUILD.
+
 ### Usulan Builder batal dapat dihapus dari daftar — 15 Oktober 2026
 
 Tombol Hapus dari riwayat muncul hanya pada usulan berstatus dibatalkan, di dekat pemilih diskusi. Konfirmasi inline menjelaskan penghapusan dari daftar, lalu pilihan beralih ke usulan tersisa atau tampilan kosong. Kesalahan penyimpanan mempertahankan preview dan memungkinkan retry; polling menyesuaikan pilihan jika halaman lain menghapusnya.

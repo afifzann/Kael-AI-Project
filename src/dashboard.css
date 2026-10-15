@@ -442,6 +442,13 @@ html{scroll-padding-top:80px}
 .nav-tools{margin-top:18px;padding-top:12px;border-top:1px solid #ffffff18}
 .sidebar .nav-tools .manual-navigation{margin-top:4px}
 .sidebar .section-nav [data-go=business]{margin-top:12px;color:#bbc1c8}
+@media(min-width:701px){
+ .sidebar .section-nav{row-gap:4px}
+ .sidebar .control-nav,.sidebar .overview,.sidebar .section-nav button{min-height:44px}
+ .sidebar .section-nav .nav-tools{display:contents}
+ .sidebar .section-nav :is(.manual-navigation,.office-navigation,[data-go=business]){margin:0}
+ .sidebar .section-nav :is(.manual-navigation,.office-navigation)>summary{min-height:44px;line-height:1.35;padding:10px 12px;font-size:12px}
+}
 .operations .op-head-actions{flex-wrap:wrap;justify-content:flex-end;gap:8px}
 .operations .op-heading>div:first-child{min-width:0}
 .operations .op-heading h1{overflow-wrap:anywhere}

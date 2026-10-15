@@ -1,9 +1,15 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.43 — Otomasi tugas dan review manager
+Versi 2.44 — Kotak masuk dan rencana manager
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
 Tanggal: 15 Oktober 2026
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.44 — kebutuhan pemilik menjadi rencana manager
+
+Divisi tugas lokal memiliki kotak masuk: pemilik mengirim kebutuhan, manager Codex/Claude menyusun rencana sesuai bisnis/SOP, lalu rencana menunggu keputusan Founder. Profil bisnis, SOP, provider, ketersediaan manager dan batas harian diperiksa kode sebelum AI dipanggil. Antrean menggunakan runtime existing, satu panggilan pada satu waktu; tanpa permintaan baru tidak memanggil model. Informasi kurang, gagal dan restart memiliki status/alasan, jawaban eksplisit, riwayat dan pembatalan yang menolak respons terlambat. Penyimpanan rencana atomik memakai validasi anggota divisi dan approval existing. Kebutuhan asli tetap terbawa ke pelaksana/pemeriksa; perubahan bisnis/tim/SOP saat menyusun rencana menolak hasil usang.
+
+Setiap percobaan rencana memakai satu run dari batas harian divisi, termasuk bila otomasi pelaksana nonaktif. Rencana/hasil tidak disetujui AI, workflow/produksi khusus tidak dialihkan, dan state lama tetap didukung. Kotak masuk, notifikasi dan bridge terlingkup per divisi. Ini tahap awal perombakan sistem, bukan implementasi seluruh alat/integrasi/jadwal/installer. Arah dan sisa pekerjaan: [Perombakan sistem](SYSTEM-REBUILD.md). Kantor 3D dipertahankan.
 
 ## Perbaikan v2.43 — kelanjutan otomatis setelah approval
 

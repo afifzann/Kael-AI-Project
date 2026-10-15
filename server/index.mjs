@@ -110,7 +110,7 @@ const server = http.createServer(async (req, res) => {
       const command=input.command;
       if(role==='builder' && !builderCommands.includes(command?.type)) return send(res,403,{error:'Builder tidak berwenang menjalankan tugas, memulihkan error atau memberi keputusan Founder.'});
       if (command?.type === 'onboarding' && command.step === 'connection' && command.provider !== 'manual' && !runtime.status(command.provider).available) throw new Error('Provider yang dipilih belum tersedia/login di server ini. Hubungkan dahulu atau pilih lanjut manual.');
-      if(['run-start','run-begin','run-end','review-start','builder-apply','office-command','manager-plan'].includes(command?.type))throw new Error('Run AI hanya dapat dimulai melalui runtime.');
+      if(['run-start','run-begin','run-end','review-start','builder-apply','office-command','manager-plan','manager-request-begin','manager-request-end'].includes(command?.type))throw new Error('Run AI hanya dapat dimulai melalui runtime.');
       if(command?.type==='division-automation'){
         if(production.summary().some(p=>p.divisionId===command.divisionId))throw new Error('Gunakan alur Produksi untuk divisi ini.');
         if(command.enabled===true)for(const a of state.agents.filter(a=>a.divisionId===command.divisionId)){const provider=state.agentSettings?.find(v=>v.agentId===a.id)?.provider;if(!runtime.status(provider).available)throw new Error(`Runtime ${a.name} belum tersedia/login. Atur provider dahulu.`);}

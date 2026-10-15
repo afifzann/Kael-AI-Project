@@ -10,6 +10,20 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Perombakan sistem tahap 1 — kotak masuk manager, PRD v2.44
+
+Permintaan pemilik menerapkan pola operasional dokumen investigasi VPS pada Kael sendiri, tanpa merombak kantor 3D. Skill ECC Agent Harness Construction dan Codebase Design dipakai. Arah lengkap dan sisa pekerjaan dicatat di docs/SYSTEM-REBUILD.md; bukan menyalin kit atau menganggap temuan instalasi VPS berlaku di repo ini.
+
+Divisi tugas lokal menerima kebutuhan pemilik melalui Ringkasan/Kirim kebutuhan dan Percakapan/Kotak masuk manager. Antrean existing memeriksa bisnis, SOP, manager, provider, insiden/fasilitas dan batas harian sebelum memanggil AI; manager menyusun rencana terstruktur dengan provider/modelnya sendiri. Rencana divalidasi/disimpan atomik melalui manager-plan existing dan tetap menunggu keputusan Founder. Setelah approval, alur runtime/review/otomasi existing dipakai. Kebutuhan asli/jawaban pemilik tetap terbawa ke konteks pelaksana/pemeriksa (tes tambahan awalnya gagal, lalu diperbaiki di contextFor).
+
+Informasi kurang, gagal, restart, balasan eksplisit, batal dan respons terlambat ditangani tanpa auto-retry atau rencana ganda. Konteks bisnis/tim/SOP usang ditolak. Satu percobaan rencana memakai satu jatah dari batas harian divisi yang sama dengan otomasi, termasuk saat otomasi pelaksana nonaktif; default 8, bukan batas uang/token provider. Request schema 1 opsional menjaga state lama. Notifikasi menuju permintaan tepat; inbox scoped di workspace dan konteks manager/Builder. API menolak command begin/end palsu dan bridge tidak bisa membuat permintaan atau memberi approval. Workflow n8n dan KaelaCH tetap alur khusus; geometri/material/animasi kantor tidak diubah.
+
+File utama: src/manager-inbox.ts, domain.ts, workspace.ts, notifications.ts, operations.ts; server/runtime.mjs, index.mjs, office-bridge.mjs; tests/manager-inbox.test.mjs dan fixture runtime; npm test, README, PRD, OFFICE-ROLES, BUYER-SETUP dan SYSTEM-REBUILD diperbarui. Tidak menambah dependensi.
+
+Verifikasi: 195/195 tes penuh lulus, termasuk 13 tes inbox (alur plan→owner→worker→review, business gate, block/reply, invalid foreign worker, budget WIB, scope/notifikasi, cancel/late output, konteks usang, restart, HTTP/CSRF/owner/bridge/stale revision dan handler UI). Typecheck/build aplikasi dan paket buyer lulus. Paket releases/kael-buyer-0.2.0-inbox berisi 77 sumber dengan checksum valid, memakai dependensi lokal; belum npm ci/VPS bersih. Warning bundle kantor 780 kB tetap ada.
+
+Server dimuat ulang tersembunyi setelah run/produksi/inbox/sesi native diperiksa luang (PID dev 3772). Frontend 200 memuat kotak masuk, akun needsSetup false, state anonim 401. Hash state pemilik tetap ff4149d5c6b5150c7e3833ba6917d470b6d6a3ef5fcfcdb726f35a868bf979f4 (revision 9 sebelum restart). Tidak membuat permintaan atau menjalankan AI nyata pada kantor pemilik. Belum klik GUI/browser, uji perencanaan dengan provider sungguhan, VPS/reboot/restore. Tahap berikutnya: bahan/artefak dan alat kerja terbatas untuk satu jenis tugas, lalu titipan antar divisi, jadwal/laporan, izin integrasi dan kesiapan instalasi buyer sesuai SYSTEM-REBUILD.
+
 ### Batas password lebih singkat — 15 Oktober 2026
 
 Atas permintaan pemilik, minimal password setup dan pemulihan diturunkan dari 15 menjadi 8 karakter (maksimal 128). Validasi server, formulir/konfirmasi dan panduan README/BUYER-SETUP/OWNER-ACCESS diselaraskan. Password lama tetap berlaku; tidak mengganti akun atau password pemilik. Hash, sesi, CSRF dan batas percobaan login tetap menggunakan mekanisme yang sama.

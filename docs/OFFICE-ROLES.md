@@ -50,6 +50,8 @@ Catat ringkasan penting dengan `{"action":"memory","version":0,"text":"Ringkasan
 
 ## Otomasi manager pada server
 
+Kotak masuk manager (v2.44): pemilik mengirim kebutuhan melalui Divisi tugas lokal → Kirim kebutuhan / Percakapan. Server memeriksa kesiapan bisnis, SOP, provider manager dan batas harian, lalu manager menyusun rencana. Informasi kurang menjadi pertanyaan pada permintaan yang sama. Rencana tetap menunggu approval Founder; gagal/terputus menunggu arahan pemilik, bukan retry sendiri. Satu percobaan rencana memakai satu jatah harian divisi, termasuk jika otomasi pelaksana nonaktif. Bridge menampilkan managerRequests sesuai lingkup manager/Builder; jangan membuat rencana duplikat untuk inbox yang sedang dikelola server.
+
 Pada Divisi → SOP & integrasi → Atur otomasi, pemilik dapat mengaktifkan otomasi tugas lokal. SOP harus sudah tersimpan dan provider Codex/Claude manager serta seluruh pelaksana harus tersedia. Default nonaktif. Otomasi berlaku untuk rencana yang disetujui setelah aktivasi; briefing lama tidak diambil alih.
 
 Sesudah approval rencana, antrean server menjalankan satu run AI pada satu waktu. Tugas dalam satu brief dijalankan berurutan; tugas berikutnya menunggu hasil sebelumnya disetujui Founder. Konteks pelaksana memuat sampai tiga hasil disetujui sebelumnya dari brief yang sama. Manager memakai provider/modelnya sendiri dan memeriksa versi penuh sesuai brief/SOP. Accept manager hanya membuat keputusan pending; kamu tetap memberi approval akhir. Penolakan manager memberi maksimal dua revisi otomatis, kemudian meminta arahan Founder. Arahan revisi Founder menggunakan task ID yang sama dan mempertahankan hasil lama.

@@ -31,6 +31,8 @@ Masukkan kode penyiapan yang tampil pada halaman setup, isi nama pemilik, email 
 
 ## 3. Ikuti penyiapan kantor
 
+Untuk meminta rencana AI setelah tim siap, buka Divisi tugas lokal → Kirim kebutuhan (atau Percakapan → Kotak masuk manager). Lengkapi profil bisnis dan SOP, pilih provider manager di Anggota, lalu kirim tujuan dan bahan. Jika kurang informasi, jawab pada permintaan yang sama. Tinjau rencana pada Keputusan; pelaksanaan otomatis hanya mengikuti pengaturan otomasi yang kamu aktifkan. Setiap percobaan rencana memakai satu jatah harian divisi. Workflow n8n dan produksi KaelaCH memakai alur khususnya.
+
 1. **Bisnis:** isi nama kantor, pelanggan sasaran, fakta dan aturan. Jangan masukkan kredensial.
 2. **Tim:** pilih Tim konten, Tim operasional atau mulai kosong. Nama manager, pelaksana, peran dan divisi dapat diedit sebelum penerapan. SOP template terlihat untuk ditinjau. Tidak ada pekerjaan, persetujuan atau pesan keluar otomatis.
 3. **Pelaksanaan:** gunakan Codex atau Claude Code yang terdeteksi pada server, atau lanjut manual. Login sendiri melalui `codex login` atau `claude auth login` sebagai user server yang menjalankan Kael, kemudian periksa koneksi lagi. Pemeriksaan dapat tersimpan sampai 60 detik. Ini cek login, bukan bukti setiap model/kuota berhasil. Claude saat ini mengerjakan tugas teks dari brief/SOP, tanpa alat eksternal. Hermes belum tersedia. Produksi video khusus tetap memakai Codex.

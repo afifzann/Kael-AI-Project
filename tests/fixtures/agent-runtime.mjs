@@ -2,6 +2,10 @@
 globalThis[Symbol.for('kael.runtime.fixture')] = {
   status: () => ({ available: true, label: 'TEST FIXTURE — no AI call', reason: '' }),
   turn: async ({ prompt, signal, model }) => {
+    if (prompt.includes('KAEL_MANAGER_PLAN')) {
+      const context = JSON.parse(prompt.match(/Konteks: ([^\n]+)/)[1]);
+      return { summary: 'Rencana fixture', blocked: false, data: { title: context.request.title, goal: 'Draft dari fakta fixture', criteria: 'Sesuai SOP fixture', tasks: [{ agentId: context.members.find(a => !a.manager).id, title: 'Susun draft fixture' }] } };
+    }
     if (prompt.includes('KAEL_MANAGER_REVIEW')) return { summary: 'Review fixture', blocked: false, data: { accept: true, note: 'Hasil fixture sesuai brief dan SOP.' } };
     if (prompt.includes('PERLU-INFO')) return { summary: 'Butuh data', blocked: true, reason: 'Harga supplier belum ada', data: {} };
     if (prompt.includes('LAMBAT')) await new Promise((resolve, reject) => { const t = setTimeout(resolve, 5000); signal.addEventListener('abort', () => { clearTimeout(t); reject(new Error('aborted')); }); });

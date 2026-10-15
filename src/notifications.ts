@@ -1,12 +1,13 @@
 import type { State } from './domain';
 
-export type WorkspaceNotification = { id: string; kind: 'error' | 'approval' | 'connection'; title: string; detail: string; action: 'incident' | 'decision' | 'production' | 'workflow' | 'task' | 'retry'; targetId: string; divisionId: string };
+export type WorkspaceNotification = { id: string; kind: 'error' | 'approval' | 'connection'; title: string; detail: string; action: 'incident' | 'decision' | 'production' | 'workflow' | 'task' | 'retry' | 'manager-request'; targetId: string; divisionId: string };
 
 export function workspaceNotifications(state: State | null, connectionError = '', now = Date.now()): WorkspaceNotification[] {
   const notices: WorkspaceNotification[] = [];
   if (connectionError) notices.push({ id: 'local-connection', kind: 'connection', title: 'Workspace belum terhubung', detail: 'Coba hubungkan ulang. Data terakhir tetap ditampilkan.', action: 'retry', targetId: '', divisionId: '' });
   if (!state) return notices;
   const divisionName = (id: string) => state.divisions.find(d => d.id === id)?.name || 'Kantor';
+  for (const request of state.managerRequests || []) if (['blocked', 'failed', 'interrupted'].includes(request.status)) notices.push({ id: 'manager-' + request.id, kind: 'error', title: request.status === 'blocked' ? 'Manager membutuhkan informasi' : 'Rencana manager perlu ditinjau', detail: `${divisionName(request.divisionId)} · ${request.title} · ${request.reason}`, action: 'manager-request', targetId: request.id, divisionId: request.divisionId });
   for (const incident of state.incidents || []) {
     if (incident.resolvedAt) continue;
     const agent = state.agents.find(a => a.id === incident.agentId), binding = state.workflowBindings?.find(b => b.agentId === incident.agentId);

@@ -19,6 +19,8 @@ Saat pertama dibuka, siapkan akun pemilik. Ambil kode sekali pakai dengan `node 
 
 ## Sesi AI dan dashboard
 
+Kotak masuk manager (v2.44): buka Divisi tugas lokal → Kirim kebutuhan, atau Percakapan → Kotak masuk manager. Setelah profil bisnis, SOP dan provider manager siap, AI menyusun rencana dan mengajukannya untuk keputusanmu. Jawaban, kendala dan percobaan tersimpan pada permintaan yang sama; tidak ada approval otomatis. Satu percobaan rencana memakai satu jatah harian divisi. Arah perombakan sistem dan batas tahap ini: [Perombakan sistem](docs/SYSTEM-REBUILD.md).
+
 Otomasi tugas lokal (v2.43): aktifkan per divisi melalui SOP & integrasi setelah provider manager/pelaksana dan SOP siap. Rencana yang disetujui berikutnya masuk antrean, manager mereview hasil, keputusan akhir tetap manusia. Default nonaktif; batas run harian dan checkpoint tersedia. Rincian: [Sesi kantor](docs/OFFICE-ROLES.md).
 
 Buka folder kantor pada Code di aplikasi Claude, buat chat dan ketik `jadi builder`. Untuk manager/pelaksana, buat sesi lain dengan `jadi Nama Agent` sesuai data Divisi. Claude memakai hook proyek; Codex memakai bridge sessionId sesuai instruksi proyek. Diskusi berlangsung di aplikasi AI; rencana, hasil, catatan kerja dan preview tersimpan di Kael, persetujuan Founder tetap melalui web. Model sesi dipilih pada aplikasi AI. Panduan: [Sesi peran kantor](docs/OFFICE-ROLES.md).

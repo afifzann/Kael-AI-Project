@@ -16,6 +16,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <button class="skip-link" id="skip-content">Lewati navigasi</button>
   <header class="header">
     <a class="brand" href="/" aria-label="Kael AI beranda"><span class="brand-mark">k<span>·</span></span><span>kael<span class="brand-ai">AI</span><small>VIRTUAL OFFICE</small></span></a>
+    <button class="workspace-back" id="workspace-back" type="button" aria-label="Kembali" title="Kembali" disabled>${icon('previous')}<span>Kembali</span></button>
     <div class="breadcrumb">Workspace ${icon('arrow')} <strong id="page-crumb">Meja Founder</strong></div>
     <div class="header-right"><span class="prototype"><i></i> Mode simulasi</span><time id="local-time"></time><span class="avatar-small">K</span></div>
   </header>

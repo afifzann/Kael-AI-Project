@@ -1,6 +1,10 @@
 # Status implementasi lokal — 15 Oktober 2026
 
-Status terbaru: **PRD v2.41 — Kelanjutan keputusan dan alur kantor utuh**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+Status terbaru: **PRD v2.42 — Navigasi kembali dan kontrol dashboard**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+
+## PRD v2.42 — tombol kembali dan kontrol formulir
+
+`src/main.ts` memuat tombol header Kembali. `operations.ts` memakai depth internal pada history.state, kembali melalui history.back dengan popstate existing, dan fallback parentRoute dari routes.ts pada link langsung. Filter/scroll/identitas route dipertahankan; busy tidak dinavigasikan. Label Keputusan kini berstruktur span/select. dashboard.css menambahkan gaya bersama pada select dashboard/dialog, filter-label/Hasil, header-back, mobile dan forced-colors. Tidak mengubah backend atau data kantor. Dua tes UI tambahan menjalankan parent routes serta handler writeRoute/goBack/updateBack asli dengan History fixture.
 
 ## PRD v2.41 — kelanjutan lintas sesi
 

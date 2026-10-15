@@ -10,6 +10,16 @@ Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisen
 
 ## Selesai
 
+### Tombol kembali dan perapian kontrol dashboard — PRD v2.42
+
+Pemilik meminta tombol back tiap halaman dan menunjukkan filter Divisi Keputusan yang menempel/tanpa gaya. Audit source menemukan approval-scope belum memiliki layout/style kontrol umum; beberapa select hanya memiliki chevron/appearance tanpa base ukuran/padding yang sama. Dashboard/dialog sekarang memakai style select bersama, label Divisi terpisah dengan gap 8px, filter-label/Hasil konsisten, fokus/disabled/forced-colors dan target 44px. Tidak merombak warna/material/layout 3D.
+
+Header memuat tombol Kembali yang sama pada semua halaman. History internal mencatat depth dan scroll; Back memakai popstate existing, link langsung memakai parent divisi/direktori/Ringkasan agar tidak keluar aplikasi. Root tanpa riwayat disabled; mobile ikon dengan aria-label. File utama: src/main.ts, src/operations.ts, src/routes.ts, src/dashboard.css, tests/ui.test.mjs; DESIGN/PRD/implementasi diperbarui.
+
+Tes terarah UI (12) dan build lulus. Dua tes baru mencakup semua parent halaman, handler navigasi asli, filter/Back/reload, direct link dan busy guard. Verifikasi akhir: seluruh 167 tes lulus dan typecheck/build lulus; warning bundle kantor 767 kB tetap ada. Frontend 200 dan module main/dashboard.css terbaru memuat tombol/gaya filter. Vite memuat perubahan frontend tanpa restart backend. Hash state pemilik tetap FF4149D5C6B5150C7E3833BA6917D470B6D6A3EF5FCFCDB726F35A868BF979F4. Audit form lain mencakup Pekerjaan, Briefing/tugas, Hasil, workflow, produksi, Builder dan dialog; kontrol input/textarea sudah memiliki style komponennya dan select memakai base shared. Belum inspeksi visual/browser/sentuhan/screen-reader langsung. Tidak mengubah state/akun/keputusan pemilik.
+
+## Selesai sebelumnya
+
 ### Alur kantor utuh dan kelanjutan keputusan — PRD v2.41
 
 Permintaan berikutnya adalah menguji dari sesi Builder sampai keputusan/revisi dan memperbaiki sambungan yang putus. Uji HTTP baru semula gagal karena konteks hanya memuat keputusan pending. Bridge kini menambahkan recentDecisions (20 terbaru, scope peran) serta workStatus/stage/nextStep dari helper dashboard existing. Manager melanjutkan sesuai tahap, tanpa auto-approval atau membuat tugas pengganti untuk revisi. contextFor sebelumnya memakai slice(-3) pada keputusan newest-first; diperbaiki ke tiga terbaru dan memasukkan catatan persetujuan rencana.
@@ -151,7 +161,7 @@ Verifikasi revisi dokumen: 27 topik unik berurutan dan acuan/status utama diperi
 
 - Keputusan owner nomor 1–3 di `KEPUTUSAN-OWNER.md` (menentukan langkah koding berikutnya).
 
-Status tes terakhir v2.41: 165/165 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Hook Claude native juga diuji sungguhan pada kantor sintetis terpisah. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis pada checkpoint runtime sebelumnya; belum pengujian semua model/provider. Bundle kantor 766 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual/GUI desktop dan VPS bersih belum dilakukan.
+Status tes terakhir v2.42: 167/167 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Hook Claude native juga diuji sungguhan pada kantor sintetis terpisah. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis pada checkpoint runtime sebelumnya; belum pengujian semua model/provider. Bundle kantor 766 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual/GUI desktop dan VPS bersih belum dilakukan.
 
 ## Langkah berikutnya (kandidat)
 

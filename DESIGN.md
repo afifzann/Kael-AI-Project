@@ -1,5 +1,11 @@
 # Kael AI Office — kontrak desain
 
+## Navigasi kembali dan kontrol dashboard — v2.42 (15 Oktober 2026)
+
+Header memiliki satu tombol Kembali untuk seluruh halaman dashboard/kantor. Riwayat hash internal mempertahankan filter dan scroll; halaman yang dibuka langsung memakai parent divisi/direktori/Ringkasan tanpa keluar ke situs sebelumnya. Pada Ringkasan tanpa riwayat tombol tetap terlihat dalam keadaan disabled. Desktop memakai ikon dan label; mobile ikon 44px dengan nama aksesibel. Indikator workspace tekstual disembunyikan pada layar ≤480px untuk memberi tempat, notifikasi tetap tersedia.
+
+Select dashboard/dialog kini berbagi border netral, padding, radius 8px, ukuran minimal 44px, chevron inset, hover/focus/disabled. Label Divisi pada Keputusan diletakkan di atas kontrol dengan gap 8px, lebar maksimal 320px dan penuh pada mobile. Audit source mencakup Pekerjaan, Briefing/tugas, Hasil, workflow, produksi dan Builder. Kontrol tetap native/keyboard, forced colors memakai panah sistem, mobile font 16px. Tema monokrom dan kantor 3D dipertahankan. Tes handler/read model bukan pemeriksaan visual browser langsung.
+
 ## Sesi aplikasi AI — v2.40 (14 Oktober 2026)
 
 Builder mengutamakan instruksi masuk peran pada client serta preview usulan. Chat web menjadi opsi eksplisit, tanpa menghapus draft lama. Proposal desktop tidak menampilkan composer web seolah-olah itu sesi native; koreksi percakapan tetap melalui client, perubahan preview tetap dapat disimpan/dibuang. Catatan divisi menjelaskan perbedaan ringkasan kerja dengan riwayat privat client. Presence native fresh memperbarui robot; medis tetap prioritas. Tidak mengubah geometri/material kantor atau mengklaim chat/sidebar otomatis dibuat.

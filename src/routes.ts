@@ -5,6 +5,15 @@ export type DivisionSection = typeof divisionSections[number];
 export type WorkspaceRoute = { view: WorkspaceView; divisionId?: string; section?: DivisionSection; roomId?: string; episodeId?: string; tab?: string; version?: number; workflowId?: string; query?: string; source?: string; status?: string; page?: number };
 const divisionViews: WorkspaceView[] = ['division', 'production', 'workflows', 'tasks', 'briefs', 'decisions', 'activity'];
 
+export function parentRoute(route: WorkspaceRoute): WorkspaceRoute | null {
+  if (route.view === 'home') return null;
+  if (route.divisionId && divisionViews.includes(route.view)) {
+    if (route.view !== 'division' || route.section && route.section !== 'overview') return { view: 'division', divisionId: route.divisionId };
+    return { view: 'team' };
+  }
+  return { view: 'home' };
+}
+
 export function readRoute(hash: string): WorkspaceRoute {
   const params = new URLSearchParams(hash.replace(/^#/, ''));
   const view = params.get('view') as WorkspaceView;

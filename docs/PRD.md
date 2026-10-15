@@ -1,9 +1,13 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.41 — Kelanjutan keputusan dan alur kantor utuh
+Versi 2.42 — Navigasi kembali dan kontrol dashboard
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
 Tanggal: 15 Oktober 2026
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.42 — navigasi dan filter yang konsisten
+
+Tombol Kembali tersedia pada header semua halaman. Gunakan riwayat internal yang mempertahankan filter/scroll, atau parent workspace saat membuka URL langsung; jangan mengarahkan pengguna ke situs di luar aplikasi. Root Ringkasan tanpa riwayat menampilkan disabled. Filter Divisi di Keputusan memiliki label terpisah, jarak dan kontrol yang sama dengan halaman lainnya. Seluruh select dashboard/dialog berbagi ukuran/padding/chevron/fokus/disabled, minimum 44px dan 16px pada mobile. Tidak mengubah data, otorisasi, workflow atau geometri kantor.
 
 ## Perbaikan v2.41 — keputusan kembali ke sesi manager
 

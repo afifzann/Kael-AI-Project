@@ -9,7 +9,7 @@ import { facilityLayouts } from './layout';
 import { serverAgent, medicalPatients } from './facilities';
 import { divisionState, divisionOverview, findDivisions, divisionTools } from './workspace';
 import { workflowActivity, type WorkflowHistoryFilter } from './n8n';
-import { readRoute, routeHash, divisionSections, type DivisionSection, type WorkspaceRoute } from './routes';
+import { readRoute, routeHash, parentRoute, divisionSections, type DivisionSection, type WorkspaceRoute } from './routes';
 import { builderAgent, builderChatLink, builderActivity, type BuilderPresence } from './builder-room';
 import { icon } from './ui-icons';
 import { workspaceNotifications, type WorkspaceNotification } from './notifications';
@@ -51,6 +51,8 @@ export function mountOperations() {
   const dialog = document.createElement('dialog'); dialog.className = 'op-dialog'; document.body.append(dialog);
   const toast = document.createElement('div'); toast.className = 'op-toast'; toast.setAttribute('role', 'status'); document.body.append(toast);
   const initialRoute = readRoute(location.hash);
+  const backButton = document.querySelector<HTMLButtonElement>('#workspace-back')!;
+  backButton.onclick = goBack;
   let workFilter: WorkFilter = { query: initialRoute.query, source: initialRoute.source, status: initialRoute.status, page: initialRoute.page };
   let resultQuery = '', resultPage = 1;
   let restoringRoute = true;
@@ -123,9 +125,21 @@ export function mountOperations() {
     const route: WorkspaceRoute = host.hidden ? { view: 'office', roomId: activeRoomId } : { view, divisionId: selectedDivisionId,
       ...(view === 'division' ? { section: divisionSection } : {}), ...(view === 'activity' || view === 'division' && divisionSection === 'work' ? workFilter : {}), ...(view === 'production' ? productionUI.selection() : {}), ...(view === 'workflows' ? { workflowId: selectedWorkflowId } : {}) };
     const hash = routeHash(route);
-    if (location.hash === hash) return;
+    if (location.hash === hash) { updateBack(); return; }
     if (replace) history.replaceState(history.state, '', hash);
-    else { history.replaceState({ ...history.state, scrollY: window.scrollY }, ''); history.pushState({ scrollY: 0 }, '', hash); }
+    else { const depth = history.state?.kaelDepth || 0; history.replaceState({ ...history.state, kaelDepth: depth, scrollY: window.scrollY }, ''); history.pushState({ kaelDepth: depth + 1, scrollY: 0 }, '', hash); }
+    updateBack();
+  }
+  function updateBack() {
+    backButton.disabled = !(history.state?.kaelDepth > 0 || parentRoute(readRoute(location.hash)));
+    backButton.title = backButton.disabled ? 'Kamu berada di Ringkasan' : 'Kembali di workspace';
+  }
+  function goBack() {
+    if (busy) return;
+    if (history.state?.kaelDepth > 0) { history.back(); return; }
+    const parent = parentRoute(readRoute(location.hash)); if (!parent) return;
+    history.replaceState({ ...history.state, kaelDepth: 0, scrollY: 0 }, '', routeHash(parent));
+    restoreRoute(); window.scrollTo(0, 0);
   }
   function restoreRoute() {
     if (!state) return;
@@ -569,7 +583,7 @@ export function mountOperations() {
       const context = decisionContext(s, d.id), division = s.divisions.find(v => v.id === context?.brief?.divisionId), manager = s.agents.find(a => a.id === division?.managerId);
       return `<button class="approval-row" data-action="decision-detail" data-id="${d.id}"><span><small>${d.type === 'plan' ? 'Rencana kerja' : d.type === 'guidance' ? 'Butuh arahan' : 'Hasil v' + d.version} · ${esc(division?.name || 'Divisi belum tersedia')}${manager ? ' · ' + esc(manager.name) : ''}</small><strong>${esc(d.title)}</strong><span>${esc(d.note || (d.type === 'plan' ? 'Tinjau tujuan dan pembagian pekerjaan.' : 'Tinjau versi hasil sebelum mengambil keputusan.'))}</span></span>${badge(d.status)}${icon('arrow')}</button>`;
     };
-    return `<div class="op-section-title"><h2>Menunggu keputusan</h2><span>${pending.length} menunggu</span></div><label class="approval-scope">Divisi<select id="decision-division"><option value="">Semua divisi</option>${state!.divisions.map(d => `<option value="${d.id}" ${selectedDivisionId === d.id ? 'selected' : ''}>${esc(d.name)}</option>`).join('')}</select></label>${pending.length ? `<div class="approval-list">${pending.map(row).join('')}</div>` : empty('Tidak ada keputusan menunggu.', 'Permintaan persetujuan rencana dan hasil akan muncul di sini.')}<details class="approval-history"><summary>Riwayat keputusan <span>${history.length}</span></summary>${history.length ? `<div class="approval-list">${history.map(row).join('')}</div>` : '<p class="op-muted">Belum ada keputusan yang dijawab.</p>'}</details>`;
+    return `<div class="op-section-title"><h2>Menunggu keputusan</h2><span>${pending.length} menunggu</span></div><label class="approval-scope" for="decision-division"><span>Divisi</span><select id="decision-division"><option value="">Semua divisi</option>${state!.divisions.map(d => `<option value="${d.id}" ${selectedDivisionId === d.id ? 'selected' : ''}>${esc(d.name)}</option>`).join('')}</select></label>${pending.length ? `<div class="approval-list">${pending.map(row).join('')}</div>` : empty('Tidak ada keputusan menunggu.', 'Permintaan persetujuan rencana dan hasil akan muncul di sini.')}<details class="approval-history"><summary>Riwayat keputusan <span>${history.length}</span></summary>${history.length ? `<div class="approval-list">${history.map(row).join('')}</div>` : '<p class="op-muted">Belum ada keputusan yang dijawab.</p>'}</details>`;
   }
   function team(s: State) {
     const divisions = findDivisions(s, teamQuery), q = teamQuery.trim();

@@ -32,7 +32,7 @@
 .notification-footer{margin:0;padding:11px 18px;background:#fafbfc;border-top:1px solid #edf0f2;color:#727981;font-size:10px;line-height:1.6}
 .operations select:not([multiple]),.op-dialog select:not([multiple]),.office-room-controls select,.agent-navigation select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 14 10' fill='none'%3E%3Cpath d='m3 3 4 4 4-4' stroke='%23626a73' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:14px 10px;padding-right:40px}
 @media(max-width:700px){.notification-panel{position:fixed;top:66px;right:14px;left:14px;width:auto}.header-notifications>summary{width:44px;height:44px}.notification-row{min-height:64px}.notification-count{top:3px;right:2px}}
-@media(forced-colors:active){.operations select:not([multiple]),.op-dialog select:not([multiple]),.office-room-controls select,.agent-navigation select{appearance:auto;background-image:none}}
+@media(forced-colors:active){.office-room-controls select,.agent-navigation select{appearance:auto;background-image:none}}
 .agent-error-icon{display:none}
 .agent-bubble[data-activity=error]{width:40px!important;height:40px!important;min-height:40px!important;padding:0!important;justify-content:center;align-items:center;border:0!important;background:transparent!important;box-shadow:none!important}
 .agent-bubble[data-activity=error]::before{display:none!important}
@@ -630,3 +630,20 @@ html{scroll-padding-top:80px}
 .task-actions+.task-actions{margin-top:-8px}
 .operations :is(button,a,input,select,textarea,summary):focus-visible,.op-dialog :is(button,a,input,select,textarea,summary):focus-visible,.sidebar :is(button,summary):focus-visible{outline:2px solid #3f6f5f;outline-offset:2px}
 .operations .division-member-row>.division-member{border-bottom:0;border-top:0}
+
+/* Shared dashboard controls, including filters outside modal forms. */
+.operations select,.op-dialog select{box-sizing:border-box;width:100%;min-width:0;min-height:44px;border:1px solid var(--dash-line,#e1e4e8);border-radius:8px;padding:10px 40px 10px 12px;background-color:#fff;color:var(--dash-ink,#202124);font:400 13px 'DM Sans',sans-serif;line-height:1.5;cursor:pointer}
+.operations select:disabled,.op-dialog select:disabled{background-color:#f4f5f7;color:#777d85;cursor:not-allowed}
+.operations select:hover:not(:disabled),.op-dialog select:hover:not(:disabled){border-color:#a8afb7}
+.operations select:focus-visible,.op-dialog select:focus-visible{outline:2px solid #3a6263;outline-offset:2px;border-color:#3a6263}
+.approval-scope{display:grid;gap:8px;width:min(100%,320px);margin:0 0 24px;color:var(--dash-muted,#60656e);font-size:12px;font-weight:500;line-height:1.5}
+.operations .filter-label,.result-toolbar label{display:grid;gap:8px;color:var(--dash-muted,#60656e);font-size:12px;line-height:1.5;min-width:0}
+.operations .filter-label select{max-width:none}
+.workspace-back{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex-shrink:0;min-height:44px;padding:8px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:#454b52;font:500 12px 'DM Sans',sans-serif;cursor:pointer}
+.workspace-back svg{width:18px;height:18px;flex-shrink:0}
+.workspace-back:hover:not(:disabled){background:#eceef1;color:#202124}
+.workspace-back:focus-visible{outline:2px solid #3a6263;outline-offset:2px}
+.workspace-back:disabled{color:#a2a7ad;cursor:default}
+@media(max-width:700px){.workspace-back{width:44px;padding:10px}.workspace-back span{display:none}.operations select,.op-dialog select{font-size:16px}.approval-scope{width:100%}}
+@media(max-width:480px){.header .prototype{display:none}}
+@media(forced-colors:active){.operations select,.op-dialog select{appearance:auto;background-image:none}.workspace-back:disabled{color:GrayText}}

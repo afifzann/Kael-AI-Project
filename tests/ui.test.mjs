@@ -6,7 +6,7 @@ import ts from 'typescript';
 import { initialState, applyCommand } from '../src/domain.ts';
 import { divisionState, divisionOverview, findDivisions, divisionTools } from '../src/workspace.ts';
 import { workflowHistory } from '../src/n8n.ts';
-import { readRoute, routeHash, divisionSections } from '../src/routes.ts';
+import { readRoute, routeHash, parentRoute, workspaceViews, divisionSections } from '../src/routes.ts';
 import * as THREE from 'three';
 import { founderFloor } from '../src/layout.ts';
 import { founderPreviewCamera, captureFounderPreview } from '../src/office-preview.ts';
@@ -115,6 +115,43 @@ test('division sections survive reload and Back without leaking into other works
   assert.equal(routeHash({ view: 'home', divisionId: 'new-division', section: 'members' }), '#view=home');
   assert.equal(routeHash({ view: 'division', section: 'setup' }), '#view=division');
   assert.equal(readRoute('#view=team&section=setup').section, 'overview');
+});
+
+test('every workspace page has an internal Back fallback and division tools return to their own division', () => {
+  for (const view of workspaceViews) {
+    const parent = parentRoute({ view });
+    assert.deepEqual(parent, view === 'home' ? null : { view: 'home' });
+  }
+  for (const view of ['production', 'workflows', 'tasks', 'briefs', 'decisions', 'activity']) assert.deepEqual(parentRoute({ view, divisionId: 'creative', episodeId: 'old', workflowId: 'old' }), { view: 'division', divisionId: 'creative' });
+  for (const section of divisionSections) assert.deepEqual(parentRoute({ view: 'division', divisionId: 'creative', section }), section === 'overview' ? { view: 'team' } : { view: 'division', divisionId: 'creative' });
+});
+
+test('actual workspace Back handlers preserve history and filters, and direct links never navigate to an external previous page', () => {
+  const source = ts.createSourceFile('operations.ts', readFileSync(new URL('../src/operations.ts', import.meta.url), 'utf8'), ts.ScriptTarget.Latest, true), functions = [];
+  function visit(node) { if (ts.isFunctionDeclaration(node) && ['writeRoute', 'updateBack', 'goBack'].includes(node.name?.text)) functions.push(node.getText(source)); ts.forEachChild(node, visit); }
+  visit(source); assert.equal(functions.length, 3);
+  const location = { hash: '#view=home' }, entries = [], backButton = { disabled: true, title: '' }; let backs = 0, restores = 0;
+  const history = {
+    state: null,
+    replaceState(value, _title, url) { this.state = value; if (url) location.hash = url; },
+    pushState(value, _title, url) { this.state = value; location.hash = url; entries.push({ state: structuredClone(value), hash: url }); },
+    back() { backs++; }
+  };
+  const scope = { history, location, backButton, routeHash, readRoute, parentRoute, restoringRoute: false, busy: false, host: { hidden: false }, activeRoomId: 'founder', view: 'home', selectedDivisionId: '', divisionSection: 'overview', workFilter: {}, productionUI: { selection: () => ({}) }, window: { scrollY: 120, scrollTo() {} }, restoreRoute: () => { restores++; } };
+  runInNewContext(ts.transpileModule(functions.join('\n'), { compilerOptions: { target: ts.ScriptTarget.ES2022 } }).outputText, scope);
+  scope.writeRoute(true); assert.equal(backButton.disabled, true);
+  scope.view = 'activity'; scope.workFilter = { query: 'catalog', status: 'review', page: 2 }; scope.writeRoute();
+  assert.equal(history.state.kaelDepth, 1); assert.equal(backButton.disabled, false);
+  assert.equal(readRoute(entries[0].hash).query, 'catalog');
+  scope.selectedDivisionId = 'creative'; scope.view = 'division'; scope.writeRoute(); assert.equal(history.state.kaelDepth, 2);
+  scope.goBack(); assert.equal(backs, 1); assert.equal(restores, 0);
+  location.hash = entries[0].hash; history.state = entries[0].state; scope.view = 'activity'; scope.selectedDivisionId = ''; scope.writeRoute(true);
+  assert.equal(history.state.kaelDepth, 1); assert.equal(entries.length, 2); assert.equal(readRoute(location.hash).page, 2);
+  history.state = null; location.hash = '#view=production&division=creative&episode=old'; scope.goBack();
+  assert.equal(location.hash, '#view=division&division=creative'); assert.equal(backs, 1); assert.equal(restores, 1);
+  scope.goBack(); assert.equal(location.hash, '#view=team'); scope.goBack(); assert.equal(location.hash, '#view=home');
+  scope.updateBack(); assert.equal(backButton.disabled, true); scope.goBack(); assert.equal(restores, 3);
+  history.state = { kaelDepth: 2 }; scope.busy = true; scope.goBack(); assert.equal(backs, 1);
 });
 
 test('division directory searches new companies, managers and specialist roles without changing data', () => {

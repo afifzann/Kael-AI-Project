@@ -36,6 +36,14 @@ Satu rencana dapat membagi 1–12 tugas ke pelaksana berbeda. Rencana masuk Kepu
 
 Pelaksana pada sesi aplikasi AI dapat memakai command `start`, `result` (dengan `content`), dan `hold` (dengan status paused/blocked dan reason) hanya pada tugasnya sendiri. Baca hasil penuh melalui `{"action":"task","taskId":"ID_TUGAS","version":1}`; context umum hanya memberi cuplikan. Manager wajib membaca hasil penuh pada sesi yang sama sebelum mengirim `review` dengan `id`, `version`, `accept` dan `note`. Review diterima membuat keputusan hasil bagi pemilik; tidak mengesahkan hasil. Produksi KaelaCH dan workflow n8n tidak boleh dijalankan ulang melalui jalur task umum.
 
+## Melanjutkan setelah keputusan
+
+Setelah memilih keputusan di web, kembali ke sesi manager dan ketik `lanjut`. Manager membaca konteks terbaru: rencana disetujui → mulai tugas; hasil tersedia → baca versi penuh dan review; menunggu approval → tunggu Founder; revisi → kerjakan versi berikutnya pada task ID yang sama; ditolak/selesai → tidak dijalankan ulang. Provider runner harus sudah tersedia dan disetel; tugas yang meminta informasi dilengkapi dahulu.
+
+`recentDecisions` berisi maksimal 20 keputusan yang sudah dijawab dalam lingkup peran, termasuk catatan dan versi. Daftar `decisions` tetap khusus yang menunggu. Setiap tugas lokal memiliki `workStatus`, `stage` dan `nextStep` dari logika halaman Pekerjaan yang sama; raw status dan seluruh hasil lama tetap dipertahankan. Konteks runner memuat tiga arahan terbaru, termasuk catatan persetujuan rencana.
+
+Perpindahan Claude/Codex membaca data kantor dan memori peran yang sama. Persetujuan tidak memicu agent desktop otomatis; manager melanjutkan ketika pengguna mengirim prompt. Chat/transcript tetap dikelola masing-masing client.
+
 `apa aja yang nunggu aku?`, `ada error?`, `laporan` berarti baca context terbaru lalu jelaskan keputusan, kendala, hasil dan status yang benar-benar ada. Manager hanya melihat divisinya; Builder dapat merangkum seluruh kantor. Status n8n yang terputus/parsial tidak boleh disimpulkan sehat. Jangan memperbaiki atau mengirim data ke layanan luar dari pertanyaan status.
 
 Catat ringkasan penting dengan `{"action":"memory","version":0,"text":"Ringkasan fakta dan langkah berikutnya"}`. Memori dibagi per ID peran dan memiliki version guard antarclient. Catatan kerja yang sengaja dibagikan ke divisi memakai command `division-note` dengan `divisionId` dan `text`; server menambahkan identitas penulis. Catatan/hasiI tersimpan menjadi konteks sesi berikutnya. Jangan menyalin chain-of-thought, credential, seluruh transcript atau payload sensitif.

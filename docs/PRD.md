@@ -1,9 +1,15 @@
 # Product Requirements Document Kael AI Virtual Office
 
-Versi 2.40 — Sesi peran aplikasi AI
+Versi 2.41 — Kelanjutan keputusan dan alur kantor utuh
 Revisi UI: preview ruang Kael, navigasi beralamat, riwayat workflow dan keputusan yang mudah dibuka pada 14 Oktober 2026.  
-Tanggal: 14 Oktober 2026  
+Tanggal: 15 Oktober 2026
 Status: arah produk dan desain; kemampuan yang sudah tersedia dibedakan dari target pengembangan.
+
+## Perbaikan v2.41 — keputusan kembali ke sesi manager
+
+Konteks peran kini membedakan keputusan menunggu dari 20 keputusan yang sudah dijawab dalam lingkupnya. Tugas lokal menyertakan tahap dan langkah berikutnya yang sama dengan dashboard. Manager membaca ulang setelah keputusan/pindah client: melaksanakan rencana yang disetujui, mereview hasil penuh, mengikuti arahan revisi pada task ID yang sama, atau menghentikan tugas yang ditolak/selesai. Runner memakai tiga arahan terbaru, termasuk catatan persetujuan rencana. Approval tetap manusia dan kelanjutan tetap melalui prompt, belum scheduler.
+
+Uji HTTP kantor terpisah mencakup usulan native Builder → preview editable → penerapan pemilik → rencana → approval → runtime fixture → review → revisi → pindah client/restart → hasil v2 → review → approval final, serta penolakan hasil/rencana. Hasil v1/ID/keputusan lama tetap utuh dan role bridge tetap menolak approval. Ini verifikasi server/read model, bukan klaim uji GUI kedua aplikasi atau pekerjaan bisnis sungguhan.
 
 ## Perbaikan v2.40 — peran pada sesi Claude/Codex
 

@@ -2,13 +2,25 @@
 
 Catatan bersama untuk semua coding agent. Perbarui setiap satu langkah selesai (lihat `AGENTS.md`).
 
-Terakhir diperbarui: 14 Oktober 2026.
+Terakhir diperbarui: 15 Oktober 2026.
 
 ## Tujuan akhir
 
 Kael menjadi produk self-hosted yang dijual dan dipasang di VPS pelanggan (lisensi dan pembaruan lewat layanan pusat minimal). Acuan: `analysis/lembur-audit-2026-10-14/`, roadmap P0–P7 di laporan 09. Tahap 1–6 membangun workspace/runtime (P1); tahap 7 bagian awal membangun akses pemilik (sebagian P2). Paket sumber buyer dan onboarding awal sekarang tersedia; belum installer. Yang belum: keputusan P0 (laporan 10), kelengkapan P2 izin/broker, P3 penyimpanan dan backup, P4 installer, P5 pembaruan dan lisensi.
 
 ## Selesai
+
+### Alur kantor utuh dan kelanjutan keputusan — PRD v2.41
+
+Permintaan berikutnya adalah menguji dari sesi Builder sampai keputusan/revisi dan memperbaiki sambungan yang putus. Uji HTTP baru semula gagal karena konteks hanya memuat keputusan pending. Bridge kini menambahkan recentDecisions (20 terbaru, scope peran) serta workStatus/stage/nextStep dari helper dashboard existing. Manager melanjutkan sesuai tahap, tanpa auto-approval atau membuat tugas pengganti untuk revisi. contextFor sebelumnya memakai slice(-3) pada keputusan newest-first; diperbaiki ke tiga terbaru dan memasukkan catatan persetujuan rencana.
+
+File utama: server/office-bridge.mjs, src/domain.ts, tests/office-bridge.test.mjs, tests/runtime.test.mjs; panduan OFFICE-ROLES, PRD dan implementasi diperbarui. Pilot fixture HTTP: usulan native → preview/edit provider → penerapan owner → manager plan → approval → runtime → review hasil penuh → revisi owner → pindah Claude/Codex/restart → v2 → review → approval final. Cabang penolakan hasil/rencana, stale revision, larangan approve AI, versi lama dan persist metadata juga diperiksa. Snapshot n8n fixture dilengkapi field array sesuai kontraknya. Tidak menjalankan tugas atau membuat keputusan pada kantor pemilik.
+
+Verifikasi akhir: 165/165 tes penuh lulus; 19 tes office/runtime terarah lulus setelah instruksi final; typecheck/build aplikasi dan paket buyer lulus. Paket releases/kael-buyer-0.2.0-lifecycle berisi 76 sumber dengan checksum valid, menggunakan dependensi lokal (belum npm ci/VPS bersih). Warning bundle kantor 766 kB tetap ada. Server lokal semula mati; dinyalakan tersembunyi dengan PID dev 3084 setelah kedua port dipastikan kosong. Frontend 200, office-bridge anonim 401 dan akun needsSetup false. State pemilik tetap revision 9/hash FF4149D5C6B5150C7E3833BA6917D470B6D6A3EF5FCFCDB726F35A868BF979F4; tidak membuka/mengubah sesi atau pekerjaan pemilik.
+
+Belum: klik GUI/browser langsung, pekerjaan provider sungguhan lintas aplikasi pada lifecycle ini, scheduler manager atau installer VPS. Kelanjutan saat ini dipicu prompt lanjut; approval web tidak membangunkan chat desktop sendiri.
+
+## Selesai sebelumnya
 
 ### Koreksi alur utama: sesi peran Claude/Codex — PRD v2.40
 
@@ -139,7 +151,7 @@ Verifikasi revisi dokumen: 27 topik unik berurutan dan acuan/status utama diperi
 
 - Keputusan owner nomor 1–3 di `KEPUTUSAN-OWNER.md` (menentukan langkah koding berikutnya).
 
-Status tes terakhir v2.40: 164/164 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Hook Claude native juga diuji sungguhan pada kantor sintetis terpisah. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis pada checkpoint runtime sebelumnya; belum pengujian semua model/provider. Bundle kantor 766 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual/GUI desktop dan VPS bersih belum dilakukan.
+Status tes terakhir v2.41: 165/165 tes lulus, typecheck/build aplikasi dan paket buyer lulus di Node.js 24.21.0. Hook Claude native juga diuji sungguhan pada kantor sintetis terpisah. Codex dan Claude masing-masing telah menyelesaikan satu tugas sintetis pada checkpoint runtime sebelumnya; belum pengujian semua model/provider. Bundle kantor 766 kB (peringatan >500 kB tetap ada) dan dimuat setelah login/setup; entry akses/onboarding sekitar 15 kB. QA visual/GUI desktop dan VPS bersih belum dilakukan.
 
 ## Langkah berikutnya (kandidat)
 
@@ -150,6 +162,6 @@ Verifikasi setelah tambahan analisis: 131/131 tes lulus dan build lulus; peringa
 Tambahan pemilik tentang alur penjual kit sudah dipetakan pada bagian akhir `docs/BUYER-OPERATIONS-ROADMAP.md`: promosi/penawaran, pembayaran/email deterministik, aktivasi VPS, keaslian paket, installer, kelengkapan bisnis dan update/support. Status implementasi dipertahankan jujur; harga/slot/waktu pasang/penanda per pembeli pada referensi tidak dijadikan janji Kael. Model Kael tetap jual lepas, VPS/akun AI buyer sendiri; ketentuan update/support/slot belum ditetapkan. Tidak ada pembayaran, email, aktivasi atau perubahan VPS yang dijalankan dari tambahan ini.
 
 1. Pemilik sudah membuat akun. Periksa UI login/tahap 3–7 dan onboarding pada instance buyer terpisah, lalu coba satu tugas serta tinjau/revisi hasil. Kelengkapan P2 (recovery email, izin tindakan/broker dan isolasi proses) belum selesai.
-2. Peran native dan rencana/pembagian tugas manager tersedia. Berikutnya uji GUI desktop dan pilot tugas utuh, lalu penjadwal manager/checkpoint/inbox antar-divisi. Hermes, kuota dan semua model belum diuji.
+2. Peran native dan rencana/pembagian tugas manager tersedia. Pilot lifecycle HTTP dengan runtime fixture sudah lulus. Berikutnya uji klik GUI/pekerjaan nyata lintas aplikasi, lalu penjadwal manager/checkpoint/inbox antar-divisi. Hermes, kuota dan semua model belum diuji.
 3. Telegram manager (Bu Yuli) untuk tanya status divisi, baca saja.
 4. Backup/restore dari UI dan migrasi penyimpanan (lihat `analysis/lembur-audit-2026-10-14/09-IMPLEMENTATION-ROADMAP.md`).

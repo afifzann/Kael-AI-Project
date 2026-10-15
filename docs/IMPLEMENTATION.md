@@ -1,6 +1,12 @@
-# Status implementasi lokal — 14 Oktober 2026
+# Status implementasi lokal — 15 Oktober 2026
 
-Status terbaru: **PRD v2.40 — Sesi peran aplikasi AI**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+Status terbaru: **PRD v2.41 — Kelanjutan keputusan dan alur kantor utuh**. Arah visual terbaru tercatat di DESIGN.md. Bagian versi sebelumnya di bawah adalah riwayat implementasi.
+
+## PRD v2.41 — kelanjutan lintas sesi
+
+`server/office-bridge.mjs` mengekspos recentDecisions dengan scope yang sama seperti keputusan menunggu; konteks task menggunakan status/stage/nextStep dari workItems existing. Instruksi manager memetakan lanjut berdasarkan tahap, tidak selalu memulai run. `contextFor` memilih tiga arahan terbaru dari daftar keputusan yang newest-first dan menyertakan catatan persetujuan rencana. Tidak ada perubahan schema/data pemilik, endpoint approval, atau scheduler.
+
+`tests/office-bridge.test.mjs` menguji lifecycle HTTP lengkap pada server fixture, restart, memori/keputusan Claude–Codex, versi lama, hasil v2, penolakan dan pencegahan review tanpa membaca versi yang benar. `tests/runtime.test.mjs` mengunci pemilihan tiga arahan terbaru; snapshot n8n fixture dilengkapi agar sesuai kontrak helper Pekerjaan. Tidak memanggil AI sungguhan atau memakai akun/data pemilik pada tes.
 
 ## PRD v2.40 — native session → role context → task/preview/decision
 

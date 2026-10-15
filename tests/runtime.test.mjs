@@ -63,6 +63,10 @@ test('agent memory includes only its own division work and preserves Founder dir
   const bounded = contextFor(s, task.id);
   assert.equal((bounded.match(/Tugas: Memori/g) || []).length, 3);
   assert.doesNotMatch(bounded, /Memori 0/); assert.doesNotMatch(bounded, /x{3001}/);
+  s.decisions = [5, 4, 3, 2, 1].map(version => ({ id: 'decision-' + version, type: 'result', targetId: task.id, version, status: 'revision', note: 'ARAHAN-VERSI-' + version, title: 'Arahan', createdAt: '' }));
+  const latest = contextFor(s, task.id);
+  for (const version of [5, 4, 3]) assert.match(latest, new RegExp('ARAHAN-VERSI-' + version));
+  for (const version of [2, 1]) assert.doesNotMatch(latest, new RegExp('ARAHAN-VERSI-' + version));
 });
 
 test('restart pauses interrupted execution, resumes queued work once, and queued cancellation never calls AI', async () => {

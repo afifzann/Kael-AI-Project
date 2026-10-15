@@ -13,6 +13,8 @@ import { createOfficeBridge } from '../server/office-bridge.mjs';
 import { createBuilderDialogue } from '../server/builder-dialogue.mjs';
 import { claudeOfficeHook } from '../scripts/claude-office-hook.mjs';
 import { office, officeRequest } from '../scripts/office.mjs';
+import { workItems } from '../src/work.ts';
+import { decisionContext } from '../src/results.ts';
 import { authenticateTestServer, rawFetch } from './helpers/auth-client.mjs';
 
 function teams() {
@@ -101,6 +103,8 @@ test('manager context reads its own work, notes, workflow errors and approval, e
   await command(f, maya.sessionId, plan(s));
   await command(f, maya.sessionId, { type: 'division-note', divisionId: s.divisions[0].id, text: 'Ringkasan diskusi dari Maya' });
   await f.mutate({ type: 'brief', divisionId: s.divisions[1].id, agentId: s.agents.find(a => a.name === 'Sari').id, title: 'PRIVATE-OTHER-DIVISION', goal: 'Tujuan privat', criteria: 'Kriteria', tasks: ['PRIVATE-OTHER-TASK'] });
+  await f.mutate({ type: 'submit-plan', id: f.getState().briefs[0].id });
+  await f.mutate({ type: 'decide', id: f.getState().decisions[0].id, outcome: 'rejected', note: 'PRIVATE-OTHER-DECISION' });
   const a = await f.bridge.action({ action: 'context', sessionId: maya.sessionId }), b = await f.bridge.action({ action: 'context', sessionId: dina.sessionId });
   assert.doesNotMatch(JSON.stringify(a), /PRIVATE-OTHER/); assert.equal(a.decisions.length, 1); assert.equal(b.decisions.length, 0); assert.equal(b.notes.length, 0);
   assert.match(a.notes[0].text, /Maya · sesi kantor/); f.dialogue.close();
@@ -133,7 +137,7 @@ test('manager must read full matching result before review, and native context e
   await command(f, maya.sessionId, review); assert.equal(f.getState().tasks.find(t => t.id === task.id).status, 'approval');
   const s = f.getState(), otherId = s.agents.find(a => a.name === 'Sari').id;
   s.workflowBindings = [{ agentId: nara.role.id, workflowId: 'own' }, { agentId: otherId, workflowId: 'other' }];
-  s.n8n = [{ workflowId: 'own', connection: 'online', recent: [{ status: 'error', error: 'Node ekstraksi gagal' }] }, { workflowId: 'other', connection: 'online', error: 'PRIVATE-OTHER-WORKFLOW' }];
+  s.n8n = [{ workflowId: 'own', connection: 'online', running: [], waiting: [], recent: [{ status: 'error', error: 'Node ekstraksi gagal' }] }, { workflowId: 'other', connection: 'online', running: [], waiting: [], recent: [], error: 'PRIVATE-OTHER-WORKFLOW' }];
   s.incidents = [{ agentId: nara.role.id, resolvedAt: '', reason: 'Error ekstraksi' }, { agentId: otherId, resolvedAt: '', reason: 'PRIVATE-OTHER-INCIDENT' }];
   const context = await f.bridge.action({ action: 'context', sessionId: maya.sessionId }); assert.match(JSON.stringify(context), /Node ekstraksi gagal/); assert.doesNotMatch(JSON.stringify(context), /PRIVATE-OTHER/);
   f.dialogue.close();
@@ -172,4 +176,104 @@ test('office HTTP and actual hook CLI protect owner approval, connect native rol
     builderStatus = await (await fetch(url + '/api/state')).json(); assert.equal(builderStatus.builderChat.status, 'completed'); assert.equal(agentActivity(builderStatus, { id: 'office-builder' }).canWalk, true); assert.ok(firstBuilder.bound);
     const publicState = await (await fetch(url + '/api/state')).json(); assert.equal(publicState.officeSessions[0].agentId, opened.role.id); assert.equal(publicState.officeSessions[0].nativeId, undefined); assert.equal(publicState.briefs[0].status, 'approval');
   } finally { if (child.exitCode === null) { const ended = once(child, 'exit'); child.kill(); await ended; } clearAuth?.(); }
+});
+
+test('office lifecycle goes from native Builder preview through owner decisions, runtime, cross-client revision and restart without auto-approval', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'kael-office-lifecycle-'));
+  let child, url, clearAuth, options;
+  async function start() {
+    child = spawn(process.execPath, ['--import', './tests/fixtures/agent-runtime.mjs', 'server/index.mjs'], { windowsHide: true, env: { ...process.env, KAEL_DATA_DIR: directory, KAEL_PORT: '0' }, stdio: ['ignore', 'pipe', 'pipe'] });
+    url = await new Promise((resolve, reject) => {
+      const timer = setTimeout(() => { child.kill(); reject(Error('Startup timeout')); }, 10000);
+      child.stdout.on('data', b => { const m = b.toString().match(/http:\/\/127.0.0.1:\d+/); if (m) { clearTimeout(timer); resolve(m[0]); } });
+      child.on('error', reject); child.on('exit', () => { clearTimeout(timer); reject(Error('Server exited')); });
+    });
+    options = { directory, port: new URL(url).port }; clearAuth = await authenticateTestServer(url, directory);
+  }
+  async function stop() { clearAuth?.(); if (child?.exitCode === null) { const ended = once(child, 'exit'); child.kill(); await ended; } }
+  const state = async () => (await fetch(url + '/api/state')).json();
+  const owner = async (endpoint, input) => {
+    const response = await fetch(url + endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) });
+    const value = await response.json(); assert.ok(response.ok, value.error); return value;
+  };
+  const decide = async (id, outcome, note = '') => owner('/api/command', { revision: (await state()).revision, command: { type: 'decide', id, outcome, note } });
+  const role = async (name, client, nativeId) => officeRequest({ action: 'open', role: name, client, nativeId }, options);
+  const context = sessionId => officeRequest({ action: 'context', sessionId }, options);
+  const send = async (sessionId, input) => officeRequest({ revision: (await state()).revision, ...input, sessionId }, options);
+  const review = async (sessionId, taskId, version) => {
+    const full = await officeRequest({ action: 'task', sessionId, taskId, version }, options); assert.equal(full.task.results[0].version, version);
+    return send(sessionId, { action: 'command', command: { type: 'review', id: taskId, version, accept: true, note: 'Hasil fixture diperiksa terhadap brief dan SOP.' } });
+  };
+  const waitResult = async taskId => {
+    for (let i = 0; i < 150; i++) { const s = await state(); if (s.tasks.find(t => t.id === taskId)?.status === 'review') return s; await new Promise(resolve => setTimeout(resolve, 20)); }
+    assert.fail('Runtime fixture tidak menghasilkan versi review.');
+  };
+  try {
+    await start();
+    const builder = await role('builder', 'Claude', 'builder-lifecycle');
+    const draft = await send(builder.sessionId, { action: 'propose', proposal, requestId: 'pilot' });
+    assert.equal((await state()).divisions.length, 0);
+    let discussion = (await (await fetch(url + '/api/builder-discussions')).json()).discussions.find(d => d.id === draft.proposalId);
+    assert.equal(discussion.status, 'ready'); assert.equal(discussion.sourceDesktop, true);
+    let web = await owner('/api/builder-discussions', { action: 'save', id: discussion.id, version: discussion.version, proposal: { ...discussion.proposal, provider: 'Codex' } });
+    discussion = web.discussions.find(d => d.id === discussion.id);
+    await owner('/api/builder-discussions', { action: 'apply', id: discussion.id, version: discussion.version });
+    assert.equal((await context(builder.sessionId)).proposals.find(p => p.id === discussion.id).status, 'applied');
+    const manager = await role('Ayu', 'Claude', 'manager-claude'), worker = await role('Arga', 'Codex', 'worker-codex');
+    let planned = await send(manager.sessionId, { action: 'command', command: plan(await state()) });
+    const taskId = planned.tasks[0].id, planDecision = planned.decisions[0].id;
+    assert.equal(workItems(await state())[0].status, 'approval');
+    await assert.rejects(send(manager.sessionId, { action: 'run', taskId }), /disetujui/);
+    await assert.rejects(send(manager.sessionId, { action: 'command', command: { type: 'decide', id: planDecision, outcome: 'approved' } }), /Founder/);
+    await decide(planDecision, 'approved', 'Kerjakan sesuai katalog sintetis.');
+    const resumed = await role('Ayu', 'Codex', 'manager-codex');
+    let current = await context(resumed.sessionId);
+    assert.equal(current.recentDecisions.find(d => d.id === planDecision).status, 'approved');
+    assert.equal(current.tasks[0].nextStep, workItems(await state())[0].nextStep);
+    await assert.rejects(send(manager.sessionId, { action: 'run', taskId, revision: planned.revision }), /Kantor berubah/);
+    await send(resumed.sessionId, { action: 'run', taskId });
+    let s = await waitResult(taskId); assert.equal(s.tasks[0].results.length, 1); assert.match(s.tasks[0].results[0].content, /SOP divisi v1/);
+    assert.match(s.runs[0].context, /Kerjakan sesuai katalog sintetis/);
+    assert.equal(s.decisions.filter(d => d.status === 'pending').length, 0);
+    await review(resumed.sessionId, taskId, 1);
+    s = await state(); const firstDecision = s.decisions.find(d => d.type === 'result' && d.status === 'pending');
+    assert.equal(s.tasks[0].status, 'approval'); assert.equal(decisionContext(s, firstDecision.id).canDecide, true);
+    await decide(firstDecision.id, 'revision', 'Tambahkan sumber katalog dan langkah verifikasi.');
+    current = await context(manager.sessionId);
+    assert.equal(current.tasks[0].workStatus, 'revision'); assert.match(current.tasks[0].nextStep, /arahan revisi/);
+    assert.equal(current.recentDecisions.find(d => d.id === firstDecision.id).note, 'Tambahkan sumber katalog dan langkah verifikasi.');
+    await officeRequest({ action: 'memory', sessionId: worker.sessionId, version: 0, text: 'v1 menunggu perbaikan sumber katalog.' }, options);
+    const firstResult = s.tasks[0].results[0];
+    await stop(); await start();
+    const workerClaude = await role('Arga', 'Claude', 'worker-claude');
+    current = await context(workerClaude.sessionId); assert.match(current.memory.text, /v1/); assert.equal(current.tasks[0].id, taskId);
+    assert.equal(current.recentDecisions.find(d => d.id === firstDecision.id).status, 'revision');
+    await send(resumed.sessionId, { action: 'run', taskId });
+    s = await waitResult(taskId); assert.equal(s.tasks[0].results.length, 2); assert.deepEqual(s.tasks[0].results[0], firstResult);
+    assert.match(s.runs.at(-1).context, /Tambahkan sumber katalog dan langkah verifikasi/);
+    assert.equal(decisionContext(s, firstDecision.id).canDecide, false);
+    assert.deepEqual(decisionContext(s, firstDecision.id).result, firstResult);
+    await officeRequest({ action: 'task', sessionId: resumed.sessionId, taskId, version: 1 }, options);
+    await assert.rejects(send(resumed.sessionId, { action: 'command', command: { type: 'review', id: taskId, version: 2, accept: true, note: 'Tanpa membaca versi baru' } }), /hasil penuh/);
+    await review(resumed.sessionId, taskId, 2);
+    s = await state(); const finalDecision = s.decisions.find(d => d.type === 'result' && d.status === 'pending');
+    assert.equal(finalDecision.version, 2); await decide(finalDecision.id, 'approved', 'Versi kedua sesuai kriteria.');
+    current = await context(manager.sessionId); assert.equal(current.tasks[0].status, 'done');
+    assert.equal(current.recentDecisions.find(d => d.id === finalDecision.id).status, 'approved');
+    await assert.rejects(send(resumed.sessionId, { action: 'run', taskId }), /tidak siap/);
+    planned = await send(manager.sessionId, { action: 'command', command: { ...plan(await state()), title: 'Hasil yang akan ditolak' } });
+    const rejectedTask = planned.tasks.find(t => t.status === 'queued'); await decide(planned.decisions[0].id, 'approved');
+    await send(manager.sessionId, { action: 'run', taskId: rejectedTask.id }); await waitResult(rejectedTask.id); await review(manager.sessionId, rejectedTask.id, 1);
+    s = await state(); const rejectedDecision = s.decisions.find(d => d.type === 'result' && d.status === 'pending');
+    await decide(rejectedDecision.id, 'rejected', 'Hasil tidak sesuai tujuan.');
+    current = await context(resumed.sessionId); assert.equal(current.tasks.find(t => t.id === rejectedTask.id).status, 'cancelled');
+    assert.equal(current.recentDecisions.find(d => d.id === rejectedDecision.id).status, 'rejected');
+    planned = await send(manager.sessionId, { action: 'command', command: { ...plan(await state()), title: 'Rencana yang akan ditolak' } });
+    await decide(planned.decisions[0].id, 'rejected', 'Prioritas berubah.');
+    current = await context(resumed.sessionId); assert.equal(current.decisions.length, 0);
+    assert.equal((await state()).runs.length, 3);
+    const persisted = JSON.parse(await readFile(path.join(directory, 'state.json'), 'utf8'));
+    assert.equal(persisted.officeSessions, undefined); assert.deepEqual(persisted.tasks.find(t => t.id === taskId).results[0], firstResult);
+    assert.equal(persisted.tasks.find(t => t.id === taskId).results.length, 2);
+  } finally { await stop(); }
 });

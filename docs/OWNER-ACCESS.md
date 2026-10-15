@@ -32,6 +32,10 @@ Perintah hanya menerbitkan kode, belum mengubah password. Setelah reset berhasil
 
 ## Login dan sesi
 
+Form login/setup/pemulihan menyediakan Lihat kata sandi serta petunjuk Caps Lock dan spasi tepi. Menampilkan isian tidak mengubah password; spasi tetap dihitung. Setelah pemulihan berhasil atau link pemulihan dibuka dengan sesi valid, parameter reset-password dibuang tanpa menghapus hash halaman/filter lain. Logout atau restart berikutnya kembali ke halaman login biasa.
+
+Server menyegarkan rekaman akun sebelum menangani request, serta memeriksa lagi setelah verifikasi password. Perubahan akun oleh proses lain membatalkan sesi/jatah percobaan lama pada proses yang mendeteksinya; password baru tidak menunggu restart server tersebut. Pembacaan yang gagal menunda akses dengan HTTP 503 dan tidak mengganti akun. Ini tidak menambah dukungan multi-worker untuk state pekerjaan atau transaksi reset paralel lintasproses.
+
 Email/kata sandi disimpan sebagai akun lokal dengan hash scrypt dan salt acak. Parameter `N=32768,r=8,p=3` mengikuti salah satu pilihan dasar [OWASP Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html); implementasi memakai `node:crypto` tanpa dependency tambahan.
 
 Sesi memakai token acak dalam cookie HttpOnly, SameSite=Strict, tanpa token login di localStorage. Token sesi di server disimpan sebagai hash. Masa maksimal 12 jam, kedaluwarsa setelah 30 menit tanpa request; polling ikut dihitung sebagai aktivitas request. Login mengganti sesi yang diberikan oleh browser tersebut; logout mencabut sesi. Restart server membatalkan semua sesi dan pengguna masuk kembali. Maksimal 10 sesi tersimpan dalam proses.

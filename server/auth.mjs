@@ -50,6 +50,12 @@ export async function createAuth({ directory, secure = false, now = Date.now }) 
   } catch (e) { if (e.code !== 'ENOENT') throw new Error('Data akun pemilik tidak dapat dibuka; berkas dipertahankan.'); }
   if (owner) builderKey = await readKey(builderFile); else setupKey = await readKey(bootstrapFile);
 
+  async function refreshOwner() {
+    if (!owner || resetting) return;
+    const previous = owner, latest = await readOwner(ownerFile);
+    if (resetting || owner !== previous) return;
+    if (['hash', 'salt', 'email', 'name'].some(key => latest[key] !== previous[key])) { owner = latest; sessions.clear(); attempts.clear(); }
+  }
   function session(req) {
     const key = req.headers.cookie?.split(';').map(v => v.trim()).find(v => v.startsWith('kael_session='))?.slice(13);
     if (!key || !/^[a-f0-9]{64}$/.test(key)) return null;
@@ -80,6 +86,8 @@ export async function createAuth({ directory, secure = false, now = Date.now }) 
     entry.count++; attempts.set(id, entry); return false;
   }
   async function handle(req, res, send) {
+    try { await refreshOwner(); }
+    catch { send(res, 503, { error: 'Data akun belum dapat dibaca. Akses ditunda; akun dan data kantor tidak diubah.' }); return true; }
     if (!req.url.startsWith('/api/auth/')) return false;
     const current = session(req);
     if (req.method === 'GET' && req.url === '/api/auth/status') { send(res, 200, { needsSetup: !owner, signedIn: !!current, ...(current ? { owner: { name: owner.name }, csrf: current.csrf } : {}) }); return true; }
@@ -127,6 +135,7 @@ export async function createAuth({ directory, secure = false, now = Date.now }) 
       } else {
         if (!owner || typeof data.email !== 'string' || typeof data.password !== 'string' || data.password.length > 128) { send(res, 401, { error: 'Email atau kata sandi tidak cocok.' }); return true; }
         const account = owner, passwordCorrect = await passwordMatches(account, data.password);
+        await refreshOwner();
         if (resetting || owner !== account || !passwordCorrect || data.email.trim().toLowerCase() !== account.email) { send(res, 401, { error: 'Email atau kata sandi tidak cocok.' }); return true; }
       }
       attempts.delete((req.socket.remoteAddress || 'local') + (req.url === '/api/auth/reset-password' ? ':reset' : '')); send(res, 200, signIn(req, res));

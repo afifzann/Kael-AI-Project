@@ -160,9 +160,9 @@ test('local recovery preserves account/work, revokes sessions, persists and cann
     const recoveryRecord = await readFile(recoveryFile, 'utf8'); assert.equal(recoveryRecord.includes(recoveryCode), false);
     const replacement = { recoveryCode, password: 'replacement-password-only-2026', confirm: 'replacement-password-only-2026' };
     assert.equal((await post(server.url + '/api/auth/reset-password', { ...replacement, confirm: 'mismatch' })).status, 400);
-    // A failed atomic replacement must leave both the old account and the recovery code usable.
+    // An unreadable account must fail closed and leave the old account and recovery code usable.
     await rename(ownerFile, ownerFile + '.fixture'); await mkdir(ownerFile);
-    assert.equal((await post(server.url + '/api/auth/reset-password', replacement)).status, 400);
+    assert.equal((await post(server.url + '/api/auth/reset-password', replacement)).status, 503);
     await rmdir(ownerFile); await rename(ownerFile + '.fixture', ownerFile);
     assert.deepEqual(JSON.parse(await readFile(ownerFile, 'utf8')), original);
     assert.equal((await rawFetch(server.url + '/api/state', { headers: { Cookie: signed.cookie } })).status, 200);
@@ -206,4 +206,26 @@ test('recovery codes expire, rotate, fail closed on corruption and have their ow
   assert.equal((await request('/api/auth/reset-password', input)).status, 200, 'login throttling does not block local recovery');
   for (let i = 0; i < 5; i++) assert.equal((await request('/api/auth/reset-password', input)).status, 403);
   assert.equal((await request('/api/auth/reset-password', input)).status, 429);
+});
+
+test('password reset is observed by another running server of the same installation and revokes its old sessions', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'kael-shared-auth-'));
+  let primary = await launch(directory), secondary;
+  try {
+    await account(primary, directory); secondary = await launch(directory);
+    const old = await post(secondary.url + '/api/auth/login', testOwner);
+    assert.equal(old.status, 200); const oldCookie = old.headers.get('set-cookie').split(';')[0];
+    const recoveryCode = await createRecoveryCode(directory), password = 'new-fixture-password-2026';
+    assert.equal((await post(primary.url + '/api/auth/reset-password', { recoveryCode, password, confirm: password })).status, 200);
+    assert.equal((await rawFetch(secondary.url + '/api/state', { headers: { Cookie: oldCookie } })).status, 401, 'refresh must revoke stale sessions even on work API requests');
+    assert.equal((await post(secondary.url + '/api/auth/login', { email: testOwner.email, password })).status, 200, 'new password must work without restarting the second server');
+    assert.equal((await post(secondary.url + '/api/auth/login', testOwner)).status, 401);
+    assert.equal((await rawFetch(secondary.url + '/api/state', { headers: { Cookie: oldCookie } })).status, 401);
+    const ownerFile = path.join(directory, 'owner-auth.json'), saved = await readFile(ownerFile, 'utf8');
+    await writeFile(ownerFile, '{broken');
+    assert.equal((await rawFetch(secondary.url + '/api/auth/status')).status, 503);
+    assert.equal(await readFile(ownerFile, 'utf8'), '{broken');
+    await writeFile(ownerFile, saved);
+    assert.equal((await post(secondary.url + '/api/auth/login', { email: testOwner.email, password })).status, 200);
+  } finally { await primary.stop(); if (secondary) await secondary.stop(); }
 });

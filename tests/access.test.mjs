@@ -55,11 +55,34 @@ test('recovery form validates confirmation, retains errors and opens only after 
   const form = { querySelector(selector) { return selector === 'button' ? button : selector === '.access-error' ? error : selector.includes('confirm') ? confirm : password; }, setAttribute() {}, removeAttribute() {}, reportValidity: () => !confirm.valid, reset() { resetCount++; } };
   const root = { innerHTML: '', querySelector: () => form };
   class FixtureFormData extends Map { constructor() { super([['recoveryCode', 'fixture-code'], ['password', password.value], ['confirm', confirm.value]]); } }
-  const access = accessModule({ document: { querySelector: () => root }, location: { href: 'http://localhost:5173/?reset-password=1' }, FormData: FixtureFormData, fetch: async (url, options) => { calls.push({ url, options }); return { ok: calls.length === 1 || accepted, json: async () => calls.length === 1 ? { needsSetup: false, signedIn: false } : accepted ? { signedIn: true, csrf: 'fixture' } : { error: 'Kode kedaluwarsa.' } }; } });
+  const routeChanges = [];
+  const access = accessModule({ document: { querySelector: () => root }, history: { state: { fixture: true }, replaceState: (...args) => routeChanges.push(args) }, location: { href: 'http://localhost:5173/?reset-password=1#view=builder' }, FormData: FixtureFormData, fetch: async (url, options) => { calls.push({ url, options }); return { ok: calls.length === 1 || accepted, json: async () => calls.length === 1 ? { needsSetup: false, signedIn: false } : accepted ? { signedIn: true, csrf: 'fixture' } : { error: 'Kode kedaluwarsa.' } }; } });
   const pending = access.requireOwner(); await new Promise(setImmediate);
   assert.match(root.innerHTML, /name="recoveryCode"/); assert.match(root.innerHTML, /owner-access\.mjs --reset/); assert.doesNotMatch(root.innerHTML, /name="email"|name="setupKey"/);
   await form.onsubmit({ preventDefault() {} }); assert.equal(calls.length, 1);
   confirm.value = password.value; await form.onsubmit({ preventDefault() {} });
   assert.equal(calls[1].url, '/api/auth/reset-password'); assert.equal(error.textContent, 'Kode kedaluwarsa.'); assert.equal(resetCount, 0); assert.equal(button.disabled, false);
-  accepted = true; await form.onsubmit({ preventDefault() {} }); assert.equal((await pending).signedIn, true); assert.equal(resetCount, 1);
+  accepted = true; await form.onsubmit({ preventDefault() {} }); assert.equal((await pending).signedIn, true); assert.equal(resetCount, 1); assert.equal(routeChanges.length, 1); assert.equal(routeChanges[0][2], '/#view=builder');
+});
+
+test('already signed-in recovery links return to the normal workspace without removing other route state', async () => {
+  const changes = [];
+  const access = accessModule({ document: { querySelector: () => ({}) }, location: { href: 'http://localhost:5173/?reset-password=1&other=keep#view=builder' }, history: { state: { fixture: true }, replaceState: (...args) => changes.push(args) }, fetch: async () => ({ ok: true, json: async () => ({ needsSetup: false, signedIn: true, csrf: 'fixture' }) }) });
+  assert.equal((await access.requireOwner()).signedIn, true);
+  assert.equal(changes[0][2], '/?other=keep#view=builder'); assert.equal(changes[0][0].fixture, true);
+});
+
+test('login shows the exact password on request and explains Caps Lock and edge spaces without changing input', async () => {
+  const handlers = {}, error = { textContent: '' }, button = { disabled: false }, toggle = { checked: false }, hint = { textContent: '' };
+  const password = { type: 'password', value: ' fixture-password-2026 ', focus() {}, addEventListener: (event, fn) => handlers[event] = fn };
+  const form = { querySelector(selector) { return selector === 'button' ? button : selector === '.access-error' ? error : selector === '#access-show-password' ? toggle : selector === '#access-password-hint' ? hint : selector.includes('confirm') ? null : password; }, setAttribute() {}, removeAttribute() {}, reportValidity: () => true, reset() {} };
+  const root = { innerHTML: '', querySelector: () => form }; let submitted, reads = 0;
+  class FixtureFormData extends Map { constructor() { super([['email', 'owner@example.test'], ['password', password.value]]); } }
+  const access = accessModule({ document: { querySelector: () => root }, location: { href: 'http://localhost:5173/' }, FormData: FixtureFormData, fetch: async (_url, options) => { if (++reads === 1) return { ok: true, json: async () => ({ needsSetup: false, signedIn: false }) }; submitted = JSON.parse(options.body); return { ok: true, json: async () => ({ signedIn: true, csrf: 'fixture' }) }; } });
+  const pending = access.requireOwner(); await new Promise(setImmediate);
+  assert.match(root.innerHTML, /Lihat kata sandi/);
+  toggle.checked = true; toggle.onchange(); assert.equal(password.type, 'text');
+  toggle.checked = false; toggle.onchange(); assert.equal(password.type, 'password');
+  handlers.keyup({ getModifierState: () => true }); assert.match(hint.textContent, /Caps Lock aktif/); assert.match(hint.textContent, /spasi di awal/);
+  await form.onsubmit({ preventDefault() {} }); assert.equal(submitted.password, ' fixture-password-2026 '); assert.equal((await pending).signedIn, true);
 });
